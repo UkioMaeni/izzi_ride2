@@ -4,6 +4,7 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/pages/auth_page/components/auth_tile.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/autorize_phone_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
+import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
 
 class AuthTileWrapper extends StatefulWidget {
   const AuthTileWrapper({super.key});
@@ -45,7 +46,7 @@ class _AuthTileWrapperState extends State<AuthTileWrapper> {
               ),
             ),
           SizedBox(height: 24,),
-          AuthTile(label: "Continue with Phone",reverse: true,onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => MainPage(),)),),
+          AuthTile(label: "Continue with Phone",reverse: true,onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => AutorizePhonePage(),)),),
           SizedBox(height: 12,),
           AuthTile(label: "Continue with Google",icon: SvgPicture.asset("assets/svg/brands/google.svg",width: 24,height: 24,),),
           SizedBox(height: 12,),

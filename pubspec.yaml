@@ -39,6 +39,12 @@ dependencies:
   flutter_masked_text2: ^0.9.1
   dio: ^5.6.0
   pretty_animated_buttons: ^0.0.2
+  shimmer: ^3.0.0
+  get_it: ^7.7.0
+  package_info_plus: ^8.0.2
+  flutter_bloc: ^8.1.6
+  shared_preferences: ^2.3.2
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +77,7 @@ flutter:
     - assets/svg/country/
     - assets/svg/navigation/
     - assets/svg/UI/
+    - assets/image/loader/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

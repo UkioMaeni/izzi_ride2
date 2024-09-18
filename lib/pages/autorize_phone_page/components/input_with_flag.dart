@@ -7,7 +7,8 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 class InputWithFlag extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
-  const InputWithFlag({super.key,required this.controller,required this.focusNode});
+  final Function(String)? onChange;
+  const InputWithFlag({super.key,required this.controller,required this.focusNode, this.onChange});
 
   @override
   State<InputWithFlag> createState() => _InputWithFlagState();
@@ -70,10 +71,12 @@ class _InputWithFlagState extends State<InputWithFlag> {
                           
                         ],
                         
-                        onChanged: (value) =>{
-                          setState((){
+                        onChanged: (value){
+                          if(widget.onChange!=null){
+                            widget.onChange!(value);
                             
-                          })
+                          }
+                          
                         },
                       )
             ),

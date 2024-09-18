@@ -35,7 +35,8 @@ class _MyTripsTabState extends State<MyTripsTab> {
                       ),
                     ),
                     SizedBox(height: 102,),
-                    TripCard(trip: Trip(),)
+                    TripCard.view(trip: Trip(),),
+                    
             ],
           ),
         ),
@@ -55,6 +56,7 @@ class _MyTripsTabState extends State<MyTripsTab> {
                 SizedBox(width: 16,),
                 filterCategory(2,"Cancelled"),
                 SizedBox(width: 24,),
+
               ],
             ),
           )

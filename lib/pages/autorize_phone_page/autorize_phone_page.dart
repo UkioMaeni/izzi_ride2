@@ -6,7 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/bloc/registration_bloc/registration_bloc.dart';
+import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/components/input_with_flag.dart';
+import 'package:izzi_ride_2/pages/code_phone_page/code_phone_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
 
 class AutorizePhonePage extends StatefulWidget {
@@ -24,12 +26,23 @@ class _AutorizePhonePageState extends State<AutorizePhonePage> {
    
 
 
+  toCodePage(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CodePhonePage(phoneNumber: _numberController.text,),));
+  }
+
   Future<void> getCode()async{
-    await Future.delayed(Duration(seconds: 2));
-    print(_numberController.text);//TODO нужен trim
-    setState(() {
+    //await Future.delayed(Duration(seconds: 2));
+    print(_numberController.text.replaceAll(" ","").replaceAll("+", ""));//TODO нужен trim
+    bool result= await UserHttp().sendOtp(_numberController.text.replaceAll(" ","").replaceAll("+", ""));
+    if(result){
+      toCodePage();
+    }else{
+      setState(() {
       error="Invalid phone number format";
     });
+    }
+    
+    
   }
 
   @override
@@ -49,77 +62,85 @@ class _AutorizePhonePageState extends State<AutorizePhonePage> {
         backgroundColor: Colors.white,
         toolbarHeight: 0,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              height: 50,
-              alignment: Alignment.centerLeft,
-              color: Colors.white,
-              padding: EdgeInsets.only(left: 36),
-              child: SvgPicture.asset("assets/svg/navigation/navigation_back.svg")
-            ),
-          ),
-          SizedBox(height: 47,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal:55 ),
-            child: Column(
+      body: BlocProvider(
+        create: (context) => RegistrationBloc(),
+        child: Builder(
+          builder: (context) {
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
-                Text(
-                    "Enter your\nphone number",
-                    style: TextStyle(
-                      fontFamily: BrandFontFamily.platform,
-                      fontSize: 32,
-                      color: BrandColor.black,
-                      fontWeight: FontWeight.w700
-                    ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.centerLeft,
+                    color: Colors.white,
+                    padding: EdgeInsets.only(left: 36),
+                    child: SvgPicture.asset("assets/svg/navigation/navigation_back.svg")
                   ),
-                  SizedBox(height: 16,),
-                  Text(
-                    "The confirmation code will be sent to the specified phone number",
-                    style: TextStyle(
-                      fontFamily: BrandFontFamily.platform,
-                      fontSize: 16,
-                      color: BrandColor.grey167,
-                      fontWeight: FontWeight.w400
-                    ),
-                  ),
-                  SizedBox(height: 32,),
-                  InputWithFlag(
-                    controller: _numberController,
-                    focusNode: _focusNode,
-                    onChange: (p0) {
-                      context.read<RegistrationBloc>().add(RegistrationUpdateNumber(phoneNumber: p0));
-                    },
-                  ),
-                  if(error.isNotEmpty)
-                  Column(
+                ),
+                SizedBox(height: 47,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:55 ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 8,),
+                      
                       Text(
-                        error,
-                        style: TextStyle(
-                          fontFamily: BrandFontFamily.platform,
-                          fontSize: 12,
-                          color: BrandColor.red,
-                          fontWeight: FontWeight.w400
+                          "Enter your\nphone number",
+                          style: TextStyle(
+                            fontFamily: BrandFontFamily.platform,
+                            fontSize: 32,
+                            color: BrandColor.black,
+                            fontWeight: FontWeight.w700
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 16,),
+                        Text(
+                          "The confirmation code will be sent to the specified phone number",
+                          style: TextStyle(
+                            fontFamily: BrandFontFamily.platform,
+                            fontSize: 16,
+                            color: BrandColor.grey167,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        SizedBox(height: 32,),
+                        InputWithFlag(
+                          controller: _numberController,
+                          focusNode: _focusNode,
+                          onChange: (p0) {
+                            context.read<RegistrationBloc>().add(RegistrationUpdateNumber(phoneNumber: p0));
+                          },
+                        ),
+                        if(error.isNotEmpty)
+                        Column(
+                          children: [
+                            SizedBox(height: 8,),
+                            Text(
+                              error,
+                              style: TextStyle(
+                                fontFamily: BrandFontFamily.platform,
+                                fontSize: 12,
+                                color: BrandColor.red,
+                                fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ],
+                        ),
+                        
+                        SizedBox(height: 32,),
+                        UIButton(label: "Get code",margin: EdgeInsets.symmetric(horizontal: 20),onFuture: getCode),
+                        UIButton(height: 55,reverse: true, label: "Skip",margin: EdgeInsets.symmetric(horizontal: 20),onTap: ()=>Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => MainPage(),),(route) => false,),)
                     ],
                   ),
-                  SizedBox(height: 32,),
-                  UIButton(label: "Get code",margin: EdgeInsets.symmetric(horizontal: 20),onFuture: getCode),
-                  UIButton(height: 55,reverse: true, label: "Skip",margin: EdgeInsets.symmetric(horizontal: 20),onTap: ()=>Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => MainPage(),),(route) => false,),)
+                ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+        ),
       ),
     );
   }

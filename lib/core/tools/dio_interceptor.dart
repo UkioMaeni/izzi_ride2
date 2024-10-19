@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/token.dart';
 
 
@@ -17,34 +18,36 @@ class RefreshTokenInterceptor extends Interceptor {
     
     
 
-    if ( err.response?.statusCode != 401) {
-      return handler.next(err);
-    }
-    final tokens=GetIt.I.get<Token>();
+    if ( err.response?.statusCode == 401) {
+      
+       final tokens=GetIt.I.get<TokenInterface>();
 
     if (tokens.refreshToken == null || tokens.refreshToken!.isEmpty) {
       return handler.reject(err);
     } 
-    if (!isRefreshing) {
-      isRefreshing = true;
+      if (!isRefreshing) {
+        isRefreshing = true;
 
-      failedRequests.add({'err': err, 'handler': handler});
+        failedRequests.add({'err': err, 'handler': handler});
 
-      try {
-        final isOk = await tokens.refreshingToken();
-        if(isOk=="error"){
-          await retryFailedRequests();
-        }else{
-          releaseFailedRequests();
-        }
-        
-      } catch (e) {
-        
+        try {
+          final isOk = await tokens.refreshingToken();
+          if(isOk=="error"){
+            await retryFailedRequests();
+          }else{
+            releaseFailedRequests();
+          }
+          
+        } catch (e) {
+          
       }
-
       isRefreshing = false;
       failedRequests = [];
+    }
+   
 
+      
+    return handler.next(err);
     } else {
       // Adding errored request to the queue
       failedRequests.add({'err': err, 'handler': handler});

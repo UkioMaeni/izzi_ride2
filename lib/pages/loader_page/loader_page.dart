@@ -10,10 +10,12 @@ import 'package:get_it/get_it.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/bloc/localization_bloc/localization_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/app_info_interface.dart';
+import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/token.dart';
 import 'package:izzi_ride_2/core/resources/image_widgets.dart';
 import 'package:izzi_ride_2/core/services/app_info-service.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
+import 'package:izzi_ride_2/pages/main_page/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoaderPage extends StatefulWidget{
@@ -61,8 +63,9 @@ double _progressValue=0.0;
   }
 
   Future<void> auth(context)async{
-     final tokenService= GetIt.I.get<Token>();
-    String result = await tokenService.refreshingToken();
+     final tokenService= GetIt.I.get<TokenInterface>();
+    final resultREfreshing = await tokenService.refreshingToken();
+    String result=resultREfreshing.data;
     inspect(result);
     if(result=="version_conflict"){
       setState(() {
@@ -94,31 +97,33 @@ double _progressValue=0.0;
       );
       return;
     }
-    if(result=="erro"){
-      //userRepository.isAuth=false;
-      setState(() {
-        code=2;
-      });
-      //await FirstWelcome().clearSharedPreferences();
-      setState(() {
-        code=3;
-      });
-      //int result = await FirstWelcome().getWelocme();
-      setState(() {
-        code=4;
-      });
-      if(result==0){
-        print("goOnboard");
-        Navigator.pushNamedAndRemoveUntil(context, "/onboard", (route) => false);
-      }else{
-        print("goReg");
-        Navigator.pushNamedAndRemoveUntil(context, "/reg", (route) => false);
-      }
-      
-    }else{
-     // userRepository.isAuth=true;
+    if(result=="error"){
       Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => AuthPage(),) , (route) => false);
+      return;
     }
+    Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => MainPage(),) , (route) => false);
+    // if(result=="error"){
+    //   //userRepository.isAuth=false;
+    //   setState(() {
+    //     code=2;
+    //   });
+    //   //await FirstWelcome().clearSharedPreferences();
+    //   setState(() {
+    //     code=3;
+    //   });
+    //   //int result = await FirstWelcome().getWelocme();
+    //   setState(() {
+    //     code=4;
+    //   });
+    //   if(result==0){
+    //     print("goOnboard");
+    //     Navigator.pushNamedAndRemoveUntil(context, "/onboard", (route) => false);
+    //   }else{
+    //     print("goReg");
+    //     Navigator.pushNamedAndRemoveUntil(context, "/reg", (route) => false);
+    //   }
+      
+    // }
     
   }
 
@@ -143,7 +148,7 @@ double _progressValue=0.0;
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          R.loaderImage(),
+          Image_R.loaderImage(),
           SizedBox(height: 80,),
           Builder(
             builder: (context) {

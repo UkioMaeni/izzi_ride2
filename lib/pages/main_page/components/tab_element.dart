@@ -23,7 +23,7 @@ class _TabElementState extends State<TabElement> with SingleTickerProviderStateM
   void initState() {
     _animationController= AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 100),
+      duration: Duration(milliseconds: 300),
       
     );
     _animation=ColorTween(begin: BrandColor.blue,end: BrandColor.grey).animate(_animationController);

@@ -14,7 +14,7 @@ class FromSearchScene extends StatefulWidget {
 class _FromSearchSceneState extends State<FromSearchScene> {
 
   final _overlayKey = GlobalKey();
-  final Debounce debounce = Debounce();
+  final Debounce debounce = Debounce(duration: Duration(milliseconds: 300));
 
 
   @override

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/pages/main_page/components/tab_navigator.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/create_tab.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/my_trips_tab/my_trips_tab.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/profile_tab/profile_tab.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/search_tab.dart';
@@ -11,16 +14,16 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
 
   late final PageController _pageController;
-
+  late final TabController _tabController;
   int page = 0;
 
   List<Widget> pages=[
     SearchTab(),
     MyTripsTab(),
-    SizedBox(),
+    CreateTab(),
     SizedBox(),
     ProfileTab()
   ];
@@ -28,6 +31,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     _pageController=PageController(initialPage:page );
+    _tabController=TabController(length: 5, vsync: this);
     super.initState();
   }
 
@@ -45,29 +49,40 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.white,
         toolbarHeight: 0,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              onPageChanged: (value) {
-                setState(() {
-                  page=value;
-                });
-              },
-              itemCount: pages.length,
-              controller: _pageController,
+      // body: Column(
+      //   children: [
+      //     // Expanded(
+      //     //   child: PageView.builder(
+      //     //     physics: NeverScrollableScrollPhysics(),
+      //     //     onPageChanged: (value) {
+      //     //       setState(() {
+      //     //         page=value;
+      //     //       });
+      //     //     },
+      //     //     itemCount: pages.length,
+      //     //     controller: _pageController,
 
-              itemBuilder:  (context, index) {
-                return pages[index];
-              },
-            )
-          ),
-          TabNavigator(
-            page: page,pageController: _pageController
-          )
-        ],
+      //     //     itemBuilder:  (context, index) {
+      //     //       return pages[index];
+      //     //     },
+      //     //   )
+      //     // ),
+      //     // TabNavigator(
+      //     //   page: page,pageController: _pageController
+      //     // )
+      //     DefaultTabController(
+      //       length: 5,
+      //       child: ,
+      //     )
+      //   ],
+      // ),
+      body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
+        clipBehavior: Clip.none,
+        children: pages,
+        controller: _tabController,
       ),
+      bottomNavigationBar: TabNavigator(page:_tabController.index,tabController: _tabController,),
     );
   }
 }

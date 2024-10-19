@@ -1,10 +1,12 @@
 import 'dart:async';
 
 class Debounce{
+  Duration duration;
+  Debounce({required this.duration});
    Timer? _timer;
   start(Function() fn){
     _timer=Timer.periodic(
-      Duration(milliseconds: 300), 
+      duration, 
       (_){
         _timer!.cancel();
         fn();

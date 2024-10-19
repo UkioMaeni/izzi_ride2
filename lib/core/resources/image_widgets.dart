@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-class R{
+class Image_R{
   static Widget loaderImage() => Image.asset("assets/image/loader/loader.png");
 }

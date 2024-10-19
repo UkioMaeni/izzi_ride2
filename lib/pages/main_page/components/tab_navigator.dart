@@ -4,8 +4,8 @@ import 'package:izzi_ride_2/pages/main_page/components/tab_element.dart';
 
 class TabNavigator extends StatefulWidget {
   final int page;
-  final PageController pageController;
-  const TabNavigator({super.key,required this.page,required this.pageController});
+  final TabController tabController;
+  const TabNavigator({super.key,required this.page,required this.tabController});
 
   @override
   State<TabNavigator> createState() => _TabNavigatorState();
@@ -28,7 +28,9 @@ class _TabNavigatorState extends State<TabNavigator> {
           TabElement(
             onChange: () {
               localPage=0;
-              widget.pageController.animateToPage(0, duration: Duration(milliseconds: 200), curve: Curves.slowMiddle);
+              //widget.tabController.animateToPage(0, duration: Duration(milliseconds: 200), curve: Curves.slowMiddle);
+              widget.tabController.animateTo(0);
+              setState(() {});
             },
             iconPath: "assets/svg/tab/search_tab.svg",
             label: "Search",
@@ -38,27 +40,34 @@ class _TabNavigatorState extends State<TabNavigator> {
           TabElement(
             onChange: () {
               localPage=1;
-              widget.pageController.animateToPage(1, duration: Duration(milliseconds: 200), curve: Curves.linear);
+              
+              //widget.tabController.animateToPage(1, duration: Duration(milliseconds: 200), curve: Curves.linear);
+              widget.tabController.animateTo(1);
+              setState(() {});
             },
             iconPath: "assets/svg/tab/my_trips_tab.svg",
-            label: "Profile",
+            label: "My trips",
             currentPage: localPage,
             page: 1,
           ),
           TabElement(
             onChange: () {
               localPage=2;
-              widget.pageController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.linear);
+             // widget.tabController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.linear);
+             widget.tabController.animateTo(2);
+             setState(() {});
             },
             iconPath: "assets/svg/tab/profile_tab.svg",
-            label: "Profile",
+            label: "Create",
             currentPage:localPage,
             page: 2,
           ),
           TabElement(
             onChange: () {
               localPage=3;
-              widget.pageController.animateToPage(3, duration: Duration(milliseconds: 200), curve: Curves.linear);
+             // widget.tabController.animateToPage(3, duration: Duration(milliseconds: 200), curve: Curves.linear);
+             widget.tabController.animateTo(3);
+             setState(() {});
             },
             iconPath: "assets/svg/tab/profile_tab.svg",
             label: "Profile",
@@ -68,7 +77,9 @@ class _TabNavigatorState extends State<TabNavigator> {
           TabElement(
             onChange: () {
               localPage=4;
-              widget.pageController.animateToPage(4, duration: Duration(milliseconds: 200), curve: Curves.easeInOutCirc);
+              //widget.tabController.animateToPage(4, duration: Duration(milliseconds: 200), curve: Curves.easeInOutCirc);
+              widget.tabController.animateTo(4);
+              setState(() {});
             },
             iconPath: "assets/svg/tab/profile_tab.svg",
             label: "Profile",

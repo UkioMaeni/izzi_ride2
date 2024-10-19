@@ -8,6 +8,7 @@ class UIButton extends StatefulWidget {
   final bool? reverse;
   final EdgeInsets? margin;
   final Function()? onTap;
+  final bool? enabled;
   final Future<void> Function()? onFuture;
   const UIButton({
     super.key,
@@ -17,7 +18,8 @@ class UIButton extends StatefulWidget {
     this.width,
     this.margin,
     this.onTap,
-    this.onFuture
+    this.onFuture,
+    this.enabled
   });
 
   @override
@@ -42,9 +44,10 @@ class _UIButtonState extends State<UIButton> {
     final onTap=widget.onTap??(){};
     return GestureDetector(
       onTap: ()async {
+        if(widget.enabled!=null && !widget.enabled! ) return;
         onTap();
         if(widget.onFuture!=null){
-          print("start");
+          
           if(load){
             return;
           }
@@ -55,7 +58,7 @@ class _UIButtonState extends State<UIButton> {
           setState(() {
             load=false;
           });
-          print("end");
+          
         }
       },
       child: Container(
@@ -69,7 +72,7 @@ class _UIButtonState extends State<UIButton> {
         ),
         child: Builder(
           builder: (context) {
-            if(load){
+            if(load||(widget.enabled??false)){
               return SizedBox(
                 height: 20,
                 width: 20,

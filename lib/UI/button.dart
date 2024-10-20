@@ -72,7 +72,7 @@ class _UIButtonState extends State<UIButton> {
         ),
         child: Builder(
           builder: (context) {
-            if(load||(widget.enabled??false)){
+            if(load||(!(widget.enabled??true))){
               return SizedBox(
                 height: 20,
                 width: 20,

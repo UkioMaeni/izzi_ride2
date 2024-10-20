@@ -12,16 +12,17 @@ import 'package:izzi_ride_2/core/models/location.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/core/tools/debounce.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/calendare_scene/calendare_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/to_input_scene.dart';
 
-class FromMapScene extends StatefulWidget {
-  const FromMapScene({super.key});
+class ToMapScene extends StatefulWidget {
+  const ToMapScene({super.key});
 
   @override
-  State<FromMapScene> createState() => _FromMapSceneState();
+  State<ToMapScene> createState() => _ToMapSceneState();
 }
 
-class _FromMapSceneState extends State<FromMapScene> {
+class _ToMapSceneState extends State<ToMapScene> {
 
   final debounceTool = Debounce(duration: Duration(milliseconds: 500));
 
@@ -74,7 +75,7 @@ class _FromMapSceneState extends State<FromMapScene> {
             child: Stack(
               children: [
                 GoogleMapUi(
-                  mapParams: state.fromMapParams,
+                  mapParams: state.toMapParams,
                   onCameraIdle: (lat, lon) {
                     debounceTool.debounce(()=>getDescriptionFromGoogle(lat,lon));
                   },
@@ -99,12 +100,12 @@ class _FromMapSceneState extends State<FromMapScene> {
                           latitude: currentLat,
                           departureTime: DateTime.now()
                         );
-                        context.read<CreateRideBloc>().add(CreateRideSetFromLocation(location: location));
+                        context.read<CreateRideBloc>().add(CreateRideSetToLocation(location: location));
                         inspect(location);
                         setState(() {
                           isLockedButton=false;
                         });
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ToInputScene(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CalendareScene(),));
                     },
                     enabled: !isLockedButton,
                   )

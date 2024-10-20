@@ -5,11 +5,12 @@ class Debounce{
   Debounce({required this.duration});
    Timer? _timer;
   start(Function() fn){
+    fn();
     _timer=Timer.periodic(
       duration, 
       (_){
         _timer!.cancel();
-        fn();
+        
       }
     );
   }

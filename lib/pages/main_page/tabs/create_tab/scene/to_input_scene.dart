@@ -14,18 +14,19 @@ import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/core/resources/svg_widgets.dart';
 import 'package:izzi_ride_2/core/tools/debounce.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/from_map_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/to_map_scene.dart';
 
-class FromInputScene extends StatefulWidget {
+class ToInputScene extends StatefulWidget {
 
-  const FromInputScene({
+  const ToInputScene({
     super.key,
   });
 
   @override
-  State<FromInputScene> createState() => _FromInputSceneState();
+  State<ToInputScene> createState() => _ToInputSceneState();
 }
 
-class _FromInputSceneState extends State<FromInputScene> {
+class _ToInputSceneState extends State<ToInputScene> {
 
   final TextEditingController _controller=TextEditingController();
   final FocusNode _focusNode = FocusNode();
@@ -96,7 +97,7 @@ class _FromInputSceneState extends State<FromInputScene> {
                 FromToInputUI(
                   controller: _controller,
                   focusNode: _focusNode,
-                  type: SceneType.from,
+                  type: SceneType.to,
                 ),
                 SizedBox(
                   height: 66*5,
@@ -130,11 +131,11 @@ class _FromInputSceneState extends State<FromInputScene> {
   }
 
   toMapScene(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => FromMapScene(),));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ToMapScene(),));
   }
 
   setMapParams(MapParams mapParams){
-    context.read<CreateRideBloc>().add(CreateRideSetMapParams(mapParams: mapParams,type: SceneType.from));
+    context.read<CreateRideBloc>().add(CreateRideSetMapParams(mapParams: mapParams,type: SceneType.to));
   }
 
   Widget cityElement(int index){

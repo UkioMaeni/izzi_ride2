@@ -6,6 +6,7 @@ import 'package:izzi_ride_2/config/app_config.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/city_model.dart';
 import 'package:izzi_ride_2/core/models/enum_authorization_type.dart';
+import 'package:izzi_ride_2/core/models/geocoding.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 class UserHttp{
@@ -80,6 +81,56 @@ class UserHttp{
         description: description
       );
     return CustomResponse<MapParams>(data: mapParams);
+    } catch (e) {
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+    
+  }
+
+  Future<CustomResponse> geocodingFromGoogle(double lat,double lon) async{
+    try {
+      final geocode = await Dio().get(
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat.toString()},${lon.toString()}&key=AIzaSyDQ2a3xgarJk8qlNGzNCLzrH3H_XmGSUaY"
+      );
+      List<dynamic> addressComponents=geocode.data["results"][0]["address_components"];
+      String city="";
+      String state="";
+      String stateShort="";
+      String country="";
+      String street="";
+      String homeNumber="";
+      addressComponents.forEach((element) {
+      List<dynamic> elementInfo=element["types"];
+      elementInfo.forEach((info) {
+        if(info=="locality"|| info=="administrative_area_level_3"){
+            city=element["long_name"];
+        }
+        if(info=="street_number"){
+            homeNumber=element["long_name"];
+        }
+        if(info=="route"){
+            street=element["long_name"];
+        }
+        if(info=="country"){
+            country=element["long_name"];
+        }
+        if(info=="administrative_area_level_1"){
+            state=element["long_name"];
+            stateShort=element["short_name"];
+        }
+      });
+      if(city.isEmpty){
+        city=state;
+      }
+      });
+      Geocoding geocoding = Geocoding();
+      geocoding.city=city;
+      geocoding.homeNumber=homeNumber;
+      geocoding.street=street;
+      geocoding.country=country;
+      geocoding.state=state;
+      geocoding.stateShort=stateShort;
+    return CustomResponse<Geocoding>(data: geocoding);
     } catch (e) {
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
     }

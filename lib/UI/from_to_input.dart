@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
+
+
 class FromToInputUI extends StatefulWidget {
+  final SceneType type;
   final TextEditingController controller;
   final FocusNode focusNode;
 
   const FromToInputUI({
     super.key,
     required this.controller,
-    required this.focusNode
+    required this.focusNode,
+    required this.type
   });
 
   @override
@@ -58,7 +63,7 @@ class _FromToInputUIState extends State<FromToInputUI> {
               focusNode: widget.focusNode,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: " From",
+                hintText: widget.type==SceneType.from? " From": " To",
                 hintStyle: TextStyle(
                   color: BrandColor.grey217,
                   fontWeight: FontWeight.w400,

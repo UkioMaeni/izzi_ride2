@@ -31,7 +31,16 @@ class CreateRideBackScene extends CreateRideEvent{
 }
 class CreateRideSetMapParams extends CreateRideEvent{
   final MapParams mapParams;
-  const CreateRideSetMapParams({required this.mapParams});
+  final SceneType type;
+  const CreateRideSetMapParams({required this.mapParams,required this.type});
+}
+class CreateRideSetFromLocation extends CreateRideEvent{
+  final Location location;
+  const CreateRideSetFromLocation({required this.location});
+}
+class CreateRideSetToLocation extends CreateRideEvent{
+  final Location location;
+  const CreateRideSetToLocation({required this.location});
 }
 // class LocalizationSetLocaleEvent extends RegistrationEvent{
 //   final LocalizationInterface localeState;

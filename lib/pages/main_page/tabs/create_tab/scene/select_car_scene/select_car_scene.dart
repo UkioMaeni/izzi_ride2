@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/car_item_widget.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/additional_options_scene/additional_options_scene.dart';
@@ -29,7 +31,7 @@ class _SelectCarSceneState extends State<SelectCarScene> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                context.goNamed(RoutesName.createTime);
               },
               child: Container(
                 color: Colors.white,
@@ -81,7 +83,8 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                       UIButton(
                         label: "Next",
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AdditionalOptionsScene(),));
+                          context.goNamed(RoutesName.createAdditional);
+                          //Navigator.push(context, MaterialPageRoute(builder: (context) => AdditionalOptionsScene(),));
                         },
                       ),
                       SizedBox(height: 44,)

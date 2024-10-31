@@ -23,12 +23,6 @@ class CreateRideEditScene extends CreateRideEvent{
   const CreateRideEditScene({required this.newScene});
 }
 
-class CreateRideNextScene extends CreateRideEvent{
-  const CreateRideNextScene();
-}
-class CreateRideBackScene extends CreateRideEvent{
-  const CreateRideBackScene();
-}
 class CreateRideSetMapParams extends CreateRideEvent{
   final MapParams mapParams;
   final SceneType type;
@@ -41,6 +35,22 @@ class CreateRideSetFromLocation extends CreateRideEvent{
 class CreateRideSetToLocation extends CreateRideEvent{
   final Location location;
   const CreateRideSetToLocation({required this.location});
+}
+class CreateRideEditAdditional extends CreateRideEvent{
+  final Additional additional;
+  const CreateRideEditAdditional({required this.additional});
+}
+class CreateRideEditComment extends CreateRideEvent{
+  final String comment;
+  const CreateRideEditComment({required this.comment});
+}
+class CreateRideEditPrice extends CreateRideEvent{
+  final int price;
+  const CreateRideEditPrice({required this.price});
+}
+class CreateRideEditDate extends CreateRideEvent{
+  final DateTime date;
+  const CreateRideEditDate({required this.date});
 }
 // class LocalizationSetLocaleEvent extends RegistrationEvent{
 //   final LocalizationInterface localeState;

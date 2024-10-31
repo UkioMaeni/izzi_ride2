@@ -1,17 +1,23 @@
 import 'package:intl/intl.dart';
 
 class Location{
-   String city;
-   String state;
-   int sortId;
-   bool pickUp;
-   String location;
-   double longitude;
-   double latitude;
-   DateTime departureTime;
+  String city;
+  String state;
+  String stateShort;
+  String homeNumber;
+  String street;
+  int sortId;
+  bool pickUp;
+  String location;
+  double longitude;
+  double latitude;
+  DateTime departureTime;
    Location({
     required this.city,
     required this.state,
+    required this.stateShort,
+    required this.street,
+    required this.homeNumber,
     required this.sortId,
     required this.pickUp,
     required this.location,
@@ -20,10 +26,19 @@ class Location{
     required this.departureTime
    });
 
+    String get  fullAddress => 
+      (homeNumber.isNotEmpty?homeNumber+", ":"") +
+      (street.isNotEmpty?street+", ":"")+
+      (city.isNotEmpty?city+", ":"")+
+      (state.isNotEmpty?state+",":"");
+
   static Location empty(){
     return Location(
       city: "", 
       state: "", 
+      stateShort: "",
+      street: "",
+      homeNumber: "",
       sortId: -1, 
       pickUp: false, 
       location: "", 

@@ -15,19 +15,7 @@ class CreateTab extends StatefulWidget {
 class _CreateTabState extends State<CreateTab> {
 
 
-  nextScene(){
-    final createRideBloc = context.read<CreateRideBloc>();
-    final state = createRideBloc.state;
-    if(state.scene==state.allScenes.last){
-      createRideBloc.add(CreateRideEditScene(newScene: Scene.initial));
-    }
-    createRideBloc.add(CreateRideNextScene());
-  }
 
-  backScene(){
-    final createRideBloc = context.read<CreateRideBloc>();
-    createRideBloc.add(CreateRideBackScene());
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/from_input_scene.dart';
 
@@ -34,7 +36,8 @@ class _CreateRideInitialSceneState extends State<CreateRideInitialScene> {
                   UIButton(
                     label: "+ Create a ride",
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => FromInputScene(),));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => FromInputScene(),));
+                      context.pushNamed(RoutesName.createFromInput);
                     },
                   ),
                   SizedBox(height: 44,)

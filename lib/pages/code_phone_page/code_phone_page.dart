@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/registration_bloc/registration_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/models/enum_authorization_type.dart';
@@ -15,8 +17,7 @@ import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
 
 class CodePhonePage extends StatefulWidget {
-  final String phoneNumber;
-  const CodePhonePage({super.key,required this.phoneNumber});
+  const CodePhonePage({super.key});
 
   @override
   State<CodePhonePage> createState() => _CodePhonePageState();
@@ -30,9 +31,11 @@ class _CodePhonePageState extends State<CodePhonePage> {
    
 
 
+  get phoneNumber => context.read<RegistrationBloc>().state.phoneNumber;
+
   Future<void> checkCode()async{
     print("auth");
-   CustomResponse result= await  UserHttp().authorization(AuthorizationType.phone, _codeController.text, widget.phoneNumber.replaceAll(" ", "").replaceAll("+", ""));
+   CustomResponse result= await  UserHttp().authorization(AuthorizationType.phone, _codeController.text, phoneNumber.replaceAll(" ", "").replaceAll("+", ""));
    print(result);
    if(result is CustomResponse<CustomErrorRepsonse>){
     setState(() {
@@ -40,6 +43,7 @@ class _CodePhonePageState extends State<CodePhonePage> {
     });
    }else if(result is CustomResponse<bool>){
       bool isClientNew = result.data;
+      print(isClientNew);
       if(isClientNew){
          toIniitialUserDataPage();
       }else{
@@ -49,10 +53,12 @@ class _CodePhonePageState extends State<CodePhonePage> {
   }
 
   void toMainPage(){
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainPage(),), (route) => false,);
+    //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainPage(),), (route) => false,);
+    context.pushReplacementNamed(RoutesName.main);
   }
   void toIniitialUserDataPage(){
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => InitialUserDataPage(),), (route) => false,);
+    //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => InitialUserDataPage(),), (route) => false,);
+    context.pushReplacementNamed(RoutesName.initialUserData);
   }
   bool isFocused=false;
   bool enabled=true;
@@ -123,7 +129,7 @@ class _CodePhonePageState extends State<CodePhonePage> {
                         ),
                         SizedBox(height: 16,),
                         Text(
-                          "We sent it to ${widget.phoneNumber} by SMS",
+                          "We sent it to ${phoneNumber} by SMS",
                           style: TextStyle(
                             fontFamily: BrandFontFamily.platform,
                             fontSize: 16,

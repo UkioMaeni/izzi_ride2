@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/pages/auth_page/components/auth_tile.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/autorize_phone_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
@@ -46,7 +48,7 @@ class _AuthTileWrapperState extends State<AuthTileWrapper> {
               ),
             ),
           SizedBox(height: 24,),
-          AuthTile(label: "Continue with Phone",reverse: true,onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => AutorizePhonePage(),)),),
+          AuthTile(label: "Continue with Phone",reverse: true,onTap:()=> context.goNamed(RoutesName.authPhone),),
           SizedBox(height: 12,),
           AuthTile(label: "Continue with Google",icon: SvgPicture.asset("assets/svg/brands/google.svg",width: 24,height: 24,),),
           SizedBox(height: 12,),

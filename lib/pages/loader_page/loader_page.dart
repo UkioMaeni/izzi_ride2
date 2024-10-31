@@ -7,7 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/localization_bloc/localization_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/app_info_interface.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
@@ -49,6 +51,7 @@ double _progressValue=0.0;
 
 
   initializeService(BuildContext context)async{
+    
     nextStep();
     //check app version
     final info= GetIt.I.get<AppInfoInterface>(); 
@@ -62,7 +65,7 @@ double _progressValue=0.0;
   
   }
 
-  Future<void> auth(context)async{
+  Future<void> auth(BuildContext context)async{
      final tokenService= GetIt.I.get<TokenInterface>();
     final resultREfreshing = await tokenService.refreshingToken();
     String result=resultREfreshing.data;
@@ -98,10 +101,20 @@ double _progressValue=0.0;
       return;
     }
     if(result=="error"){
-      Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => AuthPage(),) , (route) => false);
+      context.goNamed(RoutesName.auth);
+      
+      //Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => AuthPage(),) , (route) => false);
       return;
     }
-    Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => MainPage(),) , (route) => false);
+    if(result=="no_token"){
+      print("there");
+      
+      context.goNamed(RoutesName.auth);
+      //Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => AuthPage(),) , (route) => false);
+      return;
+    }
+    //Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => MainPage(),) , (route) => false);
+    context.goNamed(RoutesName.main);
     // if(result=="error"){
     //   //userRepository.isAuth=false;
     //   setState(() {
@@ -124,6 +137,11 @@ double _progressValue=0.0;
     //   }
       
     // }
+    
+  }
+
+
+  goAuthPage(){
     
   }
 

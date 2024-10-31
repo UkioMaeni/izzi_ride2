@@ -5,61 +5,60 @@ part of 'create_ride_bloc.dart';
 
 class CreateRideFullState {
   
-  final Scene scene;
-
-  List<Scene> get allScenes => [
-    Scene.initial,
-    Scene.fromInput,
-    Scene.fromMap,
-    Scene.toInput,
-    Scene.toMap,
-    Scene.selectDate,
-    Scene.selectTime,
-    Scene.selectCar,
-    Scene.additional
-  ]; 
-  int get indexCurrentScene => allScenes.indexWhere((element) => element==scene,);
-
   final MapParams fromMapParams;
   final MapParams toMapParams;
   final String code;
   final Location fromLocation;
   final Location toLocation;
-  const CreateRideFullState({
-    required this.scene,
+  DateTime date;
+  //TimeOfDay time;
+  Additional additional=Additional();
+  String comment="";
+  int price;
+  CreateRideFullState({
     required this.fromMapParams,
     required this.toMapParams,
+    required this.date,
     required this.code,
     required this.fromLocation,
-    required this.toLocation
+    required this.toLocation,
+    required this.price
   });
 
   static  CreateRideFullState empty(){
     return CreateRideFullState(
-      scene: Scene.initial,
       fromMapParams: MapParams.empty(),
       toMapParams: MapParams.empty(),
+      date: DateTime.now(),
       code: "",
       fromLocation: Location.empty(),
-      toLocation: Location.empty()
+      toLocation: Location.empty(), 
+      price: 5
     );
   }
   copyWith({
       Scene? scene,
       MapParams? fromMapParams,
       MapParams? toMapParams,
+      DateTime? date,
       String? code,
       Location? fromLocation,
       Location? toLocation,
+      Additional? additional,
+      String? comment,
+      int? price,
     }){
     return CreateRideFullState(
-      scene: scene??this.scene,
       fromMapParams: fromMapParams??this.fromMapParams,
       toMapParams: toMapParams??this.toMapParams,
+      date: date??this.date,
       code: code??this.code,
       fromLocation: fromLocation??this.fromLocation,
-      toLocation: toLocation??this.toLocation
-    );
+      toLocation: toLocation??this.toLocation,
+      price: price??this.price
+    )
+    ..additional=additional??this.additional
+    ..comment=comment??this.comment;
   }
 
 }

@@ -4,17 +4,16 @@ import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
-import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/calendare_scene/components/calendare_view.dart';
-import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/time_scene/time_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/payment_scene/components/payment_item.dart';
 
-class CalendareScene extends StatefulWidget {
-  const CalendareScene({super.key});
+class PaymentScene extends StatefulWidget {
+  const PaymentScene({super.key});
 
   @override
-  State<CalendareScene> createState() => _CalendareSceneState();
+  State<PaymentScene> createState() => _PaymentSceneState();
 }
 
-class _CalendareSceneState extends State<CalendareScene> {
+class _PaymentSceneState extends State<PaymentScene> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +27,6 @@ class _CalendareSceneState extends State<CalendareScene> {
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
-              print("pop");
             },
             child: Container(
               color: Colors.white,
@@ -38,38 +36,39 @@ class _CalendareSceneState extends State<CalendareScene> {
               child: R.SVG.NavigationBackIcon,
             ),
           ),
-          SizedBox(height: 56,),
-          Text(
-            "Select the date of travel",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: BrandFontFamily.platform,
-              fontSize: 32,
-              color: BrandColor.black,
-              fontWeight: FontWeight.w700
-            ),
-          ),
+          SizedBox(height: 44,),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  CalendareView(),
+                  Text(
+                    "Choose the payment method",
+                    style: TextStyle(
+                      fontFamily: BrandFontFamily.platform,
+                      fontSize: 32,
+                      color: BrandColor.black,
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  SizedBox(height: 32,),
+                  PaymentItem(
+                    title: "Cash",
+                    isSelected: true,
+                    onChangeSelected: (_){}
+                  ),
                   Expanded(child: SizedBox.shrink()),
                   UIButton(
-                    label: "Next",
+                    label: "Done",
                     onTap: () {
-                      context.goNamed(RoutesName.createTime);
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => TimeScene(),));
+                      context.goNamed(RoutesName.createPreview);
                     },
                   ),
-                  SizedBox(height: 41,)
+                  SizedBox(height: 44,),
                 ],
               ),
             ),
           )
-          
-
         ],
       ),
     );

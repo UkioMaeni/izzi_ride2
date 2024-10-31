@@ -2,9 +2,11 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/select_car_scene/select_car_scene.dart';
 
@@ -61,6 +63,8 @@ class _TimeSceneState extends State<TimeScene> {
   void initState() {
     _scrollController = ScrollController(initialScrollOffset: elementHeiht*300);
     _scrollController.addListener(()=>scrollListener(false));
+    
+    super.initState();
     for(int i=0;i<24;i++){
       String hour = i<10?"0$i":"$i";
       for(int j=0;j<60;j=j+15){
@@ -69,15 +73,9 @@ class _TimeSceneState extends State<TimeScene> {
       }
       
     }
-    super.initState();
   }
 
   double interpolate(double x) {
-  const double minX = 0.3;
-  const double maxX = 0.6;
-  const double minY = 0;
-  const double maxY = 1;
-
   return (10/3)*x*1.3;
 }
 
@@ -87,6 +85,7 @@ class _TimeSceneState extends State<TimeScene> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         toolbarHeight: 0,
       ),
       body: Column(
@@ -94,6 +93,7 @@ class _TimeSceneState extends State<TimeScene> {
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
+              print("pop");
             },
             child: Container(
               color: Colors.white,
@@ -166,6 +166,7 @@ class _TimeSceneState extends State<TimeScene> {
                                   return true;
                                 },
                                 child: CustomScrollView(
+                                  scrollBehavior: null,
                                   physics: ClampingScrollPhysics(),
                                   controller: _scrollController,
                                   slivers: [
@@ -177,7 +178,7 @@ class _TimeSceneState extends State<TimeScene> {
                                          // print(index);
                                           currentIndex=index;
                                           double opacity=  (((_scrollController.offset)-(index-2)*elementHeiht).abs()/elementHeiht/10);
-                                          print(interpolate(opacity));
+                                          
                                           return Container(
                                             alignment: Alignment.center,
                                             height: elementHeiht,
@@ -214,7 +215,8 @@ class _TimeSceneState extends State<TimeScene> {
             child: UIButton(
               label: "Next",
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SelectCarScene(),));
+                context.pushNamed(RoutesName.createCar);
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => SelectCarScene(),));
               },
             ),
           ),

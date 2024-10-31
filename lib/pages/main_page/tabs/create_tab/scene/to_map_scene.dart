@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/google_map_ui.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/models/geocoding.dart';
@@ -98,6 +100,9 @@ class _ToMapSceneState extends State<ToMapScene> {
                           location: geocoding!.city,
                           longitude: currentLon,
                           latitude: currentLat,
+                          stateShort: geocoding!.stateShort,
+                          street: geocoding!.street,
+                          homeNumber: geocoding!.homeNumber,
                           departureTime: DateTime.now()
                         );
                         context.read<CreateRideBloc>().add(CreateRideSetToLocation(location: location));
@@ -105,7 +110,8 @@ class _ToMapSceneState extends State<ToMapScene> {
                         setState(() {
                           isLockedButton=false;
                         });
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CalendareScene(),));
+                        context.goNamed(RoutesName.createCalendare);
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => CalendareScene(),));
                     },
                     enabled: !isLockedButton,
                   )

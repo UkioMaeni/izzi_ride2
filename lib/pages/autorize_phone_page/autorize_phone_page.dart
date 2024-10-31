@@ -27,7 +27,8 @@ class _AutorizePhonePageState extends State<AutorizePhonePage> {
 
 
   toCodePage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CodePhonePage(phoneNumber: _numberController.text,),));
+    context.read<RegistrationBloc>().add(RegistrationUpdateNumber(phoneNumber: _numberController.text));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CodePhonePage()));
   }
 
   Future<void> getCode()async{

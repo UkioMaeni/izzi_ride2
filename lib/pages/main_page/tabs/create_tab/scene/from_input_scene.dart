@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:googlemaps_flutter_webservices/places.dart';
 import 'package:izzi_ride_2/UI/from_to_input.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
@@ -130,7 +132,8 @@ class _FromInputSceneState extends State<FromInputScene> {
   }
 
   toMapScene(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => FromMapScene(),));
+    context.goNamed(RoutesName.createFromMap);
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => FromMapScene(),));
   }
 
   setMapParams(MapParams mapParams){

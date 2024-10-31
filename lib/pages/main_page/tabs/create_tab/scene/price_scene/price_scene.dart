@@ -4,20 +4,23 @@ import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
-import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/calendare_scene/components/calendare_view.dart';
-import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/time_scene/time_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/price_scene/components/price_engine.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/price_scene/components/price_information.dart';
 
-class CalendareScene extends StatefulWidget {
-  const CalendareScene({super.key});
+class PriceScene extends StatefulWidget {
+  const PriceScene({super.key});
 
   @override
-  State<CalendareScene> createState() => _CalendareSceneState();
+  State<PriceScene> createState() => _PriceSceneState();
 }
 
-class _CalendareSceneState extends State<CalendareScene> {
+class _PriceSceneState extends State<PriceScene> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 0,
@@ -26,22 +29,21 @@ class _CalendareSceneState extends State<CalendareScene> {
       body: Column(
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-              print("pop");
-            },
-            child: Container(
-              color: Colors.white,
-              padding: EdgeInsets.only(left: 36),
-              height: 50,
-              alignment: Alignment.centerLeft,
-              child: R.SVG.NavigationBackIcon,
-            ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(left: 36),
+                height: 50,
+                alignment: Alignment.centerLeft,
+                child: R.SVG.NavigationBackIcon,
+              ),
+              
           ),
-          SizedBox(height: 56,),
+          SizedBox(height: 44,),
           Text(
-            "Select the date of travel",
-            textAlign: TextAlign.center,
+            "Set the price for the trip",
             style: TextStyle(
               fontFamily: BrandFontFamily.platform,
               fontSize: 32,
@@ -49,29 +51,32 @@ class _CalendareSceneState extends State<CalendareScene> {
               fontWeight: FontWeight.w700
             ),
           ),
+          SizedBox(height: 153,),
+          PriceEngine(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  CalendareView(),
                   Expanded(child: SizedBox.shrink()),
+                  PriceInformation(),
+                  SizedBox(height: 64,),
                   UIButton(
                     label: "Next",
                     onTap: () {
-                      context.goNamed(RoutesName.createTime);
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => TimeScene(),));
+                      context.goNamed(RoutesName.payment);
                     },
                   ),
-                  SizedBox(height: 41,)
+                  SizedBox(height: 44,)
                 ],
               ),
             ),
           )
-          
-
         ],
       ),
     );
   }
+
+
+
 }

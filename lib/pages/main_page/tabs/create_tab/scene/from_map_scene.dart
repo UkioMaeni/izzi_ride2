@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/google_map_ui.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/models/geocoding.dart';
@@ -95,6 +97,9 @@ class _FromMapSceneState extends State<FromMapScene> {
                           sortId: 1,
                           pickUp: true,
                           location: geocoding!.city,
+                          stateShort: geocoding!.stateShort,
+                          street: geocoding!.street,
+                          homeNumber: geocoding!.homeNumber,
                           longitude: currentLon,
                           latitude: currentLat,
                           departureTime: DateTime.now()
@@ -104,7 +109,8 @@ class _FromMapSceneState extends State<FromMapScene> {
                         setState(() {
                           isLockedButton=false;
                         });
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ToInputScene(),));
+                        context.goNamed(RoutesName.createToInput);
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => ToInputScene(),));
                     },
                     enabled: !isLockedButton,
                   )

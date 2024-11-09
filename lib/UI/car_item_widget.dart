@@ -5,7 +5,36 @@ import 'package:izzi_ride_2/core/models/car_item.dart';
 class CarItemWidgetUI extends StatelessWidget {
   final CarItem carItem;
   const CarItemWidgetUI({super.key,required this.carItem});
-
+  static Widget AddCar(){
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: BrandColor.blue,
+          width: 2
+        )
+      ),
+      child:  SizedBox(
+        height: 217,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "+\nAdd car",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: BrandFontFamily.platform,
+                fontSize: 20,
+                color: BrandColor.blue,
+                fontWeight: FontWeight.w400
+              ),
+            ),
+          ],
+        ),
+      )
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

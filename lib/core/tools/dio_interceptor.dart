@@ -84,5 +84,18 @@ class RefreshTokenInterceptor extends Interceptor {
 
     }
   }
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler)async {
+    String? accessToken = GetIt.I.get<TokenInterface>().accessToken;
+    if(accessToken==null){
+      await GetIt.I.get<TokenInterface>().refreshingToken();
+    }
+    accessToken = GetIt.I.get<TokenInterface>().accessToken;
+    options.headers.addEntries({
+    //MapEntry("app_version","1.0.6"),
+    MapEntry("Authorization",'Bearer ${accessToken}')
+   });
+    super.onRequest(options, handler);
+  }
 
 }

@@ -43,6 +43,9 @@ class CreateRideBloc extends Bloc<CreateRideEvent,CreateRideFullState>{
     on<CreateRideEditDate>((event, emit)async{
       emit(state.copyWith(date: event.date));
     });
+    on<CreateRideEditTime>((event, emit)async{
+      emit(state.copyWith(time: event.time));
+    });
     
   }
   

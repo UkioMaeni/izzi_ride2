@@ -3,6 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/autorize_phone_page.dart';
 import 'package:izzi_ride_2/pages/code_phone_page/code_phone_page.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_brand/create_car_brand.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_color/create_car_color.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_details/create_car_details.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_model/create_car_model.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_number/create_car_number.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_photo/create_car_photo.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_seats/create_car_seats.dart';
+import 'package:izzi_ride_2/pages/create_car_scenes/create_car_year/create_car_year.dart';
 import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
@@ -176,6 +184,63 @@ class AppRoiting{
               ),
             ]
           ),
+          GoRoute(
+            path: "/create_car_brand",
+            name: RoutesName.createCarBrand,
+            builder: (context, state)=>CreateCarBrand(),
+            routes: [
+              GoRoute(
+                path: "/create_car_model",
+                name: RoutesName.createCarModel,
+                builder: (context, state)=>CreateCarModel(),
+                routes: [
+                  GoRoute(
+                    path: "/create_car_seats",
+                    name: RoutesName.createCarSeats,
+                    builder: (context, state)=>CreateCarSeats(),
+                    routes: [
+                      GoRoute(
+                        path: "/create_car_color",
+                        name: RoutesName.createCarColor,
+                        builder: (context, state)=>CreateCarColor(),
+                        routes: [
+                          GoRoute(
+                            path: "/create_car_number",
+                            name: RoutesName.createCarNumber,
+                            builder: (context, state)=>CreateCarNumber(),
+                            routes: [
+                              GoRoute(
+                                path: "/create_car_year",
+                                name: RoutesName.createCarYear,
+                                builder: (context, state)=>CreateCarYear(),
+                                routes: [
+                                  GoRoute(
+                                    path: "/create_car_photo",
+                                    name: RoutesName.createCarPhoto,
+                                    builder: (context, state)=>CreateCarPhoto(),
+                                    routes: [
+                                      GoRoute(
+                                        path: "/create_car_details",
+                                        name: RoutesName.createCarDetails,
+                                        builder: (context, state)=>CreateCarDetails(),
+                                        routes: [
+                                          
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                            ]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]
+              ),
+            ]
+          ),
         ]
       ),
     ]
@@ -186,14 +251,20 @@ class AppRoiting{
 
 
  class  RoutesName{
+  //загрузочный экран приложения
   static String loader="loader";
+  //главная страница авторизация с методами
   static String auth="auth";
+  //авторизация разными методами
   static String authPhone="authPhone";
   static String authPhoneCode="authPhoneCode";
   static String authGoogle="authGoogle";
   static String authApple="authApple";
+  //добавление отсутсвующих данных пользователя
   static String initialUserData="initialUserData";
+  //главная страница с таб навигатором
   static String main="main";
+  //создание поездки
   static String createFromInput="createFromInput";
   static String createFromMap="createFromMap";
   static String createCalendare="createCalendare";
@@ -207,4 +278,14 @@ class AppRoiting{
   static String createInstant="createInstant";
   static String createPreview="createPreview";
   static String createDone="createDone";
+  //создание машины
+  static String createCarBrand="createCarBrand";
+  static String createCarModel="createCarModel";
+  static String createCarSeats="createCarSeats";
+  static String createCarColor="createCarColor";
+  static String createCarNumber="createCarNumber";
+  static String createCarYear="createCarYear";
+  static String createCarPhoto="createCarPhoto";
+  static String createCarDetails="createCarDetails";
+
 }

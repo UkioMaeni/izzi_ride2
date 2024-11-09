@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/localization_bloc/localization_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/registration_bloc/registration_bloc.dart';
@@ -18,6 +20,8 @@ void main() {
           BlocProvider(create: (context) => LocalizationBloc(),),
           BlocProvider(create: (context) => CreateRideBloc(),),
           BlocProvider(create: (context) => RegistrationBloc(),),
+          BlocProvider(create: (context) => CarBloc(),),
+          BlocProvider(create: (context) => CreateCarBloc(),),
         ],
       child: const MyApp()
     )

@@ -104,6 +104,7 @@ class _CalendareViewState extends State<CalendareView> {
               todayBorderColor: Colors.transparent,
               minSelectedDate: DateTime.now().subtract(Duration(days: 1)),
               onDayPressed: (date, events) {
+                
                 if(date.isAfter(currentDate)){
                   createRideBloc.add(CreateRideEditDate(date: date));
                 }
@@ -115,9 +116,13 @@ class _CalendareViewState extends State<CalendareView> {
               disableDayPressed: true,
 
               customDayBuilder: (isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, isNextMonthDay, isThisMonthDay, day) {
+                if(isSelectable){
+                  //print(day.day.toString());
+                }
                 return  GestureDetector(
                   onTap: () {
-                    if(day.isAfter(currentDate)){
+                    //print(DateTime.now());
+                    if(isSelectable){
                       createRideBloc.add(CreateRideEditDate(date: day));
                     }
                   },

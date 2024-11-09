@@ -4,14 +4,17 @@ import 'package:get_it/get_it.dart';
 import 'package:googlemaps_flutter_webservices/places.dart';
 import 'package:izzi_ride_2/config/app_config.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
+import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/city_model.dart';
 import 'package:izzi_ride_2/core/models/enum_authorization_type.dart';
 import 'package:izzi_ride_2/core/models/geocoding.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
+import 'package:izzi_ride_2/core/models/search_car_brand_and_model.dart';
 class UserHttp{
-  Dio dio = GetIt.I.get<Dio>();
-
+  Dio dio = GetIt.I.get<Dio>(); 
+  static UserHttp Instance = UserHttp();
+  static UserHttp I = UserHttp.Instance;
   Future<bool> sendOtp(String phoneNumber)async{
     try {
       final result= await dio.get(AppConfig.requestUrl+"/otp?phone=${phoneNumber}");
@@ -46,6 +49,76 @@ class UserHttp{
       await tokenRepo.setRefreshToken(refreshToken);
       print(isClientNew);
       return CustomResponse<bool>(data: isClientNew);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+
+  Future<CustomResponse> getUserCar()async{
+    try {
+      print("start");
+      final result= await dio.get(
+        AppConfig.requestUrl+"/client/auto",
+        
+      );
+      final data = result.data["data"];
+      print(data);
+      if(data==null){
+        return CustomResponse<List<CarItem>>(data: []);
+      }
+      return CustomResponse<List<CarItem>>(data: []);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+  Future<CustomResponse> getCarBrand(String queryString)async{
+    try {
+      print("start");
+      final result= await dio.get(
+        AppConfig.requestUrl+"/car/manufacturer",
+        queryParameters: {
+          "name":queryString,
+        }
+      );
+      final data = result.data["data"];
+      print(data);
+      if(data==null || data is! List){
+        return CustomResponse<List<CarItem>>(data: []);
+      }
+      List<dynamic> searchedList = data;
+      List<SearchCarBrandAndModel> search = searchedList.map(
+        (element)=>SearchCarBrandAndModel(
+          id:element["id"],
+          name: element["name"]
+        )
+      ).toList();
+      return CustomResponse<List<SearchCarBrandAndModel>>(data: search);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+  Future<CustomResponse> getCarModel(String queryString,int brandId)async{
+    try {
+      print("start");
+      final result= await dio.get(
+        AppConfig.requestUrl+"/car/model",
+        queryParameters: {
+          "name":queryString,
+          "manufacturer_id":brandId
+        }
+      );
+      final data = result.data["data"];
+      print(data);
+      if(data==null){
+        return CustomResponse<List<CarItem>>(data: []);
+      }
+      return CustomResponse<List<CarItem>>(data: []);
     } catch (e) {
       print(e);
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());

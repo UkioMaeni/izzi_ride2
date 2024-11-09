@@ -52,6 +52,10 @@ class CreateRideEditDate extends CreateRideEvent{
   final DateTime date;
   const CreateRideEditDate({required this.date});
 }
+class CreateRideEditTime extends CreateRideEvent{
+  final TimeOfDay time;
+  const CreateRideEditTime({required this.time});
+}
 // class LocalizationSetLocaleEvent extends RegistrationEvent{
 //   final LocalizationInterface localeState;
 //   final Locale locale;

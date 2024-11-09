@@ -19,10 +19,12 @@ enum SceneType{
 class CarBloc extends Bloc<CarEvent,CarFullState>{
   CarBloc():super(CarFullState.empty()){
     on<CarGetInUser>((event, emit)async{
+      emit(state.copyWith(requsted: true));
       final result = await UserHttp.Instance.getUserCar();
       if(result is CustomResponse<List<CarItem>>){
         emit(state.copyWith(cars: result.data));
       }
+      emit(state.copyWith(requsted: false));
       //emit(state.copyWith(scene: event.newScene));
     });
     

@@ -6,6 +6,7 @@ class UIButton extends StatefulWidget {
   final double? height;
   final String label;
   final bool? reverse;
+  final bool? alternate;
   final EdgeInsets? margin;
   final Function()? onTap;
   final bool? enabled;
@@ -14,6 +15,7 @@ class UIButton extends StatefulWidget {
     super.key,
     required this.label,
     this.reverse,
+    this.alternate,
     this.height,
     this.width,
     this.margin,
@@ -40,6 +42,10 @@ class _UIButtonState extends State<UIButton> {
     if(widget.reverse!=null&&widget.reverse!){
       bgColor=Colors.white;
       textColor=BrandColor.blue;
+    }
+    if(widget.alternate!=null&&widget.alternate!){
+      bgColor=Colors.white;
+      textColor=BrandColor.black;
     }
     final onTap=widget.onTap??(){};
     return GestureDetector(
@@ -68,7 +74,9 @@ class _UIButtonState extends State<UIButton> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(10)
+          borderRadius: BorderRadius.circular(10),
+          border: widget.alternate!=null&&widget.alternate!
+            ?Border.all(color: BrandColor.blue):null
         ),
         child: Builder(
           builder: (context) {

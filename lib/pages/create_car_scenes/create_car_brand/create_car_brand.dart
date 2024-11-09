@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/car_brand_model_input.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 import 'package:izzi_ride_2/core/models/search_car_brand_and_model.dart';
@@ -105,10 +109,12 @@ class _CreateCarBrandState extends State<CreateCarBrand> {
   Widget searchedItem(SearchCarBrandAndModel item){
     return GestureDetector(
       onTap: () {
-        
+        context.read<CreateCarBloc>().add(CreateCarSelectBrand(brand: item));
+        context.goNamed(RoutesName.createCarModel);
       },
       child: Container(
         height: 40,
+        color: Colors.white,
         padding: EdgeInsets.only(left: 12,right: 11),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

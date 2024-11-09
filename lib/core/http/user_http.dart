@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:googlemaps_flutter_webservices/places.dart';
 import 'package:izzi_ride_2/config/app_config.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/city_model.dart';
@@ -115,10 +116,41 @@ class UserHttp{
       );
       final data = result.data["data"];
       print(data);
-      if(data==null){
+      if(data==null || data is! List){
         return CustomResponse<List<CarItem>>(data: []);
       }
-      return CustomResponse<List<CarItem>>(data: []);
+      List<dynamic> searchedList = data;
+      List<SearchCarBrandAndModel> search = searchedList.map(
+        (element)=>SearchCarBrandAndModel(
+          id:element["id"],
+          name: element["name"]
+        )
+      ).toList();
+      return CustomResponse<List<SearchCarBrandAndModel>>(data: search);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+  Future<CustomResponse> createUserCar(CreateCarState state)async{
+    try {
+      print("start");
+      final result= await dio.post(
+        AppConfig.requestUrl+"/client/auto",
+        data: {
+          "model_id":state.model.id,
+          "manufacturer_id":state.brand.id,
+          "number_of_seats":state.seats,
+          "color":state.colorCar.stringColor,
+          "auto_number":state.carNumber,
+          "year":state.carYear,
+        }
+      );
+      final data = result.data["data"];
+      print(data);
+      
+      return CustomResponse<bool>(data: true);
     } catch (e) {
       print(e);
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());

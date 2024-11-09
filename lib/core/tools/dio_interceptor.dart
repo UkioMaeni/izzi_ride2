@@ -32,7 +32,7 @@ class RefreshTokenInterceptor extends Interceptor {
 
         try {
           final isOk = await tokens.refreshingToken();
-          if(isOk=="error"){
+          if(isOk.data=="no"){
             await retryFailedRequests();
           }else{
             releaseFailedRequests();

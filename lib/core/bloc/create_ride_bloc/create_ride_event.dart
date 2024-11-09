@@ -36,6 +36,10 @@ class CreateRideSetToLocation extends CreateRideEvent{
   final Location location;
   const CreateRideSetToLocation({required this.location});
 }
+class CreateRideSetCar extends CreateRideEvent{
+  final CarItem carItem;
+  const CreateRideSetCar({required this.carItem});
+}
 class CreateRideEditAdditional extends CreateRideEvent{
   final Additional additional;
   const CreateRideEditAdditional({required this.additional});
@@ -55,6 +59,10 @@ class CreateRideEditDate extends CreateRideEvent{
 class CreateRideEditTime extends CreateRideEvent{
   final TimeOfDay time;
   const CreateRideEditTime({required this.time});
+}
+class CreateRideSetAutoInstant extends CreateRideEvent{
+  final bool autoInstant;
+  const CreateRideSetAutoInstant({required this.autoInstant});
 }
 // class LocalizationSetLocaleEvent extends RegistrationEvent{
 //   final LocalizationInterface localeState;

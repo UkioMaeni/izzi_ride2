@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
@@ -32,6 +34,7 @@ class _CreateCarDetailsState extends State<CreateCarDetails> {
 
   releaseCreateCar()async{
     context.read<CarBloc>().add(CarGetInUser());
+    context.goNamed(RoutesName.createCar);
   }
 
   @override

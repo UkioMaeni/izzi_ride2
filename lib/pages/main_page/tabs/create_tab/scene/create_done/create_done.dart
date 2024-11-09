@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 class CreateDone extends StatefulWidget {
@@ -9,31 +12,29 @@ class CreateDone extends StatefulWidget {
 }
 
 class _CreateDoneState extends State<CreateDone> {
+
+  @override
+  void initState() {
+    completer();
+    super.initState();
+  }
+
+  void completer()async{
+    await Future.delayed(Duration(seconds: 3));
+    context.goNamed(RoutesName.main);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: BrandColor.blue,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: BrandColor.blue,
       ),
-      body: Column(
-        children: [
-          GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(left: 36),
-                height: 50,
-                alignment: Alignment.centerLeft,
-                child: R.SVG.NavigationBackIcon,
-              ),
-              
-          ),
-        ],
-      ),
+      body: Center(
+        child: R.SVG.DoneCreateRideIcon,
+      )
     );
   }
 }

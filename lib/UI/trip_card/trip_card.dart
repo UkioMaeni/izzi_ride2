@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/models/trip.dart';
 import 'package:izzi_ride_2/core/tools/color_generator.dart';
 import 'package:shimmer/shimmer.dart';
@@ -10,12 +12,12 @@ import 'package:shimmer/shimmer.dart';
 class TripCard extends StatelessWidget {
 
   static TripCard shimmer(){
-    return TripCard(trip: Trip.nullable(), isShimmer: true);
+    return TripCard(trip: RideModel.nullable(), isShimmer: true);
   }
-  static TripCard view({required Trip trip}){
+  static TripCard view({required RideModel trip}){
     return TripCard(trip: trip, isShimmer: false);
   }
-  final Trip trip;
+  final RideModel trip;
   final bool isShimmer;
   const TripCard ({super.key,required this.trip,required this.isShimmer});
   
@@ -30,48 +32,89 @@ class TripCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(17)
       ),
-      child: Shimmer.fromColors(
-             enabled: true,
-
-            baseColor: BrandColor.grey217,
-            highlightColor: BrandColor.grey167,
-          
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                date(),
-                SizedBox(width: 12,),
-                indicator(),
-                SizedBox(width: 16,),
-                Expanded(child: locations()),
-                info()
-              ],
-            ),
-            SizedBox(height: 24,),
-            Container(
-              alignment: Alignment.center,
-              color: BrandColor.grey167,
-              height: 1,
-              margin: EdgeInsets.only(left:28 ),
-            ),
-            SizedBox(height: 24,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Builder(
+        builder: (context) {
+          if(!isShimmer){
+            return Column(
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    avatar(),
+                    date(),
                     SizedBox(width: 12,),
-                    driver(),
+                    indicator(),
+                    SizedBox(width: 16,),
+                    Expanded(child: locations()),
+                    info()
                   ],
                 ),
-                passangersAvatar()
+                SizedBox(height: 24,),
+                Container(
+                  alignment: Alignment.center,
+                  color: BrandColor.grey167,
+                  height: 1,
+                  margin: EdgeInsets.only(left:28 ),
+                ),
+                SizedBox(height: 24,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        avatar(),
+                        SizedBox(width: 12,),
+                        driver(),
+                      ],
+                    ),
+                    passangersAvatar()
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            );
+          }
+          return Shimmer.fromColors(
+                 enabled: true,
+                baseColor: BrandColor.grey217,
+                highlightColor: BrandColor.grey167,
+              
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    date(),
+                    SizedBox(width: 12,),
+                    indicator(),
+                    SizedBox(width: 16,),
+                    Expanded(child: locations()),
+                    info()
+                  ],
+                ),
+                SizedBox(height: 24,),
+                Container(
+                  alignment: Alignment.center,
+                  color: BrandColor.grey167,
+                  height: 1,
+                  margin: EdgeInsets.only(left:28 ),
+                ),
+                SizedBox(height: 24,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        avatar(),
+                        SizedBox(width: 12,),
+                        driver(),
+                      ],
+                    ),
+                    passangersAvatar()
+                  ],
+                )
+              ],
+            ),
+          );
+        }
       ),
     );
   }
@@ -135,7 +178,7 @@ class TripCard extends StatelessWidget {
         Row(
           children: [
             Text(
-              "Mike D",
+              trip.driverNickname,
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontFamily: "SF",
@@ -146,7 +189,7 @@ class TripCard extends StatelessWidget {
             ),
             SizedBox(width: 8,),
             Text(
-              "⭐ 5.0",
+              "⭐ ${trip.driverRate}",
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontFamily: "SF",
@@ -172,26 +215,6 @@ class TripCard extends StatelessWidget {
   }
 
   Widget avatar(){
-    // if(isShimmer){
-    //   return Shimmer.fromColors(
-    //        child: Container(
-    //         width: 44,
-    //         height: 44,
-    //         alignment: Alignment.center,
-            
-    //         decoration: BoxDecoration(
-    //           color: BrandColor.grey167,
-    //           borderRadius: BorderRadius.circular(22)
-    //         ),
-    //        ),
-    //        enabled: true,
-    //       baseColor: BrandColor.grey217,
-    //       highlightColor: BrandColor.grey167,
-    //     );
-    // }
-    if(false ){
-      return Image.network("");
-    }else{
       return Container(
         width: 44,
         height: 44,
@@ -203,7 +226,7 @@ class TripCard extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Text(
-          "M",
+          trip.driverNickname[0],
           textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: "SF",
@@ -213,7 +236,7 @@ class TripCard extends StatelessWidget {
           ),
         ),
       );
-    }
+    
   }
 
   Widget info(){
@@ -236,7 +259,7 @@ class TripCard extends StatelessWidget {
         ), 
         SizedBox(height: 8,),
         !isShimmer?Text(
-          "\$25",
+          "\$${trip.price.toInt()}",
           textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: "SF",
@@ -257,7 +280,7 @@ class TripCard extends StatelessWidget {
         ),
         SizedBox(height: 10,),
          !isShimmer?Text(
-          "3 of 4",
+          "${trip.freeSeats} of ${trip.totalSeats}",
           textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: "SF",
@@ -300,7 +323,7 @@ class TripCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               isShimmer? Text(
+               !isShimmer? Text(
                 "From",
                 textAlign: TextAlign.start,
                 style: TextStyle(
@@ -315,8 +338,8 @@ class TripCard extends StatelessWidget {
                 color: BrandColor.grey167,
               ), 
               SizedBox(height: 8,),
-              isShimmer?Text(
-                "Nebraska",
+              !isShimmer?Text(
+                trip.startLocationName,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontFamily: "SF",
@@ -344,7 +367,7 @@ class TripCard extends StatelessWidget {
            Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             isShimmer? Text(
+             !isShimmer? Text(
                 "To",
                 textAlign: TextAlign.start,
                 style: TextStyle(
@@ -359,8 +382,8 @@ class TripCard extends StatelessWidget {
                 color: BrandColor.grey167,
               ), 
               SizedBox(height: 8,),
-              isShimmer?Text(
-                "California",
+              !isShimmer?Text(
+                trip.endLocationName,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontFamily: "SF",
@@ -427,7 +450,7 @@ class TripCard extends StatelessWidget {
   }
 
   Widget date(){
-    if(!isShimmer){
+    if(isShimmer){
       return Column(
         children: [
           Container(
@@ -450,7 +473,7 @@ class TripCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "03 May",
+            DateFormat("dd MMMM").format(trip.date),
             textAlign: TextAlign.start,
             style: TextStyle(
               fontFamily: "SF",
@@ -461,11 +484,11 @@ class TripCard extends StatelessWidget {
           ), 
           SizedBox(height: 8,),
           Text(
-            "03:00",
+            DateFormat('h:mm a').format(trip.date),
             textAlign: TextAlign.start,
             style: TextStyle(
               fontFamily: "SF",
-              fontSize: 20,
+              fontSize: 14,
               color:BrandColor.black,
               fontWeight: FontWeight.w700
             ),

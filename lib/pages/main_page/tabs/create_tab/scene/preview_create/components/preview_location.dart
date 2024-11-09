@@ -73,7 +73,7 @@ class PreviewLocation extends StatelessWidget {
                             minHeight: 60
                           ),
                           child: Text(
-                            createBlocState.toLocation.fullAddress+" - "+createBlocState.toLocation.stateShort+"sdsds d sdsdsdsddddddd s ds dsd sdsdsdsd",
+                            createBlocState.toLocation.fullAddress+" - "+createBlocState.toLocation.stateShort,
                             style: TextStyle(
                               fontFamily: BrandFontFamily.platform,
                               fontSize: 18,
@@ -82,6 +82,7 @@ class PreviewLocation extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: 39,)
                       ],
                     );
                   }

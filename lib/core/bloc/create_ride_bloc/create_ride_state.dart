@@ -10,11 +10,13 @@ class CreateRideFullState {
   final String code;
   final Location fromLocation;
   final Location toLocation;
+  final CarItem car;
   DateTime date;
   TimeOfDay time;
   Additional additional=Additional();
   String comment="";
   int price;
+  bool autoInstant;
   CreateRideFullState({
     required this.fromMapParams,
     required this.toMapParams,
@@ -23,7 +25,9 @@ class CreateRideFullState {
     required this.code,
     required this.fromLocation,
     required this.toLocation,
-    required this.price
+    required this.car,
+    required this.price,
+    required this.autoInstant
   });
 
   static  CreateRideFullState empty(){
@@ -35,7 +39,9 @@ class CreateRideFullState {
       code: "",
       fromLocation: Location.empty(),
       toLocation: Location.empty(), 
-      price: 5
+      car: CarItem(carId: 0, brand: "", model: "", color: "", seats: 0, year: ""),
+      price: 5,
+      autoInstant: false
     );
   }
   copyWith({
@@ -47,9 +53,11 @@ class CreateRideFullState {
       String? code,
       Location? fromLocation,
       Location? toLocation,
+      CarItem? car,
       Additional? additional,
       String? comment,
       int? price,
+      bool? autoInstant,
     }){
     return CreateRideFullState(
       fromMapParams: fromMapParams??this.fromMapParams,
@@ -59,7 +67,9 @@ class CreateRideFullState {
       code: code??this.code,
       fromLocation: fromLocation??this.fromLocation,
       toLocation: toLocation??this.toLocation,
-      price: price??this.price
+      car: car??this.car,
+      price: price??this.price,
+      autoInstant: autoInstant??this.autoInstant,
     )
     ..additional=additional??this.additional
     ..comment=comment??this.comment;

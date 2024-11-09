@@ -16,4 +16,12 @@ class Additional{
       ..animals=animals??this.animals
       ..smoking=smoking??this.smoking;
   }
+  Map<String,dynamic> toJson(){
+    return {
+      "smoking":smoking,
+      "luggage":luggage,
+      "child_car_seat":babyChaire,
+      "animals":animals
+    };
+  }
 }

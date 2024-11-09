@@ -5,12 +5,14 @@ import 'package:googlemaps_flutter_webservices/places.dart';
 import 'package:izzi_ride_2/config/app_config.dart';
 import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
+import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/city_model.dart';
 import 'package:izzi_ride_2/core/models/enum_authorization_type.dart';
 import 'package:izzi_ride_2/core/models/geocoding.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
+import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/models/search_car_brand_and_model.dart';
 class UserHttp{
   Dio dio = GetIt.I.get<Dio>(); 
@@ -66,10 +68,21 @@ class UserHttp{
       );
       final data = result.data["data"];
       print(data);
-      if(data==null){
+      if(data==null || data is! List){
         return CustomResponse<List<CarItem>>(data: []);
       }
-      return CustomResponse<List<CarItem>>(data: []);
+      List<dynamic> listResponse = data;
+      List<CarItem> cars = listResponse.map(
+        (element) => CarItem(
+          carId: element["car_id"],
+          brand: element["manufacturer"], 
+          model: element["model"], 
+          color: element["color"]??"no",
+          seats:element["number_of_seats"] ,
+          year: element["year"]
+        ) 
+      ).toList();
+      return CustomResponse<List<CarItem>>(data: cars);
     } catch (e) {
       print(e);
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
@@ -157,6 +170,66 @@ class UserHttp{
     }
   }
 
+  Future<CustomResponse> createUserRide(RideModel ride)async{
+    try {
+      print("start");
+      final result= await dio.post(
+        AppConfig.requestUrl+"/order",
+        data: ride.toJson()
+      );
+      final data = result.data["data"];
+      print(data);
+      print("done");
+      return CustomResponse<bool>(data: true);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+  Future<CustomResponse> getUserRides()async{
+    try {
+      print("start");
+      final result= await dio.get(
+        "${AppConfig.requestUrl}/driver/orders",
+      );
+      final data = result.data["data"];
+      if(data==null || data is! List){
+        return CustomResponse<List<CarItem>>(data: []);
+      }
+      List<dynamic> responsedList = data;
+      List<RideModel> rides = responsedList.map(
+        (element)=>RideModel(
+          orderId: element["order_id"],
+          clientAutoId: element["client_auto_id"], 
+          driverRate: (element["driver_rate"]??0)+.0,
+          driverNickname: element["nickname"],
+          date: DateTime.parse(element["departure_time"]),
+          rideStatus: element["status"],
+          startLocationName: element["start_country_name"],
+          endLocationName: element["end_country_name"],
+          totalSeats: element["seats_info"]["total"],
+          freeSeats: element["seats_info"]["free"],
+          price: (element["price"]??0)+.0, 
+          additional: 
+            Additional()
+              ..smoking=element["preference"]["smoking"]
+              ..babyChaire=element["preference"]["child_car_seat"]
+              ..animals=element["preference"]["animals"]
+              ..luggage=element["preference"]["luggage"], 
+          locations: [],
+          comment: "",
+          numberOfSeats: 0
+        )
+      ).toList();
+      
+      print(data);
+      
+      return CustomResponse<List<RideModel>>(data: rides);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
   Future<CustomResponse> getCityFromGoogle(String text) async{
     try {
      PlacesAutocompleteResponse response = await AppConfig.places.autocomplete(
@@ -164,11 +237,14 @@ class UserHttp{
         language: "us", 
         types: ["postal_code","sublocality","administrative_area_level_3","locality","street_address"],
         components: [Component(Component.country, "us")],
+
       );
+      print(response);
     List<Prediction> predictions=  response.predictions;
 
     return CustomResponse<List<Prediction>>(data: predictions);
     } catch (e) {
+      print(e);
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
     }
     

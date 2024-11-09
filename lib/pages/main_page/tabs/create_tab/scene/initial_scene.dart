@@ -37,7 +37,7 @@ class _CreateRideInitialSceneState extends State<CreateRideInitialScene> {
                     label: "+ Create a ride",
                     onTap: () {
                       //Navigator.push(context, MaterialPageRoute(builder: (context) => FromInputScene(),));
-                      context.pushNamed(RoutesName.createCar);
+                      context.pushNamed(RoutesName.createFromInput);
                     },
                   ),
                   SizedBox(height: 44,)

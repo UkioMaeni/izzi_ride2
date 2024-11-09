@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
+import 'package:izzi_ride_2/core/http/user_http.dart';
+import 'package:izzi_ride_2/core/models/response.dart';
+import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/preview_create/components/preview_data.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/preview_create/components/preview_location.dart';
@@ -14,6 +22,36 @@ class PreviewCreate extends StatefulWidget {
 }
 
 class _PreviewCreateState extends State<PreviewCreate> {
+
+
+  Future<void> createRide()async{
+
+    final createRideBlocState = context.read<CreateRideBloc>().state;
+    final ridesBloc = context.read<RidesBloc>();
+    final ride=RideModel(
+      clientAutoId: createRideBlocState.car.carId,
+      comment: createRideBlocState.comment,
+      price: createRideBlocState.price.toDouble(),
+      numberOfSeats: createRideBlocState.car.seats,
+      additional: createRideBlocState.additional,
+      locations: [createRideBlocState.fromLocation,createRideBlocState.toLocation],
+      driverNickname: "",
+      driverRate: 0,
+      freeSeats: 0,
+      orderId: 0,
+      rideStatus: "",
+      totalSeats: 0,
+      date: DateTime.now(),
+      endLocationName: "",
+      startLocationName: ""
+    );
+    final result = await UserHttp.I.createUserRide(ride);
+    if(result is CustomResponse<bool>){
+      ridesBloc.add(RidesGetUserRides());
+      context.goNamed(RoutesName.createDone);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +106,8 @@ class _PreviewCreateState extends State<PreviewCreate> {
                           PreviewTime(),
                           SizedBox(height: 24,),
                           UIButton(
-                            label: "Done"
+                            label: "Done",
+                            onFuture: createRide,
                           ),
                           SizedBox(height: 44,),
                         ],

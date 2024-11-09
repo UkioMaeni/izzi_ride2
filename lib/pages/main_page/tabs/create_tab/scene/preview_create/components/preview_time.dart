@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 class PreviewTime extends StatelessWidget {
@@ -7,6 +11,10 @@ class PreviewTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final createRideBlocState = context.read<CreateRideBloc>().state;
+
+    String date = DateFormat("dd MMMM yyyy").format(createRideBlocState.date);
+    String time = DateFormat("h:mm a").format(DateTime(0,0,0,createRideBlocState.time.hour,createRideBlocState.time.minute));
     return Stack(
       children: [
         Container(
@@ -40,7 +48,7 @@ class PreviewTime extends StatelessWidget {
                   ),
                   SizedBox(height: 8,),
                   Text(
-                    "03 May 2024",
+                    date,
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 12,
@@ -64,7 +72,7 @@ class PreviewTime extends StatelessWidget {
                   ),
                   SizedBox(height: 8,),
                   Text(
-                    "05:00AM",
+                    time,
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 12,
@@ -84,7 +92,7 @@ class PreviewTime extends StatelessWidget {
                   ),
                   SizedBox(height: 8,),
                   Text(
-                    "4",
+                    createRideBlocState.car.seats.toString(),
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 12,

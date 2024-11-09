@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izzi_ride_2/core/models/additional.dart';
+import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/location.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 
@@ -45,6 +46,12 @@ class CreateRideBloc extends Bloc<CreateRideEvent,CreateRideFullState>{
     });
     on<CreateRideEditTime>((event, emit)async{
       emit(state.copyWith(time: event.time));
+    });
+    on<CreateRideSetCar>((event, emit)async{
+      emit(state.copyWith(car: event.carItem));
+    });
+    on<CreateRideSetAutoInstant>((event, emit)async{
+      emit(state.copyWith(autoInstant: event.autoInstant));
     });
     
   }

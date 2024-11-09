@@ -49,33 +49,6 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         backgroundColor: Colors.white,
         toolbarHeight: 0,
       ),
-      // body: Column(
-      //   children: [
-      //     // Expanded(
-      //     //   child: PageView.builder(
-      //     //     physics: NeverScrollableScrollPhysics(),
-      //     //     onPageChanged: (value) {
-      //     //       setState(() {
-      //     //         page=value;
-      //     //       });
-      //     //     },
-      //     //     itemCount: pages.length,
-      //     //     controller: _pageController,
-
-      //     //     itemBuilder:  (context, index) {
-      //     //       return pages[index];
-      //     //     },
-      //     //   )
-      //     // ),
-      //     // TabNavigator(
-      //     //   page: page,pageController: _pageController
-      //     // )
-      //     DefaultTabController(
-      //       length: 5,
-      //       child: ,
-      //     )
-      //   ],
-      // ),
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         clipBehavior: Clip.none,

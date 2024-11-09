@@ -11,9 +11,13 @@ import 'package:izzi_ride_2/core/tools/color_generator.dart';
 class PreviewData extends StatelessWidget {
   const PreviewData({super.key});
 
+
+  
+
   @override
   Widget build(BuildContext context) {
     final createBlocState = context.read<CreateRideBloc>().state;
+    print(createBlocState.car.color);
     return Stack(
       children: [
         Container(
@@ -29,9 +33,9 @@ class PreviewData extends StatelessWidget {
           child: Column(
             children: [
               
-              header(),
+              header(createBlocState.car.color,createBlocState.car.brand+" "+createBlocState.car.model),
               SizedBox(height: 20.5,),
-              body(),
+              body(createBlocState.price),
               SizedBox(height: 31.5,),
               footer(),
               SizedBox(height: 34,),
@@ -77,7 +81,7 @@ class PreviewData extends StatelessWidget {
   }
 
 
-  Widget body(){
+  Widget body(int price){
     return Padding(
       padding: const EdgeInsets.only(right: 32),
       child: Row(
@@ -98,7 +102,7 @@ class PreviewData extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Visa",
+                  "Cash",
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
@@ -124,7 +128,7 @@ class PreviewData extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "\$2.00",
+                  "\$0",
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
@@ -150,7 +154,7 @@ class PreviewData extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "\$25.00",
+                  "\$"+price.toString(),
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
@@ -167,7 +171,7 @@ class PreviewData extends StatelessWidget {
   }
 
 
-  Widget header(){
+  Widget header(String color,String car){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -209,7 +213,7 @@ class PreviewData extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "White",
+                color,
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 12,
@@ -223,7 +227,7 @@ class PreviewData extends StatelessWidget {
                   maxWidth: 140
                 ),
                 child: Text(
-                  "BMW M3series",
+                  car,
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,

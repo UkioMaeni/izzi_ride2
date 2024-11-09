@@ -61,7 +61,7 @@ class _PaymentSceneState extends State<PaymentScene> {
                   UIButton(
                     label: "Done",
                     onTap: () {
-                      context.goNamed(RoutesName.createPreview);
+                      context.goNamed(RoutesName.createInstant);
                     },
                   ),
                   SizedBox(height: 44,),

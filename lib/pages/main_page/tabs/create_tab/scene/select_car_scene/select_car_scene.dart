@@ -6,6 +6,7 @@ import 'package:izzi_ride_2/UI/car_item_widget.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/additional_options_scene/additional_options_scene.dart';
@@ -18,6 +19,10 @@ class SelectCarScene extends StatefulWidget {
 }
 
 class _SelectCarSceneState extends State<SelectCarScene> {
+
+
+  int selectedCarIndex=0;
+  bool carFind=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +30,7 @@ class _SelectCarSceneState extends State<SelectCarScene> {
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -89,6 +95,17 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                               )
                             );
                           }
+                          if(carBlocState.requsted){
+                            return Expanded(
+                              child: Center(
+                                child: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CircularProgressIndicator()
+                                ),
+                              )
+                            );
+                          }
                           if(carBlocState.cars!=null && carBlocState.cars!.isEmpty){
                             return Expanded(
                               child: Column(
@@ -104,26 +121,42 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                               )
                             );
                           }
+                          
                           return Expanded(
-                            child: ListView.builder(
-                              itemCount: 2,
-                              itemBuilder: (context, index) {
-                               return Padding(
-                                 padding: const EdgeInsets.only(bottom: 8),
-                                 child: CarItemWidgetUI(carItem: CarItem(brand: "",color: "",model: "",imageUel: ""),), 
-                               );
-                              },
-                            )
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: carBlocState.cars!.length,
+                                    itemBuilder: (context, index) {
+                                     return Padding(
+                                       padding: const EdgeInsets.only(bottom: 8),
+                                       child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedCarIndex=index;
+                                          });
+                                        },
+                                        child: CarItemWidgetUI(carItem: carBlocState.cars![index],isSelected: selectedCarIndex==index,)
+                                      ), 
+                                     );
+                                    },
+                                  )
+                                ),
+                                UIButton(
+                                  label: "Next",
+                                  onTap: () {
+                                    context.read<CreateRideBloc>().add(CreateRideSetCar(carItem: carBlocState.cars![selectedCarIndex]));
+                                    context.goNamed(RoutesName.createAdditional);
+                                    //Navigator.push(context, MaterialPageRoute(builder: (context) => AdditionalOptionsScene(),));
+                                  },
+                                ),
+                              ],
+                            ),
                           );
                         }
                       ),
-                      UIButton(
-                        label: "Next",
-                        onTap: () {
-                          context.goNamed(RoutesName.createAdditional);
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => AdditionalOptionsScene(),));
-                        },
-                      ),
+                      
                       SizedBox(height: 44,)
                     ],
                   ),
@@ -135,4 +168,6 @@ class _SelectCarSceneState extends State<SelectCarScene> {
       ),
     );
   }
+
+
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:izzi_ride_2/UI/trip_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izzi_ride_2/UI/trip_card/trip_card.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
 import 'package:izzi_ride_2/core/models/trip.dart';
 
 class MyTripsTab extends StatefulWidget {
@@ -35,7 +37,30 @@ class _MyTripsTabState extends State<MyTripsTab> {
                       ),
                     ),
                     SizedBox(height: 102,),
-                    TripCard.view(trip: Trip(),),
+                    Builder(
+                      builder: (context) {
+                        final ridesBlock=context.watch<RidesBloc>();
+                        final ridesBlockState=ridesBlock.state;
+                        if(ridesBlockState.rides==null){
+                          ridesBlock.add(RidesGetUserRides());
+                          return TripCard.shimmer(); 
+                        }
+                        if(ridesBlockState.requsted){
+                          return TripCard.shimmer(); 
+                        }
+                        return Expanded(
+                          child: ListView.builder(
+                            itemCount: ridesBlockState.rides!.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: TripCard.view(trip:ridesBlockState.rides![index]),
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    ),
                     
             ],
           ),

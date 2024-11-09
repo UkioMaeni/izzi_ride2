@@ -226,7 +226,7 @@ class TripCard extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Text(
-          trip.driverNickname[0],
+          trip.driverNickname.isEmpty?"":trip.driverNickname[0],
           textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: "SF",

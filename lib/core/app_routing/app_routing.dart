@@ -154,7 +154,6 @@ class AppRoiting{
                                                           GoRoute(
                                                             path: "/create_done",
                                                             name: RoutesName.createDone,
-                                                            onExit: (context, state) => false,
                                                             builder: (context, state)=>CreateDone(),
                                                             routes: [
                                                               

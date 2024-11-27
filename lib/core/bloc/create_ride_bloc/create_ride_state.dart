@@ -15,6 +15,7 @@ class CreateRideFullState {
   TimeOfDay time;
   Additional additional=Additional();
   String comment="";
+  int paymaentMetodId;
   int price;
   bool autoInstant;
   CreateRideFullState({
@@ -26,6 +27,7 @@ class CreateRideFullState {
     required this.fromLocation,
     required this.toLocation,
     required this.car,
+    required this.paymaentMetodId,
     required this.price,
     required this.autoInstant
   });
@@ -41,6 +43,7 @@ class CreateRideFullState {
       toLocation: Location.empty(), 
       car: CarItem(carId: 0, brand: "", model: "", color: "", seats: 0, year: ""),
       price: 5,
+      paymaentMetodId: 1,
       autoInstant: false
     );
   }
@@ -57,6 +60,7 @@ class CreateRideFullState {
       Additional? additional,
       String? comment,
       int? price,
+      int? paymaentMetodId,
       bool? autoInstant,
     }){
     return CreateRideFullState(
@@ -69,6 +73,7 @@ class CreateRideFullState {
       toLocation: toLocation??this.toLocation,
       car: car??this.car,
       price: price??this.price,
+      paymaentMetodId: paymaentMetodId??this.paymaentMetodId,
       autoInstant: autoInstant??this.autoInstant,
     )
     ..additional=additional??this.additional

@@ -52,6 +52,10 @@ class CreateRideEditPrice extends CreateRideEvent{
   final int price;
   const CreateRideEditPrice({required this.price});
 }
+class CreateRideEditPaymentMethod extends CreateRideEvent{
+  final int paymaentMetodId;
+  const CreateRideEditPaymentMethod({required this.paymaentMetodId});
+}
 class CreateRideEditDate extends CreateRideEvent{
   final DateTime date;
   const CreateRideEditDate({required this.date});

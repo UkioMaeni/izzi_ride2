@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/payment_scene/components/payment_item.dart';
 
@@ -14,6 +16,12 @@ class PaymentScene extends StatefulWidget {
 }
 
 class _PaymentSceneState extends State<PaymentScene> {
+
+
+  CreateRideBloc get createRideBloc => context.read<CreateRideBloc>();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +61,9 @@ class _PaymentSceneState extends State<PaymentScene> {
                   ),
                   SizedBox(height: 32,),
                   PaymentItem(
+                    paymentId: 1,
                     title: "Cash",
-                    isSelected: true,
+                    isSelected: createRideBloc.state.paymaentMetodId==1,
                     onChangeSelected: (_){}
                   ),
                   Expanded(child: SizedBox.shrink()),

@@ -3,10 +3,11 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 class PaymentItem extends StatelessWidget {
+  final int paymentId;
   final String title;
   final bool isSelected;
   final Function(bool selected) onChangeSelected;
-  const PaymentItem({super.key,required this.title,required this.isSelected,required this.onChangeSelected});
+  const PaymentItem({super.key,required this.paymentId, required this.title,required this.isSelected,required this.onChangeSelected});
 
   @override
   Widget build(BuildContext context) {

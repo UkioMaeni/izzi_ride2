@@ -44,7 +44,10 @@ class Token implements TokenInterface{
     if(token==null) return CustomResponse<String>(data: "no_token");
     final result= await TokenHttp().refreshToken(token);
     if(result is CustomResponse<bool> && result.data==true){
-      return CustomResponse<String>(data: "no");
+      return CustomResponse<String>(data: "new");
+    }
+    if(result is CustomResponse<bool> && result.data==false){
+      return CustomResponse<String>(data: "not_new");
     }
     return CustomResponse<String>(data: "error");
   }

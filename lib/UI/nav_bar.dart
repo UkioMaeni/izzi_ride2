@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({super.key});
+  final Function()? onBack;
+  const NavBar({super.key,this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,11 @@ class NavBar extends StatelessWidget {
         SizedBox(height: 8,),
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              if(onBack!=null){
+                onBack!();
+              }else{
+                Navigator.pop(context);
+              }
             },
             child: Container(
               color: Colors.white,

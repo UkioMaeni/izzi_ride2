@@ -69,6 +69,9 @@ double _progressValue=0.0;
      final tokenService= GetIt.I.get<TokenInterface>();
     final resultREfreshing = await tokenService.refreshingToken();
     String result=resultREfreshing.data;
+    if(result=="new"){
+      return context.goNamed(RoutesName.initialUserData);
+    }
     inspect(result);
     if(result=="version_conflict"){
       setState(() {

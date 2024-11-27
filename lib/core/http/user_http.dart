@@ -14,6 +14,9 @@ import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/models/search_car_brand_and_model.dart';
+import 'package:izzi_ride_2/core/models/social.dart';
+import 'package:izzi_ride_2/core/models/travaler_model.dart';
+import 'package:izzi_ride_2/core/models/user_model.dart';
 class UserHttp{
   Dio dio = GetIt.I.get<Dio>(); 
   static UserHttp Instance = UserHttp();
@@ -25,6 +28,65 @@ class UserHttp{
       return true;
     } catch (e) {
       return false;
+    }
+  }
+  Future<CustomResponse> getMeInfo()async{
+    try {
+      print("start");
+      final result= await dio.get(
+        AppConfig.requestUrl+"/client/info",
+      );
+      final data = result.data["data"];
+      if(data==null){
+        return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+      }
+
+      print(data);
+      final userData= UserModel(
+        clienId: data["client_id"]??0, 
+        dateOfBirth:parseDate(data["date_of_birth"]),
+        gender: data["gender"]??"male", 
+        name: data["name"]??"NoName", 
+        nickname: data["nickname"]??"NoName", 
+        photo: data["photo"]??"", 
+        surname: data["surname"]??"NoSurname",
+        rate: (data["rate"]??0)+0.0,
+        emailConfirmed: data["email_confirmed"],
+        firstRegisterDate: parseDate(data["first_register_date"]),
+        phoneConfirmed: data["phone_confirmed"],
+        socialPlatforms: ((data["social_platforms"]??[]) as List<dynamic>).map((elem)=>Social(id: elem["id"],platformId: elem["platform_id"],link: elem["profile_link"])).toList()
+      );
+      
+      return CustomResponse<UserModel>(data: userData);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+  DateTime? parseDate(String str){
+    try {
+      return DateTime.parse(str);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<CustomResponse> setInitUserData(String name,String surname)async{
+    try {
+      final result= await dio.post(
+        AppConfig.requestUrl+"/client/info",
+        data: {
+          "name":name,
+          "surname":surname
+        }
+      );
+      print(result.data);
+      return CustomResponse<bool>(data: true);
+      
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
     }
   }
 
@@ -196,6 +258,7 @@ class UserHttp{
       if(data==null || data is! List){
         return CustomResponse<List<CarItem>>(data: []);
       }
+      print(data);
       List<dynamic> responsedList = data;
       List<RideModel> rides = responsedList.map(
         (element)=>RideModel(
@@ -217,12 +280,15 @@ class UserHttp{
               ..animals=element["preference"]["animals"]
               ..luggage=element["preference"]["luggage"], 
           locations: [],
+          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],avatarUrl: el["avatar_url"],hasOrderRate: el["has_order_rate"],nickname: el["nickname"],rate: (el["rate"]??0)+.0)).toList(),
           comment: "",
-          numberOfSeats: 0
+          numberOfSeats: 0,
+          autoInstant: false,
+          paymaentMetodId: 1
         )
       ).toList();
       
-      print(data);
+      
       
       return CustomResponse<List<RideModel>>(data: rides);
     } catch (e) {

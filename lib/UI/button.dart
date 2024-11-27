@@ -60,7 +60,9 @@ class _UIButtonState extends State<UIButton> {
           setState(() {
             load=true;
           });
+          print("start future");
           await widget.onFuture!();
+          print("end future");
           setState(() {
             load=false;
           });

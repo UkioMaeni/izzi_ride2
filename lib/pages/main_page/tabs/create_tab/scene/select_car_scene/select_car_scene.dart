@@ -81,7 +81,17 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                         builder: (context) {
                           final carBloc=context.watch<CarBloc>();
                           final carBlocState = carBloc.state;
-                          
+                          if(carBlocState.requsted){
+                            return Expanded(
+                              child: Center(
+                                child: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CircularProgressIndicator()
+                                ),
+                              )
+                            );
+                          }
                           if(carBlocState.cars == null){
                             print('find');
                             carBloc.add(CarGetInUser());
@@ -95,17 +105,7 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                               )
                             );
                           }
-                          if(carBlocState.requsted){
-                            return Expanded(
-                              child: Center(
-                                child: SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: CircularProgressIndicator()
-                                ),
-                              )
-                            );
-                          }
+                          
                           if(carBlocState.cars!=null && carBlocState.cars!.isEmpty){
                             return Expanded(
                               child: Column(

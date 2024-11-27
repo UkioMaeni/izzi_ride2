@@ -35,6 +35,8 @@ class _PreviewCreateState extends State<PreviewCreate> {
       numberOfSeats: createRideBlocState.car.seats,
       additional: createRideBlocState.additional,
       locations: [createRideBlocState.fromLocation,createRideBlocState.toLocation],
+      autoInstant: createRideBlocState.autoInstant,
+      paymaentMetodId: createRideBlocState.paymaentMetodId,
       driverNickname: "",
       driverRate: 0,
       freeSeats: 0,
@@ -43,7 +45,8 @@ class _PreviewCreateState extends State<PreviewCreate> {
       totalSeats: 0,
       date: DateTime.now(),
       endLocationName: "",
-      startLocationName: ""
+      startLocationName: "",
+      travalers: []
     );
     final result = await UserHttp.I.createUserRide(ride);
     if(result is CustomResponse<bool>){

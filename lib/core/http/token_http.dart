@@ -27,6 +27,7 @@ class TokenHttp{
       String? accessToken = data["access_token"];
       String? refreshToken = data["refresh_token"];
       bool? isClientNew = data["is_client_new"];
+      
       if(accessToken==null || refreshToken==null || isClientNew==null){
         return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
       }
@@ -34,7 +35,7 @@ class TokenHttp{
       tokenRepo.accessToken = accessToken;
       await tokenRepo.setRefreshToken(refreshToken);
       print(data);
-      return CustomResponse<bool>(data: true);
+      return CustomResponse<bool>(data: isClientNew);
     } catch (e) {
       print(e);
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());

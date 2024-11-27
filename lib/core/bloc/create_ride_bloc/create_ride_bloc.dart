@@ -41,6 +41,10 @@ class CreateRideBloc extends Bloc<CreateRideEvent,CreateRideFullState>{
     on<CreateRideEditPrice>((event, emit)async{
       emit(state.copyWith(price: event.price));
     });
+    on<CreateRideEditPaymentMethod>((event, emit)async{
+      emit(state.copyWith(paymaentMetodId: event.paymaentMetodId));
+    });
+    
     on<CreateRideEditDate>((event, emit)async{
       emit(state.copyWith(date: event.date));
     });

@@ -61,7 +61,7 @@ class TripCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        avatar(),
+                        avatar("",trip.driverNickname),
                         SizedBox(width: 12,),
                         driver(),
                       ],
@@ -103,7 +103,7 @@ class TripCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        avatar(),
+                        avatar("","MM"),
                         SizedBox(width: 12,),
                         driver(),
                       ],
@@ -122,21 +122,14 @@ class TripCard extends StatelessWidget {
   Widget passangersAvatar(){
     return SizedBox(
       height: 44,
-      width: 44+2*22,
+      width: 44+trip.travalers.length*22,
       child: Stack(
         children: [
+          for(int i=0;i<trip.travalers.length;i++)
           Positioned(
-            right: 44,
-            child: avatar()
+            right: trip.travalers.length-i*22,
+            child: avatar(trip.travalers[i].avatarUrl,trip.travalers[i].nickname)
           ),
-          Positioned(
-            right: 22,
-            child: avatar()
-          ),
-          Positioned(
-            right: 0,
-            child: avatar()
-          )
         ],
       ),
     );
@@ -214,27 +207,39 @@ class TripCard extends StatelessWidget {
     );
   }
 
-  Widget avatar(){
+  Widget avatar(String avatarUrl,String nickname){
       return Container(
-        width: 44,
-        height: 44,
-        decoration: BoxDecoration(
-          
-          border: Border.all(color: Colors.white),
-          color: ColorGenerator.fromString("Mike D"),
-          borderRadius: BorderRadius.circular(22)
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          trip.driverNickname.isEmpty?"":trip.driverNickname[0],
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            fontFamily: "SF",
-            fontSize: 20,
-            color:Colors.white,
-            fontWeight: FontWeight.w400
+          alignment: Alignment.center,
+          height: 44,
+          width: 44,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(22),
+            child: Image.network(
+              avatarUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: ColorGenerator.fromString("Mike D"),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    trip.driverNickname.isEmpty?"N":trip.driverNickname[0],
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontFamily: "SF",
+                      fontSize: 20,
+                      color:Colors.white,
+                      fontWeight: FontWeight.w400
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
+        
       );
     
   }

@@ -7,7 +7,7 @@ class UserInformation extends StatelessWidget {
   final String fullName;
   final bool isVerify;
   final double rate;
-  final String? photoUri;
+  final String photoUri;
   const UserInformation({super.key,required this.fullName,required this.isVerify,required this.rate,required this.photoUri});
 
   @override
@@ -16,20 +16,26 @@ class UserInformation extends StatelessWidget {
       height: 102,
       child: Row(
         children: [
-          Builder(
-            builder: (context) {
-              if(photoUri==null){
-                return GestureDetector(
-                  onTap:()=> Navigator.push(context,MaterialPageRoute(builder: (context) => PhotoScenePage(photoSceneType: PhotoSceneType.user,))),
-                  child: SvgPicture.asset("assets/svg/profile/user_not_photo.svg")
-                );
-              }
-              return SizedBox.shrink();
-            },
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50.5),
+            child: SizedBox(
+              width: 101,
+              height: 101,
+              child: Image.network(
+                photoUri,
+                errorBuilder: (context, error, stackTrace) {
+                  return GestureDetector(
+                      onTap:()=> Navigator.push(context,MaterialPageRoute(builder: (context) => PhotoScenePage(photoSceneType: PhotoSceneType.user,))),
+                      child: SvgPicture.asset("assets/svg/profile/user_not_photo.svg")
+                    );
+                },
+              ),
+            ),
           ),
           SizedBox(width: 16,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 fullName,

@@ -12,11 +12,6 @@ import 'package:izzi_ride_2/core/models/ride_model.dart';
 part 'rides_state.dart';
 part 'rides_event.dart';
 
-enum SceneType{
-  from,
-  to
-}
-
 class RidesBloc extends Bloc<RidesEvent,RidesFullState>{
   RidesBloc():super(RidesFullState.empty()){
     on<RidesGetUserRides>((event, emit)async{

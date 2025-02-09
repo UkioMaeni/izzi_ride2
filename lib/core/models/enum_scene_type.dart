@@ -1,0 +1,4 @@
+enum SceneType{
+  from,
+  to
+}

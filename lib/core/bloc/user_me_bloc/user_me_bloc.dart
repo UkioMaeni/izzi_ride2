@@ -12,10 +12,6 @@ import 'package:izzi_ride_2/core/models/user_model.dart';
 part 'user_me_state.dart';
 part 'user_me_event.dart';
 
-enum SceneType{
-  from,
-  to
-}
 
 class UserMeBloc extends Bloc<UserMeEvent,UserMeState>{
   UserMeBloc():super(UserMeState.empty()){

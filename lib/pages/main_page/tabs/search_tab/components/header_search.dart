@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:izzi_ride_2/UI/animated_button.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
-import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenaries_page/from_search_scene.dart';
 import 'package:pretty_animated_buttons/configs/pkg_sizes.dart';
 import 'package:pretty_animated_buttons/pretty_animated_buttons.dart';
 
@@ -32,7 +31,7 @@ class HeaderSearch extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               title: "Book now",
               onTap: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => FromSearchScene(),));
+                 //Navigator.push(context, MaterialPageRoute(builder: (context) => FromSearchScene(),));
               },
             )
             

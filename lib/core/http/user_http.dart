@@ -74,6 +74,7 @@ class UserHttp{
 
   Future<CustomResponse> setInitUserData(String name,String surname)async{
     try {
+      print("initialData");
       final result= await dio.post(
         AppConfig.requestUrl+"/client/info",
         data: {

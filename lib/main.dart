@@ -7,6 +7,7 @@ import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/localization_bloc/localization_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/registration_bloc/registration_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/search_ride_bloc/search_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/core/factories/di_container.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
@@ -26,6 +27,7 @@ void main() {
           BlocProvider(create: (context) => CreateCarBloc(),),
           BlocProvider(create: (context) => RidesBloc(),),
           BlocProvider(create: (context) => UserMeBloc(),),
+          BlocProvider(create: (context) => SearchRideBloc(),),
         ],
       child: const MyApp()
     )

@@ -3,16 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
+import 'package:izzi_ride_2/core/models/enum_scene_type.dart';
 import 'package:izzi_ride_2/core/models/location.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 
 part 'create_ride_state.dart';
 part 'create_ride_event.dart';
 
-enum SceneType{
-  from,
-  to
-}
+
 
 class CreateRideBloc extends Bloc<CreateRideEvent,CreateRideFullState>{
   CreateRideBloc():super(CreateRideFullState.empty()){

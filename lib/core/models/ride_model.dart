@@ -1,6 +1,7 @@
 import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/location.dart';
 import 'package:izzi_ride_2/core/models/travaler_model.dart';
+import 'package:izzi_ride_2/extensions/date_time_extension.dart';
 
 class RideModel{
   int orderId;
@@ -70,6 +71,7 @@ class RideModel{
       "payment_method_id":paymaentMetodId,
       "auto_accept":autoInstant,
       "payment_info":{"type":1 },
+      "date":date.toIZZIRIDEFORMAT(),
       "locations":locations.map((loc) =>loc.toJson()).toList()
     };
   }

@@ -11,10 +11,6 @@ import 'package:izzi_ride_2/core/models/response.dart';
 part 'car_state.dart';
 part 'car_event.dart';
 
-enum SceneType{
-  from,
-  to
-}
 
 class CarBloc extends Bloc<CarEvent,CarFullState>{
   CarBloc():super(CarFullState.empty()){

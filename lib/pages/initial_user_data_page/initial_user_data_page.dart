@@ -75,6 +75,7 @@ class _InitialUserDataPageState extends State<InitialUserDataPage> {
     if(!isValidData()) return;
     final result= await UserHttp.I.setInitUserData(_nameController.text, _surnameController.text);
     if(result is CustomResponse<bool>){
+      print("true");
       goToMainMenu();
     }else{
 
@@ -82,7 +83,8 @@ class _InitialUserDataPageState extends State<InitialUserDataPage> {
   }
 
   goToMainMenu(){
-    context.goNamed(RoutesName.main);
+    print("truesad");
+    context.replaceNamed(RoutesName.main);
   }
 
   @override

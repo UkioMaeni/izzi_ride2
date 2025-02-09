@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class BrandColor{
   static Color blue = Color.fromRGBO(14, 160, 206, 1);
+  static Color notActiveBlue = Color.fromRGBO(185, 208, 215, 1);
   static Color lightBlue = Color.fromRGBO(212, 238, 246, 1);
   static Color green = Color.fromRGBO(0, 168, 119, 1);
+  static Color lightGreen = Color.fromRGBO(212, 246, 219, 1);
   static Color grey = Color.fromRGBO(227, 227, 227, 1);
   static Color grey235 = Color.fromRGBO(235, 235, 235, 1);
   static Color grey167 = Color.fromRGBO(167, 167, 167, 1);

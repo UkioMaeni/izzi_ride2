@@ -52,6 +52,7 @@ class RefreshTokenInterceptor extends Interceptor {
       // Adding errored request to the queue
       failedRequests.add({'err': err, 'handler': handler});
     }
+    return handler.next(err);
   }
   releaseFailedRequests(){
     for (var element in failedRequests) {

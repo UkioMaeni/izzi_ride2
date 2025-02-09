@@ -27,6 +27,14 @@ import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/select_car_sce
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/time_scene/time_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/to_input_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/to_map_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/calendare_scene/calendare_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/person_counter_scene/person_counter_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_from_input/search_from_input.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_from_map/search_from_map.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_result_scene/search_result_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_to_input/search_to_input.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_to_map/search_to_map.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/time_scene/time_scene.dart';
 
 class AppRoiting{
 
@@ -184,6 +192,69 @@ class AppRoiting{
               ),
             ]
           ),
+          //Поиск флоу From
+          GoRoute(
+            path: "/search_from_input",
+            name: RoutesName.searchFromInput,
+            builder: (context, state)=>SearchFromInput(),
+            routes: [
+              GoRoute(
+                path: "/search_from_map",
+                name: RoutesName.searchFromMap,
+                builder: (context, state)=>SearchFromMap(),
+                routes: [
+                  
+                ]
+              ),
+            ]
+          ),
+          //Поиск флоу To
+          GoRoute(
+            path: "/search_to_input",
+            name: RoutesName.searchToInput,
+            builder: (context, state)=>SearchToInput(),
+            routes: [
+              GoRoute(
+                path: "/search_to_map",
+                name: RoutesName.searchToMap,
+                builder: (context, state)=>SearchToMap(),
+                routes: [
+                  
+                ]
+              ),
+            ]
+          ),
+          //Поиск флоу дата и время
+          GoRoute(
+            path: "/search_calendare",
+            name: RoutesName.searchCalendare,
+            builder: (context, state)=>SearchCalendareScene(),
+            routes: [
+              GoRoute(
+                path: "/search_time",
+                name: RoutesName.searchTime,
+                builder: (context, state)=>SearchTimeScene(),
+                routes: [
+                  
+                ]
+              ),
+            ]
+          ),
+          //Поиск колличества пассажиров
+          GoRoute(
+            path: "/search_counter",
+            name: RoutesName.searchCounter,
+            builder: (context, state)=>PersonCounterScene(),
+            routes: []
+          ),
+          //Основной поиск результатов
+          GoRoute(
+            path: "/search_result",
+            name: RoutesName.searchResult,
+            builder: (context, state)=>SearchResultScene(),
+            routes: []
+          ),
+          //Флоу создания машины
           GoRoute(
             path: "/create_car_brand",
             name: RoutesName.createCarBrand,
@@ -278,6 +349,15 @@ class AppRoiting{
   static String createInstant="createInstant";
   static String createPreview="createPreview";
   static String createDone="createDone";
+  //поиск поездки
+  static String searchFromInput="searchFromInput";
+  static String searchFromMap="searchFromMap";
+  static String searchToInput="searchToInput";
+  static String searchToMap="searchToMap";
+  static String searchCalendare="searchCalendare";
+  static String searchTime="searchTime";
+  static String searchCounter="searchCounter";
+  static String searchResult="searchResult";
   //создание машины
   static String createCarBrand="createCarBrand";
   static String createCarModel="createCarModel";

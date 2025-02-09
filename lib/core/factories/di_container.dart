@@ -13,5 +13,4 @@ void setupGetIt(){
   GetIt.I.registerSingleton<Dio>(dio);
   GetIt.I.registerSingletonAsync<SharedPreferences>(() => SharedPreferences.getInstance());
   GetIt.I.registerSingletonWithDependencies<TokenInterface>(() => Token(),dependsOn: [SharedPreferences]);
-  
 }

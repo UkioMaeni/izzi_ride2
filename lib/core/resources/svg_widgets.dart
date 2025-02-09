@@ -15,5 +15,6 @@ class SVG_R {
   Widget get DottedLine =>  SvgPicture.asset("assets/svg/interactive/dotted_line.svg");
   Widget get SelectedCarIcon =>  SvgPicture.asset("assets/svg/create_ride/selected.svg");
   Widget get DoneCreateRideIcon =>  SvgPicture.asset("assets/svg/create_ride/done_create.svg");
+  Widget get SearchLocation =>  SvgPicture.asset("assets/svg/search/location.svg");
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
+import 'package:izzi_ride_2/core/models/enum_scene_type.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 

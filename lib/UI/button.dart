@@ -10,6 +10,7 @@ class UIButton extends StatefulWidget {
   final EdgeInsets? margin;
   final Function()? onTap;
   final bool? enabled;
+  final Color? backgroundColor;
   final Future<void> Function()? onFuture;
   const UIButton({
     super.key,
@@ -21,7 +22,8 @@ class UIButton extends StatefulWidget {
     this.margin,
     this.onTap,
     this.onFuture,
-    this.enabled
+    this.enabled,
+    this.backgroundColor
   });
 
   @override
@@ -46,6 +48,9 @@ class _UIButtonState extends State<UIButton> {
     if(widget.alternate!=null&&widget.alternate!){
       bgColor=Colors.white;
       textColor=BrandColor.black;
+    }
+    if(widget.backgroundColor!=null){
+      bgColor=widget.backgroundColor!;
     }
     final onTap=widget.onTap??(){};
     return GestureDetector(

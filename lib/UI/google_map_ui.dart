@@ -27,7 +27,13 @@ class _GoogleMapUiState extends State<GoogleMapUi> {
   late double currentLon = 0;
   late double currentLat = 0;
   @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
+  @override
   void initState() {
+    print(widget.mapParams.lat);
     currentLon=widget.mapParams.lon;
     currentLat=widget.mapParams.lat;
    initial= CameraPosition(
@@ -38,7 +44,7 @@ class _GoogleMapUiState extends State<GoogleMapUi> {
     );
     super.initState();
   }
-
+  
   String markerId="";
   updateMapVisualWithNewGeo(LatLng argument)async{
     widget.onCameraIdle(currentLat,currentLon);
@@ -65,6 +71,7 @@ class _GoogleMapUiState extends State<GoogleMapUi> {
 
   @override
   Widget build(BuildContext context) {
+    
     return GoogleMap(
           buildingsEnabled: true,
           compassEnabled: false,
@@ -87,6 +94,7 @@ class _GoogleMapUiState extends State<GoogleMapUi> {
           mapType: MapType.normal,
           
           onMapCreated: (controller) async {
+            print('COMPLETED');
             _completer.complete(controller);
             _mapController=await _completer.future;
             
@@ -97,6 +105,7 @@ class _GoogleMapUiState extends State<GoogleMapUi> {
             
           },
           onTap: updateMapVisualWithNewGeo,
+
           onCameraIdle: () async {
           },
 

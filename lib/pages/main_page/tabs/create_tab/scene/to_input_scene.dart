@@ -9,6 +9,7 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
+import 'package:izzi_ride_2/core/models/enum_scene_type.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 import 'package:izzi_ride_2/core/resources/image_widgets.dart';

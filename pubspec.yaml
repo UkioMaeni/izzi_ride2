@@ -86,8 +86,10 @@ flutter:
     - assets/svg/UI/
     - assets/svg/interactive/
     - assets/svg/create_ride/
+    - assets/svg/search/
     - assets/image/loader/
     - assets/image/icons/
+    - assets/image/search/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

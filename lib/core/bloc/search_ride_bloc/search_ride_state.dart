@@ -41,7 +41,7 @@ class SearchRideState {
 
   static  SearchRideState empty(){
     return SearchRideState(
-      rideType: EnumRideType.ride,
+      rideType: EnumRideType.client,
       fromMapParams: MapParams.empty(),
       toMapParams: MapParams.empty(),
       date: DateTime.now(),
@@ -49,7 +49,7 @@ class SearchRideState {
       code: "",
       fromLocation: Location.empty(),
       toLocation: Location.empty(), 
-      car: CarItem(carId: 0, brand: "", model: "", color: "", seats: 0, year: ""),
+      car: CarItem(carId: 0, brand: "", model: "", color: "", seats: 0, year: "",number: ""),
       price: 5,
       paymaentMetodId: 1,
       autoInstant: false,

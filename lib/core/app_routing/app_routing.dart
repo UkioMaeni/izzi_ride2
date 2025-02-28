@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/autorize_phone_page.dart';
+import 'package:izzi_ride_2/pages/chat_page/chat_page.dart';
 import 'package:izzi_ride_2/pages/code_phone_page/code_phone_page.dart';
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_brand/create_car_brand.dart';
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_color/create_car_color.dart';
@@ -11,6 +13,7 @@ import 'package:izzi_ride_2/pages/create_car_scenes/create_car_number/create_car
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_photo/create_car_photo.dart';
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_seats/create_car_seats.dart';
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_year/create_car_year.dart';
+import 'package:izzi_ride_2/pages/full_order_info/full_order_info.dart';
 import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
@@ -45,11 +48,29 @@ class AppRoiting{
       return SizedBox.shrink();
     },
     routes: [
+      
       GoRoute(
         path: "/loader",
         name: RoutesName.loader,
         
         builder: (context, state)=>LoaderPage(),
+        //onExit: (_,__)=>false
+      ),
+      
+      //страница чата
+      GoRoute(
+        path: "/chat",
+        name: RoutesName.chat,
+        
+        builder: (context, state)=>ChatPage(),
+        //onExit: (_,__)=>false
+      ),
+      //страница просмотра полной информации ордера и манипуляцией с ним
+      GoRoute(
+        path: "/oder_full_info",
+        name: RoutesName.orderFullInfo,
+        
+        builder: (context, state)=>FullOrderInfo(orderId: state.extra as int,),
         //onExit: (_,__)=>false
       ),
       GoRoute(
@@ -367,5 +388,10 @@ class AppRoiting{
   static String createCarYear="createCarYear";
   static String createCarPhoto="createCarPhoto";
   static String createCarDetails="createCarDetails";
+  //полная информация ордера
+  static String orderFullInfo="orderFullInfo";
+  //чат
+  static String chat="chat";
+  
 
 }

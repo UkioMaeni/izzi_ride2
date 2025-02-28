@@ -6,6 +6,7 @@ import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/calendare_scene/components/calendare_view.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/time_scene/time_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/calendare_scene/components/calendare_view.dart';
 
 class SearchCalendareScene extends StatefulWidget {
   const SearchCalendareScene({super.key});
@@ -54,7 +55,7 @@ class _SearchCalendareSceneState extends State<SearchCalendareScene> {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  CalendareView(),
+                  SearchRideCalendareView(),
                   Expanded(child: SizedBox.shrink()),
                   UIButton(
                     label: "Next",

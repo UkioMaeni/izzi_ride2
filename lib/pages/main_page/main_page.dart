@@ -5,6 +5,7 @@ import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/pages/main_page/components/tab_navigator.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/create_tab.dart';
+import 'package:izzi_ride_2/pages/main_page/tabs/messages_tab/Messages_tab.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/my_trips_tab/my_trips_tab.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/profile_tab/profile_tab.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/search_tab.dart';
@@ -26,7 +27,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
     SearchTab(),
     MyTripsTab(),
     CreateTab(),
-    SizedBox(),
+    MessagesTab(),
     ProfileTab()
   ];
 

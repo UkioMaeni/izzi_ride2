@@ -54,7 +54,7 @@ class _CalendareSceneState extends State<CalendareScene> {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  CalendareView(),
+                  CreateRideCalendareView(),
                   Expanded(child: SizedBox.shrink()),
                   UIButton(
                     label: "Next",

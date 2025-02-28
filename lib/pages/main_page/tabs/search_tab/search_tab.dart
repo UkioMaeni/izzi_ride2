@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,11 +52,11 @@ class _SearchTabState extends State<SearchTab> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                searchBloc.add(SearchRideEditSearchType(type: EnumRideType.ride));
+                                searchBloc.add(SearchRideEditSearchType(type: EnumRideType.client));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:type==EnumRideType.ride? BrandColor.blue:BrandColor.grey244,
+                                  color:type==EnumRideType.client? BrandColor.blue:BrandColor.grey244,
                                   borderRadius: BorderRadius.circular(55)
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -65,7 +67,7 @@ class _SearchTabState extends State<SearchTab> {
                                   style: TextStyle(
                                     fontFamily: BrandFontFamily.platform,
                                     fontSize: 18,
-                                    color:type==EnumRideType.ride? Colors.white:BrandColor.grey167,
+                                    color:type==EnumRideType.client? Colors.white:BrandColor.grey167,
                                     fontWeight: FontWeight.w500
                                   ),
                                 ),
@@ -73,11 +75,11 @@ class _SearchTabState extends State<SearchTab> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                searchBloc.add(SearchRideEditSearchType(type: EnumRideType.offerRide));
+                                searchBloc.add(SearchRideEditSearchType(type: EnumRideType.driver));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:type==EnumRideType.offerRide? BrandColor.blue:BrandColor.grey244,
+                                  color:type==EnumRideType.driver? BrandColor.blue:BrandColor.grey244,
                                   borderRadius: BorderRadius.circular(55)
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -88,7 +90,7 @@ class _SearchTabState extends State<SearchTab> {
                                   style: TextStyle(
                                     fontFamily: BrandFontFamily.platform,
                                     fontSize: 18,
-                                    color:type==EnumRideType.offerRide? Colors.white:BrandColor.grey167,
+                                    color:type==EnumRideType.driver? Colors.white:BrandColor.grey167,
                                     fontWeight: FontWeight.w500
                                   ),
                                 ),
@@ -272,7 +274,8 @@ class _SearchTabState extends State<SearchTab> {
                                               state.time.hour,
                                               state.time.minute,
                                             );
-                                            String formattedDate=DateFormat("ddMMM, hh:mm","en_US").format(fullDate);
+                                            log(fullDate.toString());
+                                            String formattedDate=DateFormat("ddMMM, hh:mm a","en_US").format(fullDate);
                                             return Text(
                                               formattedDate,
                                               style: TextStyle(

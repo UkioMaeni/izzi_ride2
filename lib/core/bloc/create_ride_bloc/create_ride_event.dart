@@ -68,6 +68,10 @@ class CreateRideSetAutoInstant extends CreateRideEvent{
   final bool autoInstant;
   const CreateRideSetAutoInstant({required this.autoInstant});
 }
+class CreateRideEditRideType extends CreateRideEvent{
+  final EnumRideType rideType;
+  const CreateRideEditRideType({required this.rideType});
+}
 // class LocalizationSetLocaleEvent extends RegistrationEvent{
 //   final LocalizationInterface localeState;
 //   final Locale locale;

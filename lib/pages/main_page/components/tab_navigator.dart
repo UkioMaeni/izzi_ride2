@@ -70,7 +70,7 @@ class _TabNavigatorState extends State<TabNavigator> {
              setState(() {});
             },
             iconPath: "assets/svg/tab/profile_tab.svg",
-            label: "Profile",
+            label: "Messages",
             currentPage: localPage,
             page: 3,
           ),

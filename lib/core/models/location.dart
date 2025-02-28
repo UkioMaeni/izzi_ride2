@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:izzi_ride_2/extensions/date_time_extension.dart';
 
 class Location{
   String city;
@@ -56,7 +57,7 @@ class Location{
       "location":location,
       "longitude":longitude,
       "latitude":latitude,
-      "departure_time":dateConverter()
+      "departure_time":departureTime.toIZZIRIDEFORMAT()
     };
    }
    String dateConverter(){

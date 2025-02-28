@@ -78,7 +78,7 @@ class _SearchToMapState extends State<SearchToMap> {
             child: Stack(
               children: [
                 GoogleMapUi(
-                  mapParams: state.fromMapParams,
+                  mapParams: state.toMapParams,
                   onCameraIdle: (lat, lon) {
                     debounceTool.debounce(()=>getDescriptionFromGoogle(lat,lon));
                   },

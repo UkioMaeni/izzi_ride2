@@ -7,6 +7,10 @@ import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_booked_status.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_status.dart';
+import 'package:izzi_ride_2/core/models/enum_role.dart';
+import 'package:izzi_ride_2/core/models/location.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
@@ -28,25 +32,43 @@ class _PreviewCreateState extends State<PreviewCreate> {
 
     final createRideBlocState = context.read<CreateRideBloc>().state;
     final ridesBloc = context.read<RidesBloc>();
+    Location fromLocation= createRideBlocState.fromLocation;
+    Location toLocation= createRideBlocState.toLocation;
+    DateTime startDate =DateTime(
+      createRideBlocState.date.year,
+      createRideBlocState.date.month,
+      createRideBlocState.date.day,
+      createRideBlocState.time.hour,
+      createRideBlocState.time.minute,
+    );
+    
+    fromLocation.departureTime=startDate;
+    fromLocation.sortId=1;
+    toLocation.sortId=2;
     final ride=RideModel(
       clientAutoId: createRideBlocState.car.carId,
       comment: createRideBlocState.comment,
       price: createRideBlocState.price.toDouble(),
       numberOfSeats: createRideBlocState.car.seats,
       additional: createRideBlocState.additional,
-      locations: [createRideBlocState.fromLocation,createRideBlocState.toLocation],
+      locations: [fromLocation,createRideBlocState.toLocation],
       autoInstant: createRideBlocState.autoInstant,
       paymaentMetodId: createRideBlocState.paymaentMetodId,
+      rideType: createRideBlocState.rideType,
       driverNickname: "",
       driverRate: 0,
       freeSeats: 0,
       orderId: 0,
-      rideStatus: "",
+      rideStatus: EnumRideStatus.error,
+      rideBookedStatus: EnumRideBookedStatus.error,
+      role: Role.error,
       totalSeats: 0,
       date: DateTime.now(),
       endLocationName: "",
       startLocationName: "",
-      travalers: []
+      travalers: [],
+      creatorId: -1,
+      carName: ""
     );
     final result = await UserHttp.I.createUserRide(ride);
     if(result is CustomResponse<bool>){

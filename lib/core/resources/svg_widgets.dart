@@ -16,5 +16,7 @@ class SVG_R {
   Widget get SelectedCarIcon =>  SvgPicture.asset("assets/svg/create_ride/selected.svg");
   Widget get DoneCreateRideIcon =>  SvgPicture.asset("assets/svg/create_ride/done_create.svg");
   Widget get SearchLocation =>  SvgPicture.asset("assets/svg/search/location.svg");
+  Widget get MessageStatusRead =>  SvgPicture.asset("assets/svg/messages/mess_status_read.svg");
+  Widget get MessageStatusSend =>  SvgPicture.asset("assets/svg/messages/mess_status_send.svg");
 }
 

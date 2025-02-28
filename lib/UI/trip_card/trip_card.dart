@@ -194,7 +194,7 @@ class TripCard extends StatelessWidget {
           ],
         ),
         Text(
-          "BMW 3 Series",
+          trip.carName,
           textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: "SF",

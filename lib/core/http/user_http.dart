@@ -9,6 +9,10 @@ import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/city_model.dart';
 import 'package:izzi_ride_2/core/models/enum_authorization_type.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_booked_status.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_status.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_type.dart';
+import 'package:izzi_ride_2/core/models/enum_role.dart';
 import 'package:izzi_ride_2/core/models/geocoding.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
@@ -142,7 +146,8 @@ class UserHttp{
           model: element["model"], 
           color: element["color"]??"no",
           seats:element["number_of_seats"] ,
-          year: element["year"]
+          year: element["year"],
+          number: element["number"]??"_carnumber_"
         ) 
       ).toList();
       return CustomResponse<List<CarItem>>(data: cars);
@@ -263,12 +268,14 @@ class UserHttp{
       List<dynamic> responsedList = data;
       List<RideModel> rides = responsedList.map(
         (element)=>RideModel(
+          creatorId: -1,
           orderId: element["order_id"],
           clientAutoId: element["client_auto_id"], 
           driverRate: (element["driver_rate"]??0)+.0,
           driverNickname: element["nickname"],
           date: DateTime.parse(element["departure_time"]),
-          rideStatus: element["status"],
+          rideStatus: enumRideStatusFromString(element["status"]??"!") ,
+          rideBookedStatus: enumRideBookedStatusFromString(element["status"]??"!") ,
           startLocationName: element["start_country_name"],
           endLocationName: element["end_country_name"],
           totalSeats: element["seats_info"]["total"],
@@ -285,7 +292,10 @@ class UserHttp{
           comment: "",
           numberOfSeats: 0,
           autoInstant: false,
-          paymaentMetodId: 1
+          paymaentMetodId: 1,
+          rideType: EnumRideType.client,
+          role: Role.error,
+          carName: ""
         )
       ).toList();
       

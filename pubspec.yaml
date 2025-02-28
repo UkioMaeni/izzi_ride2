@@ -87,6 +87,7 @@ flutter:
     - assets/svg/interactive/
     - assets/svg/create_ride/
     - assets/svg/search/
+    - assets/svg/messages/
     - assets/image/loader/
     - assets/image/icons/
     - assets/image/search/

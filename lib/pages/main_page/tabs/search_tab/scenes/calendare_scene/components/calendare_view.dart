@@ -9,14 +9,14 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/search_ride_bloc/search_ride_bloc.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
-class CalendareView extends StatefulWidget {
-  const CalendareView({super.key});
+class SearchRideCalendareView extends StatefulWidget {
+  const SearchRideCalendareView({super.key});
 
   @override
-  State<CalendareView> createState() => _CalendareViewState();
+  State<SearchRideCalendareView> createState() => _SearchRideCalendareViewState();
 }
 
-class _CalendareViewState extends State<CalendareView> {
+class _SearchRideCalendareViewState extends State<SearchRideCalendareView> {
 
 
 

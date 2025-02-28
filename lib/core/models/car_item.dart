@@ -3,9 +3,10 @@ class CarItem{
   String brand;
   String model;
   String color;
-  String? imageUel;
+  String? imageUrl;
   int seats;
   String year;
+  String number;
   CarItem({
     required this.carId,
     required this.brand,
@@ -13,6 +14,7 @@ class CarItem{
     required this.color,
     required this.seats,
     required this.year,
-    this.imageUel,
+    this.imageUrl,
+    required this.number
   });
 }

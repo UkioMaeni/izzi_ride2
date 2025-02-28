@@ -1,3 +1,3 @@
 enum EnumRideType{
-  ride,offerRide,delivery
+  client,driver,delivery
 }

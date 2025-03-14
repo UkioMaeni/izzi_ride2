@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/chats_bloc/chats_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/localization_bloc/localization_bloc.dart';
@@ -10,9 +11,11 @@ import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/search_ride_bloc/search_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/core/factories/di_container.dart';
+import 'package:izzi_ride_2/core/providers/chat_provider.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   setupGetIt();
@@ -28,8 +31,12 @@ void main() {
           BlocProvider(create: (context) => RidesBloc(),),
           BlocProvider(create: (context) => UserMeBloc(),),
           BlocProvider(create: (context) => SearchRideBloc(),),
+          BlocProvider(create: (context) => ChatsBloc(),),
         ],
-      child: const MyApp()
+      child: ChangeNotifierProvider(
+        create: (context) => chatProvider,
+        child: MyApp(),
+      )
     )
   );
 }

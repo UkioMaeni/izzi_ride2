@@ -37,7 +37,7 @@ class _ProfileTabState extends State<ProfileTab> {
               child: CircularProgressIndicator(),
             );
           }
-          String fullName = userMeblocState.me!.nickname;
+          String fullName = userMeblocState.me!.name+" "+userMeblocState.me!.surname;
           bool isVerify = true;
           String photoUri = userMeblocState.me!.photo;
           double rate = userMeblocState.me!.rate;
@@ -50,19 +50,33 @@ class _ProfileTabState extends State<ProfileTab> {
               SizedBox(height: 24,),
               ListViewContainer(
                 items: [
-                  if(true)ListItem(icon: SvgPicture.asset("assets/svg/profile/picture.svg"),label: "Add profile picture",status: "no",onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => PhotoScenePage(photoSceneType: PhotoSceneType.user,),)),),
+                  if(photoUri.isEmpty||!photoUri.contains("http"))ListItem(icon: SvgPicture.asset("assets/svg/profile/picture.svg"),label: "Add profile picture",status: "no",onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => PhotoScenePage(photoSceneType: PhotoSceneType.user,),)),),
                   ListItem(icon: SvgPicture.asset("assets/svg/profile/personal_details.svg"),label: "Edit personal details",status: "no",),
                 ],
               ),
               SizedBox(height: 24,),
-              ListViewContainer(
-                title: "Verify your profile",
-                items: [
-                  ListItem(icon: SvgPicture.asset("assets/svg/profile/verify.svg"),label: "Verify Id",status: "completed",),
-                  ListItem(icon: SvgPicture.asset("assets/svg/profile/mail.svg"),label: "Email confirmed",status: "completed",),
-                  ListItem(icon: SvgPicture.asset("assets/svg/profile/phone.svg"),label: "Phone confirmed ",status: "completed",),
-                  ListItem(icon: SvgPicture.asset("assets/svg/profile/phone.svg"),label: "Social media confirmed",status: "completed",),
-                ],
+              Builder(
+                builder: (context) {
+                  //статусы
+                  bool phoneConfirmed= userMeblocState.me!.phoneConfirmed;
+                  bool emailConfirmed= userMeblocState.me!.emailConfirmed;
+                  bool passportConfirmed=false;
+                  bool socialMediaConfirmed=false;
+                  //строковые статусы. подтверждено,проверка,не подверждено
+                  String phoneConfirmedString=phoneConfirmed?"completed":"no";
+                  String emailConfirmedString=emailConfirmed?"completed":"no";
+                  String passportConfirmedString=passportConfirmed?"completed":"no";
+                  String socialMediaConfirmedString=socialMediaConfirmed?"completed":"no";
+                  return ListViewContainer(
+                    title: "Verify your profile",
+                    items: [
+                      ListItem(icon: SvgPicture.asset("assets/svg/profile/verify.svg"),label: "Verify Id",status: passportConfirmedString,),
+                      ListItem(icon: SvgPicture.asset("assets/svg/profile/mail.svg"),label: "Email confirmed",status: emailConfirmedString,),
+                      ListItem(icon: SvgPicture.asset("assets/svg/profile/phone.svg"),label: "Phone confirmed ",status: phoneConfirmedString,),
+                      ListItem(icon: SvgPicture.asset("assets/svg/profile/phone.svg"),label: "Social media confirmed",status: socialMediaConfirmedString,),
+                    ],
+                  );
+                }
               ),
               SizedBox(height: 24,),
               ListViewContainer(

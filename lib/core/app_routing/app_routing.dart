@@ -109,7 +109,6 @@ class AppRoiting{
         path: "/init_user_data",
         name: RoutesName.initialUserData,
         builder: (context, state)=>InitialUserDataPage(),
-        onExit: (_,__)=>false
       ),
       GoRoute(
         path: "/main",

@@ -16,7 +16,11 @@ class SVG_R {
   Widget get SelectedCarIcon =>  SvgPicture.asset("assets/svg/create_ride/selected.svg");
   Widget get DoneCreateRideIcon =>  SvgPicture.asset("assets/svg/create_ride/done_create.svg");
   Widget get SearchLocation =>  SvgPicture.asset("assets/svg/search/location.svg");
+  Widget get MessageStatusWait =>  Icon(Icons.schedule,color: BrandColor.white,);
   Widget get MessageStatusRead =>  SvgPicture.asset("assets/svg/messages/mess_status_read.svg");
-  Widget get MessageStatusSend =>  SvgPicture.asset("assets/svg/messages/mess_status_send.svg");
+  Widget get MessageStatusSend =>  Icon(Icons.check,color: BrandColor.white,);
+  Widget get MessageDottedLine =>  SvgPicture.asset("assets/svg/messages/dotted_line.svg");
+  Widget get MessageSendingInactiveIcon =>  SvgPicture.asset("assets/svg/messages/message_sending_inactive_icon.svg");
+  Widget get MessageSendingActiveIcon =>  SvgPicture.asset("assets/svg/messages/message_sending_active_icon.svg");
 }
 

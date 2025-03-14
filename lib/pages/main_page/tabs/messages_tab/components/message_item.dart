@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/chats_bloc/chats_bloc.dart';
+import 'package:izzi_ride_2/core/models/chat_model.dart';
+import 'package:izzi_ride_2/core/models/message_model.dart';
+import 'package:izzi_ride_2/core/providers/chat_provider.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 class MessageItemView extends StatelessWidget {
-  const MessageItemView({super.key});
+  final Chat chat;
+  const MessageItemView({super.key,required this.chat});
 
   @override
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: () {
+        chatProvider.setCurrentChat(chat.chatId);
         context.pushNamed(RoutesName.chat);
       },
-      child: SizedBox(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
           height: 71,
           child: Column(
             children: [
@@ -52,13 +60,43 @@ class MessageItemView extends StatelessWidget {
   }
 
   Widget avatar(){
-    return Container(
-      width: 64,
-      height: 64,
-      
-      decoration: BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.circular(32)
+    print(chat.members[0].photo);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(32),
+      child: SizedBox(
+        width: 64,
+        height: 64,
+        child: Image.network(
+          //chat.members[0].photo,
+          "https://cs10.pikabu.ru/post_img/big/2018/02/20/10/1519147784145166438.jpg",
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+                  return child;
+            }
+            return Container(
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                color: BrandColor.grey,
+                border: Border.all(
+                  color: BrandColor.black
+                ),
+                borderRadius: BorderRadius.circular(32)
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                chat.members[0].clientName[0],
+                style: TextStyle(
+                  fontFamily: BrandFontFamily.platform,
+                  fontSize: 25,
+                  color: BrandColor.grey167,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -93,7 +131,7 @@ class MessageItemView extends StatelessWidget {
         Row(
           children: [
             Text(
-                "MIKE D",
+                chat.members[0].clientName,
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 18,
@@ -111,7 +149,7 @@ class MessageItemView extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "NEV",
+                      chat.startLocation,
                       style: TextStyle(
                         fontFamily: BrandFontFamily.platform,
                         fontSize: 12,
@@ -123,7 +161,7 @@ class MessageItemView extends StatelessWidget {
                     Icon(Icons.arrow_forward,size: 18,color: Colors.white,),
                     SizedBox(width: 8,),
                     Text(
-                      "SF",
+                      chat.endLocation,
                       style: TextStyle(
                         fontFamily: BrandFontFamily.platform,
                         fontSize: 12,
@@ -137,14 +175,28 @@ class MessageItemView extends StatelessWidget {
           ],
         ),
         SizedBox(height: 8,),
-        Text(
-          "Hello, where have you gone?",
-          style: TextStyle(
-            fontFamily: BrandFontFamily.platform,
-            fontSize: 16,
-            color: BrandColor.grey167,
-            fontWeight: FontWeight.w400
-          ),
+        Builder(
+          builder: (context) {
+            String message='';
+            print(chat.messages);
+            if(chat.messages.isNotEmpty){
+              final message=chat.messages[0];
+              
+              if(message is TextMessage){
+                
+                return Text(
+                  message.content,
+                  style: TextStyle(
+                    fontFamily: BrandFontFamily.platform,
+                    fontSize: 16,
+                    color: BrandColor.grey167,
+                    fontWeight: FontWeight.w400
+                  ),
+                );
+              }
+            }
+            return SizedBox.shrink();
+          }
         ),
       ],
     );

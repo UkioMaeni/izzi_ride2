@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/search_ride_bloc/search_ride_bloc.dart';
 import 'package:izzi_ride_2/core/http/chat_http.dart';
 import 'package:izzi_ride_2/core/http/order_http.dart';
 import 'package:izzi_ride_2/core/models/enum_ride_booked_status.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
+import 'package:izzi_ride_2/core/providers/chat_provider.dart';
 import 'package:izzi_ride_2/pages/full_order_info/components/preview_data.dart';
 import 'package:izzi_ride_2/pages/full_order_info/components/preview_location.dart';
 import 'package:izzi_ride_2/pages/full_order_info/components/preview_time.dart';
@@ -35,7 +38,8 @@ class _FullOrderInfoClientState extends State<FullOrderInfoClient> {
    final result= await ChatHttp.I.getChatId(widget.trip.orderId, widget.trip.creatorId);
    if(result is CustomResponse<int>){
     int chatId=result.data;
-    
+    chatProvider.setCurrentChat(chatId);
+    context.pushNamed(RoutesName.chat);
    }
   }
   @override

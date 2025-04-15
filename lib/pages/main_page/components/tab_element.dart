@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
@@ -21,21 +23,26 @@ class _TabElementState extends State<TabElement> with SingleTickerProviderStateM
 
   @override
   void initState() {
+    log("currentPage");
+    log(widget.currentPage.toString());
+    log("page");
+    log(widget.page.toString());
     _animationController= AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
       
     );
-    _animation=ColorTween(begin: BrandColor.blue,end: BrandColor.grey).animate(_animationController);
+    _animation=ColorTween(begin: BrandColor.grey,end: BrandColor.blue).animate(_animationController);
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
     if(widget.currentPage!=widget.page){
-      _animationController.forward();
-    }else{
       _animationController.reverse();
+    }else{
+      _animationController.forward();
     }
     return Expanded(
       child: GestureDetector(

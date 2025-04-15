@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
@@ -31,6 +33,7 @@ class _FullOrderInfoState extends State<FullOrderInfo> {
   RideModel? trip;
 
   getTripFromId()async{
+    log("getTripFromId");
    final result= await  OrderHttp.I.getOrderFullInfo(widget.orderId);
    if(result is CustomResponse<RideModel>){
     setState(() {

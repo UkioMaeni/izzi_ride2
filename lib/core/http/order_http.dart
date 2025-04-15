@@ -29,6 +29,24 @@ class OrderHttp{
   Dio dio = GetIt.I.get<Dio>(); 
   static OrderHttp Instance = OrderHttp();
   static OrderHttp I = OrderHttp.Instance;
+  //ответ на запрос заявки orders
+  Future<CustomResponse> answerForAction(bool isAccepted,int appId)async{
+    try {
+      final result= await dio.post(
+        AppConfig.requestUrl+"/order/application/actions",
+        data: {
+          "command":isAccepted?"accept":"reject",
+          "app_id":appId,
+        }
+      );
+      print(result.data);
+      return CustomResponse<bool>(data: true);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
   Future<int?> getCityId(Location location)async{
     try {
       log("CITY ID search");
@@ -58,6 +76,25 @@ class OrderHttp{
         data: {
           "order_id":orderId,
           "number_of_reserved_seats":seats
+        }
+      );
+      print(result.data);
+      return CustomResponse<bool>(data: true);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+  //отмена брони ордера
+  Future<CustomResponse> cancelBooking(int orderId,String comment)async{
+    try {
+      log("cancelBooking");
+      final result= await dio.put(
+        AppConfig.requestUrl+"/order/cancel",
+        data: {
+          "order_id":orderId,
+          "comment":comment
         }
       );
       print(result.data);

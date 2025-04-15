@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -24,10 +25,12 @@ class SocketProvider {
   Uuid uuid=const  Uuid();
   static bool isConnect=false;
 
+  final StreamController<int> _ridesTrigger = StreamController<int>.broadcast();
+  StreamController<int>  get  ridesTrigger =>_ridesTrigger;
 
   void connect()async{
     try {
-      
+    
     WebSocket conn =await WebSocket.connect("ws://194.135.105.117:8090/api/v1/chat/join");
     conn.pingInterval=Duration(seconds: 1);
     channel=conn;
@@ -81,12 +84,12 @@ class SocketProvider {
           // userRepository.editStatusOrder(orderId, newStatus)
           print("DELETEEE");
         }
-        if(message.type=="booking_driver"){
-          Map<String,dynamic> bookingDriver=json.decode(event);
-          int orderId=bookingDriver["order_id"];
-          String statusName=bookingDriver["status_name"];
-          //userRepository.editUserOrdersSeatsInOrder(orderId,statusName);
-        }
+        // if(message.type=="booking_driver"){
+        //   Map<String,dynamic> bookingDriver=json.decode(event);
+        //   int orderId=bookingDriver["order_id"];
+        //   String statusName=bookingDriver["status_name"];
+        //   //userRepository.editUserOrdersSeatsInOrder(orderId,statusName);
+        // }
         if(message.type=="cancel-client"){
           Map<String,dynamic> cancelClient=json.decode(event);
           int senderId=cancelClient["sender_id"];
@@ -129,6 +132,17 @@ class SocketProvider {
             print(time);
             String frontContentId=statusMsg["front_content_id"];
             chatProvider.editStatus(chatId, status, frontContentId, time);
+          // editStatus(chatId,uuId,status);
+          
+        }
+        if(message.type=="booking_driver"){
+          log("booking_driver EVENT");
+          Map<String,dynamic> statusMsg=json.decode(event);
+          String statusName = statusMsg["status_name"];
+          int orderId=statusMsg["order_id"];
+          log("orderid EVENT"+orderId.toString());
+          ridesTrigger.add(orderId);
+          //chatProvider.editStatus(chatId, status, frontContentId, time);
           // editStatus(chatId,uuId,status);
           
         }

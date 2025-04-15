@@ -1,13 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:izzi_ride_2/config/app_config.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
+import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
 
 class UserInformation extends StatelessWidget {
   final String fullName;
   final bool isVerify;
   final double rate;
-  final String photoUri;
+  final String? photoUri;
   const UserInformation({super.key,required this.fullName,required this.isVerify,required this.rate,required this.photoUri});
 
   @override
@@ -21,14 +30,28 @@ class UserInformation extends StatelessWidget {
             child: SizedBox(
               width: 101,
               height: 101,
-              child: Image.network(
-                photoUri,
-                errorBuilder: (context, error, stackTrace) {
-                  return GestureDetector(
-                      onTap:()=> Navigator.push(context,MaterialPageRoute(builder: (context) => PhotoScenePage(photoSceneType: PhotoSceneType.user,))),
-                      child: SvgPicture.asset("assets/svg/profile/user_not_photo.svg")
-                    );
-                },
+              child: Builder(
+                builder: (context) {
+                  if(photoUri==null){
+                    return defaultUserPhoto(context);
+                  }
+                  String url=AppConfig.photoUrl+photoUri!;
+                  log(url);
+                  String? accessToken = GetIt.I.get<TokenInterface>().accessToken;
+                  log("Bearer "+(accessToken??""));
+                  return Image.network(
+                    url,
+                    headers: {
+                      
+                      "Authorization":"Bearer "+(accessToken??""),
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      log("Photo ava error");
+                      log(error.toString());
+                      return defaultUserPhoto(context);
+                    },
+                  );
+                }
               ),
             ),
           ),
@@ -68,4 +91,15 @@ class UserInformation extends StatelessWidget {
       ),
     );
   }
+
+  Widget defaultUserPhoto(BuildContext context){
+    return GestureDetector(
+        onTap:(){
+          context.read<PhotoAddBloc>().add(PhotoAddSetphotoSceneType(photoSceneType: PhotoSceneType.user));
+          context.goNamed(RoutesName.addPhotoPage);
+        },
+        child: SvgPicture.asset("assets/svg/profile/user_not_photo.svg")
+      );
+  }
+
 }

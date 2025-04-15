@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:izzi_ride_2/UI/illustrations/empty_my_trips_illustartion.dart';
 import 'package:izzi_ride_2/UI/trip_card/trip_card.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
 import 'package:izzi_ride_2/core/models/trip.dart';
 
@@ -48,13 +51,26 @@ class _MyTripsTabState extends State<MyTripsTab> {
                         if(ridesBlockState.requsted){
                           return TripCard.shimmer(); 
                         }
+                        if(ridesBlockState.rides!.isEmpty){
+                          return Expanded(
+                            child:  Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24),
+                                child: EmptyMyTripsIllustartion(),
+                              )
+                          );
+                        }
                         return Expanded(
                           child: ListView.builder(
                             itemCount: ridesBlockState.rides!.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
-                                child: TripCard.view(trip:ridesBlockState.rides![index]),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.pushNamed(RoutesName.orderFullInfo,extra: ridesBlockState.rides![index].orderId);
+                                  },
+                                  child: TripCard.view(trip:ridesBlockState.rides![index])
+                                ),
                               );
                             },
                           ),

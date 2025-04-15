@@ -15,6 +15,7 @@ import 'package:izzi_ride_2/core/interfaces/app_info_interface.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/token.dart';
 import 'package:izzi_ride_2/core/resources/image_widgets.dart';
+import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/core/services/app_info-service.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
@@ -169,7 +170,7 @@ double _progressValue=0.0;
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Image_R.loaderImage(),
+          R.Image.loaderImage,
           SizedBox(height: 80,),
           Builder(
             builder: (context) {

@@ -16,6 +16,12 @@
 	<string>izzi_ride_2</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Privacy - Photo Library Usage Description</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Privacy - Photo Library Usage Description</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Privacy - Photo Library Usage Description</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

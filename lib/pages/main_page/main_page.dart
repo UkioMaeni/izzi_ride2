@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/app_information_bloc/app_information_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/socket/app_socket.dart';
@@ -20,7 +24,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
 
-  late final PageController _pageController;
   late final TabController _tabController;
   int page = 0;
 
@@ -33,27 +36,49 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   ];
 
   getMeInfo()async{
-    
     context.read<UserMeBloc>().add(UserMeGetMeInfo());
   }
 
   connectToSocket(){
+    
     appSocket.connect();
+  }
+
+  streamHandles(){
+    appSocket.ridesTrigger.stream.listen(ridesTriggerStreamHandler);
+  }
+
+  ridesTriggerStreamHandler(int orderId){
+    log("ridesTriggerStreamHandler");
+    context.read<RidesBloc>().add(RidesUpdateRide(orderId: orderId));
+  }
+
+  initilizeRequiredServisez(){
+    streamHandles();
+    int initialTabPage= context.read<AppInformationBloc>().state.initialTabPage;
+    log("INITIAL page");
+    log(initialTabPage.toString());
+    _tabController=TabController(initialIndex: 4, length: 5, vsync: this);
+
+   bool isGetLoadedRequiredServices= context.read<AppInformationBloc>().state.isGetLoadedRequiredServices;
+   if(isGetLoadedRequiredServices){
+    connectToSocket();
+   }
+   
+   getMeInfo();
+  context.read<AppInformationBloc>().add(AppInformationSetRequridedLoadServices(isRequired: false));
   }
 
 
   @override
   void initState() {
-    _pageController=PageController(initialPage:page );
-    _tabController=TabController(length: 5, vsync: this);
-    getMeInfo();
-    connectToSocket();
+  
+    initilizeRequiredServisez();
     super.initState();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
   }
 

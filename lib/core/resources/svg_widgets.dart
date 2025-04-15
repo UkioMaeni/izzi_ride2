@@ -22,5 +22,6 @@ class SVG_R {
   Widget get MessageDottedLine =>  SvgPicture.asset("assets/svg/messages/dotted_line.svg");
   Widget get MessageSendingInactiveIcon =>  SvgPicture.asset("assets/svg/messages/message_sending_inactive_icon.svg");
   Widget get MessageSendingActiveIcon =>  SvgPicture.asset("assets/svg/messages/message_sending_active_icon.svg");
+  Widget get BellIcon =>  SvgPicture.asset("assets/svg/UI/bell.svg");
 }
 

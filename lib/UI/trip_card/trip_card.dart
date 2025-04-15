@@ -2,11 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/models/trip.dart';
+import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/core/tools/color_generator.dart';
+import 'package:izzi_ride_2/pages/actions_ride_page/actions_ride_provider/actions_ride_provider.dart';
+import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TripCard extends StatelessWidget {
@@ -24,7 +29,9 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 322,
+      constraints: BoxConstraints(
+        minHeight: 322,
+      ),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         border: Border.all(
@@ -37,6 +44,75 @@ class TripCard extends StatelessWidget {
           if(!isShimmer){
             return Column(
               children: [
+                Builder(
+                  builder: (context) {
+                    final newTravalers = trip.travalers.where((element) => element.statusName=="new",).toList();
+                    final orderId=trip.orderId;
+                    if(newTravalers.isEmpty){
+                      return SizedBox.shrink();
+                    }else{
+                      return GestureDetector(
+                        onTap: () {
+                          actionsRideProvider.setNewTravalers(newTravalers,orderId);
+                          context.goNamed(RoutesName.actionsRide);
+                        },
+                        child: Container(
+                          height: 46,
+                          margin: EdgeInsets.only(bottom: 24),
+                          decoration: BoxDecoration(
+                            color: BrandColor.verylightBlue,
+                            borderRadius: BorderRadius.circular(12)
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10,),
+                              Stack(
+                                children: [
+                                  R.SVG.BellIcon,
+                                  Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: Container(
+                                      height: 12,
+                                      width: 12,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: BrandColor.red,
+                                        borderRadius: BorderRadius.circular(12)
+                                      ),
+                                      child: Text(
+                                        newTravalers.length.toString(),
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontFamily: "SF",
+                                          fontSize: 8,
+                                          color:BrandColor.white,
+                                          fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    )
+                                  )
+                                ],
+                              ),
+                              SizedBox(width: 10,),
+                              Text(
+                                "New booking request",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontFamily: "SF",
+                                  fontSize: 20,
+                                  color:BrandColor.blue,
+                                  fontWeight: FontWeight.w400
+                                ),
+                              )
+                            ],
+                          )
+                          
+                        ),
+                      );
+                    }
+                  },
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

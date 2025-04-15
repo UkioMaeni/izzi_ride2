@@ -33,6 +33,13 @@ class _FullOrderInfoClientState extends State<FullOrderInfoClient> {
       widget.updateState();
     }
   }
+  Future<void> cancelBooked()async{
+    final seats= context.read<SearchRideBloc>().state.personCount;
+    final result = await OrderHttp.I.cancelBooking(widget.trip.orderId,"");
+    if(result is CustomResponse<bool>){
+      widget.updateState();
+    }
+  }
 
   Future<void> contactWithDriver()async{
    final result= await ChatHttp.I.getChatId(widget.trip.orderId, widget.trip.creatorId);
@@ -77,7 +84,7 @@ class _FullOrderInfoClientState extends State<FullOrderInfoClient> {
                               children: [
                                 UIButton(
                                   label: "Cancel booking",
-                                  onFuture: bookRide,
+                                  onFuture: cancelBooked,
                                 ),
                                 UIButton(
                                   label: "Contact the driver",

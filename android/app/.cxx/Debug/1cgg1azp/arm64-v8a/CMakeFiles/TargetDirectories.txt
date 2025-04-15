@@ -1,0 +1,2 @@
+C:/dev/flutter/izzi_ride2/android/app/.cxx/Debug/1cgg1azp/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/dev/flutter/izzi_ride2/android/app/.cxx/Debug/1cgg1azp/arm64-v8a/CMakeFiles/rebuild_cache.dir

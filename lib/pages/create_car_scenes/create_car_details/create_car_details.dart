@@ -159,7 +159,7 @@ class _CreateCarDetailsState extends State<CreateCarDetails> {
           builder: (context) {
             
             return Image.network(
-              "",
+              "https://i.pinimg.com/736x/25/52/81/25528187d8a32d1c998a63e3b301de86.jpg",
               errorBuilder: (context, error, stackTrace) {
                 return Container(
                   height: 200,

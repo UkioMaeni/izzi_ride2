@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -22,9 +24,41 @@ import 'package:izzi_ride_2/core/models/social.dart';
 import 'package:izzi_ride_2/core/models/travaler_model.dart';
 import 'package:izzi_ride_2/core/models/user_model.dart';
 class UserHttp{
+
   Dio dio = GetIt.I.get<Dio>(); 
   static UserHttp Instance = UserHttp();
   static UserHttp I = UserHttp.Instance;
+
+   Future<CustomResponse> uploadPhoto(FormData formData)async{
+    try {
+      final result= await dio.post(
+        AppConfig.requestUrl+"/upload",
+        data: formData
+      );
+      print(result);
+      if(result.data==null || result.data["data"]==null){
+        return CustomResponse<CustomErrorRepsonse>(data:CustomErrorRepsonse());
+      }
+      String fileUrl=result.data["data"]["file_path"];
+      return CustomResponse<String>(data:fileUrl);
+    } catch (e) {
+      return CustomResponse<CustomErrorRepsonse>(data:CustomErrorRepsonse());
+    }
+  }
+  Future<CustomResponse> setUserPhoto(String photoUrl)async{
+    try {
+      final result= await dio.post(
+        AppConfig.requestUrl+"/client/info",
+        data: {
+          "photo":photoUrl
+        }
+      );
+      print(result);
+      return CustomResponse<bool>(data:true);
+    } catch (e) {
+      return CustomResponse<CustomErrorRepsonse>(data:CustomErrorRepsonse());
+    }
+  }
   Future<bool> sendOtp(String phoneNumber)async{
     try {
       final result= await dio.get(AppConfig.requestUrl+"/otp?phone=${phoneNumber}");
@@ -52,10 +86,11 @@ class UserHttp{
         gender: data["gender"]??"male", 
         name: data["name"]??"NoName", 
         nickname: data["nickname"]??"NoName", 
-        photo: data["photo"]??"", 
+        photo: data["photo"], 
         surname: data["surname"]??"NoSurname",
         rate: (data["rate"]??0)+0.0,
         emailConfirmed: data["email_confirmed"],
+        passportConfirmed: data["passport_confirmed"],
         firstRegisterDate: parseDate(data["first_register_date"]),
         phoneConfirmed: data["phone_confirmed"],
         socialPlatforms: ((data["social_platforms"]??[]) as List<dynamic>).map((elem)=>Social(id: elem["id"],platformId: elem["platform_id"],link: elem["profile_link"])).toList()
@@ -68,8 +103,11 @@ class UserHttp{
     }
   }
 
-  DateTime? parseDate(String str){
+  DateTime? parseDate(String? str){
     try {
+      if(str==null){
+        return null;
+      }
       return DateTime.parse(str);
     } catch (e) {
       return null;
@@ -145,7 +183,7 @@ class UserHttp{
           brand: element["manufacturer"], 
           model: element["model"], 
           color: element["color"]??"no",
-          seats:element["number_of_seats"] ,
+          seats:element["number_of_seats"],
           year: element["year"],
           number: element["number"]??"_carnumber_"
         ) 
@@ -254,20 +292,79 @@ class UserHttp{
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
     }
   }
-  Future<CustomResponse> getUserRides()async{
+  Future<CustomResponse> getMyTrips()async{
+    try {
+      final result= await dio.get(
+        "${AppConfig.requestUrl}/client/orders/booked",
+      );
+      final data = result.data["data"];
+      print(data);
+      if(data==null || data is! List){
+        return CustomResponse<List<CarItem>>(data: []);
+      }
+      
+      List<dynamic> responsedList = data;
+      List<RideModel> rides = responsedList.map(
+        (element){
+          log(element.toString());
+          return RideModel(
+          creatorId: -1,
+          orderId: element["order_id"],
+          clientAutoId: element["client_auto_id"]??0, 
+          driverRate: (element["driver_rate"]??0)+.0,
+          driverNickname: element["driver_nickname"],
+          date: DateTime.parse(element["departure_time"]),
+          rideStatus: enumRideStatusFromString(element["status"]??"!") ,
+          rideBookedStatus: enumRideBookedStatusFromString(element["booked_status"]??"!"),
+          startLocationName: element["start_point"]["city"],
+          endLocationName: element["end_point"]["city"],
+          totalSeats: element["seats"]["total"],
+          freeSeats: element["seats"]["free"],
+          price: (element["order_price"]??0)+.0,
+           
+          additional: 
+            Additional()
+              ..smoking=element["preference"]["smoking"]
+              ..babyChaire=element["preference"]["child_car_seat"]
+              ..animals=element["preference"]["animals"]
+              ..luggage=element["preference"]["luggage"], 
+          locations: [],
+          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],avatarUrl: el["avatar_url"],hasOrderRate: el["has_order_rate"],name: el["name"],surname: el["surname"],applicationId: el["app_id"],nickname: el["nickname"],statusName:el["status_name"], rate: (el["rate"]??0)+.0)).toList(),
+          comment: "",
+          numberOfSeats: 0,
+          autoInstant: false,
+          paymaentMetodId: 1,
+          rideType: EnumRideType.client,
+          role: Role.error,
+          carName: ""
+        );
+        }
+      ).toList();
+      
+      
+      
+      return CustomResponse<List<RideModel>>(data: rides);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+  Future<CustomResponse> getUserRides({int? id})async{
     try {
       print("start");
       final result= await dio.get(
-        "${AppConfig.requestUrl}/driver/orders",
+        "${AppConfig.requestUrl}/driver/orders"+(id!=null?"?id=${id}":""),
       );
       final data = result.data["data"];
       if(data==null || data is! List){
         return CustomResponse<List<CarItem>>(data: []);
       }
-      print(data);
+      
       List<dynamic> responsedList = data;
       List<RideModel> rides = responsedList.map(
-        (element)=>RideModel(
+        (element){
+          log(element.toString());
+          return RideModel(
           creatorId: -1,
           orderId: element["order_id"],
           clientAutoId: element["client_auto_id"], 
@@ -280,7 +377,8 @@ class UserHttp{
           endLocationName: element["end_country_name"],
           totalSeats: element["seats_info"]["total"],
           freeSeats: element["seats_info"]["free"],
-          price: (element["price"]??0)+.0, 
+          price: (element["price"]??0)+.0,
+           
           additional: 
             Additional()
               ..smoking=element["preference"]["smoking"]
@@ -288,15 +386,16 @@ class UserHttp{
               ..animals=element["preference"]["animals"]
               ..luggage=element["preference"]["luggage"], 
           locations: [],
-          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],avatarUrl: el["avatar_url"],hasOrderRate: el["has_order_rate"],nickname: el["nickname"],rate: (el["rate"]??0)+.0)).toList(),
+          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],avatarUrl: el["avatar_url"],hasOrderRate: el["has_order_rate"],name: el["name"],surname: el["surname"],applicationId: el["app_id"],nickname: el["nickname"],statusName:el["status_name"], rate: (el["rate"]??0)+.0)).toList(),
           comment: "",
           numberOfSeats: 0,
           autoInstant: false,
           paymaentMetodId: 1,
-          rideType: EnumRideType.client,
+          rideType: EnumRideType.driver,
           role: Role.error,
           carName: ""
-        )
+        );
+        }
       ).toList();
       
       

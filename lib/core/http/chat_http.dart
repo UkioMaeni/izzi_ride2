@@ -107,7 +107,7 @@ class ChatHttp{
       log(chatsData.toString());
       List<Message> messages=[];
       for(var element in chatsData){
-        if(element["message_type"]=="0"){
+        if(element["message_type"]==0){
           Message mess = TextMessage(
             id: element["message_id"], 
             clientId: element["client_id"], 

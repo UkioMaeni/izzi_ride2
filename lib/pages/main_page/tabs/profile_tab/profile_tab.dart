@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/tab_header.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/profile_tab/components/list_item.dart';
@@ -39,7 +42,7 @@ class _ProfileTabState extends State<ProfileTab> {
           }
           String fullName = userMeblocState.me!.name+" "+userMeblocState.me!.surname;
           bool isVerify = true;
-          String photoUri = userMeblocState.me!.photo;
+          String? photoUri = userMeblocState.me!.photo;
           double rate = userMeblocState.me!.rate;
           return ListView(
             children: [
@@ -50,7 +53,16 @@ class _ProfileTabState extends State<ProfileTab> {
               SizedBox(height: 24,),
               ListViewContainer(
                 items: [
-                  if(photoUri.isEmpty||!photoUri.contains("http"))ListItem(icon: SvgPicture.asset("assets/svg/profile/picture.svg"),label: "Add profile picture",status: "no",onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => PhotoScenePage(photoSceneType: PhotoSceneType.user,),)),),
+                  if(photoUri==null)
+                  ListItem(
+                    icon: SvgPicture.asset("assets/svg/profile/picture.svg"),
+                    label: "Add profile picture",
+                    status: "no",
+                    onTap: (){
+                      context.read<PhotoAddBloc>().add(PhotoAddSetphotoSceneType(photoSceneType: PhotoSceneType.user));
+                      context.goNamed(RoutesName.addPhotoPage);
+                    },
+                  ),
                   ListItem(icon: SvgPicture.asset("assets/svg/profile/personal_details.svg"),label: "Edit personal details",status: "no",),
                 ],
               ),
@@ -60,7 +72,7 @@ class _ProfileTabState extends State<ProfileTab> {
                   //статусы
                   bool phoneConfirmed= userMeblocState.me!.phoneConfirmed;
                   bool emailConfirmed= userMeblocState.me!.emailConfirmed;
-                  bool passportConfirmed=false;
+                  bool passportConfirmed=userMeblocState.me!.passportConfirmed;
                   bool socialMediaConfirmed=false;
                   //строковые статусы. подтверждено,проверка,не подверждено
                   String phoneConfirmedString=phoneConfirmed?"completed":"no";

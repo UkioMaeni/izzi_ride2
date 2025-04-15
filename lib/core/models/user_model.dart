@@ -3,7 +3,7 @@ import 'package:izzi_ride_2/core/models/social.dart';
 class UserModel{
   int clienId;
   DateTime? dateOfBirth;
-  String photo;
+  String? photo;
   String name;
   String surname;
   String nickname;
@@ -11,6 +11,7 @@ class UserModel{
   double rate;
   bool phoneConfirmed;
   bool emailConfirmed;
+  bool passportConfirmed;
   DateTime? firstRegisterDate;
   List<Social>? socialPlatforms;
   UserModel({
@@ -25,6 +26,7 @@ class UserModel{
     required this.phoneConfirmed,
     required this.emailConfirmed,
     required this.firstRegisterDate,
-    required this.socialPlatforms
+    required this.socialPlatforms,
+    required this.passportConfirmed
   });
 }

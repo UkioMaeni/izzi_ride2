@@ -87,7 +87,7 @@ class CarItemWidgetUI extends StatelessWidget {
                   height: 154,
                   width: double.infinity,
                   child: Image.network(
-                    "",
+                    "https://i.pinimg.com/736x/25/52/81/25528187d8a32d1c998a63e3b301de86.jpg",
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                         color: BrandColor.grey235,

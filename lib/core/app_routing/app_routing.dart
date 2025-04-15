@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
+import 'package:izzi_ride_2/pages/actions_ride_page/actions_ride_page.dart';
+import 'package:izzi_ride_2/pages/actions_ride_page/actions_ride_page_done.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/autorize_phone_page.dart';
 import 'package:izzi_ride_2/pages/chat_page/chat_page.dart';
@@ -17,6 +19,8 @@ import 'package:izzi_ride_2/pages/full_order_info/full_order_info.dart';
 import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
+import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_preview_scene.dart';
+import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/additional_options_scene/additional_options_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/calendare_scene/calendare_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/create_done/create_done.dart';
@@ -274,6 +278,48 @@ class AppRoiting{
             builder: (context, state)=>SearchResultScene(),
             routes: []
           ),
+          //флоу принятия заявок
+          GoRoute(
+            path: "/actions_ride_page",
+            name: RoutesName.actionsRide,
+            builder: (context, state)=>ActionsRidePage(),
+            routes: [
+              GoRoute(
+                path: "/actions_ride_page_done",
+                name: RoutesName.actionsRideDone,
+                builder: (context, state)=>ActionsRidePageDone(),
+                routes: []
+              ),
+            ]
+          ),
+          //флоу загрузки фото
+          GoRoute(
+            path: "/add_photo_page",
+            name: RoutesName.addPhotoPage,
+            builder: (context, state)=>PhotoScenePage(),
+            routes: [
+              GoRoute(
+                path: "/add_photo_page_preview",
+                name: RoutesName.addPhotoPagePreview,
+                builder: (context, state)=>PhotoPreviewScene(),
+                routes: []
+              ),
+            ]
+          ),
+          // //флоу добавлени социальной сети
+          // GoRoute(
+          //   path: "/search_result",
+          //   name: RoutesName.searchResult,
+          //   builder: (context, state)=>SearchResultScene(),
+          //   routes: [
+          //     GoRoute(
+          //       path: "/search_result",
+          //       name: RoutesName.searchResult,
+          //       builder: (context, state)=>SearchResultScene(),
+          //       routes: []
+          //     ),
+          //   ]
+          // ),
           //Флоу создания машины
           GoRoute(
             path: "/create_car_brand",
@@ -389,8 +435,14 @@ class AppRoiting{
   static String createCarDetails="createCarDetails";
   //полная информация ордера
   static String orderFullInfo="orderFullInfo";
+  //сцены с фото и превью
+  static String addPhotoPage="addPhotoPage";
+  static String addPhotoPagePreview="addPhotoPagePreview";
   //чат
   static String chat="chat";
+  //сцены с флоу принятия заявок
+  static String actionsRide="actionsRide";
+  static String actionsRideDone="actionsRideDone";
   
 
 }

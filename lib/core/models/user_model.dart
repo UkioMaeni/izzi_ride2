@@ -1,3 +1,4 @@
+import 'package:izzi_ride_2/core/models/enum_checked_status.dart';
 import 'package:izzi_ride_2/core/models/social.dart';
 
 class UserModel{
@@ -11,7 +12,7 @@ class UserModel{
   double rate;
   bool phoneConfirmed;
   bool emailConfirmed;
-  bool passportConfirmed;
+  EnumCheckedStatus passportConfirmed;
   DateTime? firstRegisterDate;
   List<Social>? socialPlatforms;
   UserModel({

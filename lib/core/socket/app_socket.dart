@@ -41,8 +41,8 @@ class SocketProvider {
       print("socket!");
       print(event+"///");
       if(event=="token not valid"){
-          return;
-        }
+        return;
+      }
         final parseMessage=json.decode(event);
         
         SocketMessage message=SocketMessage(type: parseMessage["type"]);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/app_information_bloc/app_information_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
@@ -20,9 +21,14 @@ import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  setupGetIt();
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  setupGetIt();
+  Stripe.publishableKey = "pk_test_51Q5iTY06u8jzHB84AlAlgWsw5h51Jx2bhOOeKYst3pTqQDwvVkLNPMJhazINw9XNoj5Fm1lqL7Uw8USwr9I5QL3B00X6MHrqAb";
+  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+  Stripe.urlScheme = 'flutterstripe';
+  await Stripe.instance.applySettings();
+  
   runApp(
     MultiBlocProvider(
       providers: [

@@ -9,7 +9,7 @@ import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/location.dart';
 import 'package:izzi_ride_2/core/models/map_params.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_scene.dart';
 
 part 'photo_add_state.dart';
 part 'photo_add_event.dart';

@@ -19,8 +19,9 @@ import 'package:izzi_ride_2/pages/full_order_info/full_order_info.dart';
 import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_preview_scene.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
+import 'package:izzi_ride_2/pages/passport_photo_page/passport_photo_page.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_preview_scene.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/additional_options_scene/additional_options_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/calendare_scene/calendare_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/scene/create_done/create_done.dart';
@@ -42,6 +43,8 @@ import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_result
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_to_input/search_to_input.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_to_map/search_to_map.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/time_scene/time_scene.dart';
+import 'package:izzi_ride_2/pages/payment_card_page/payment_card_page.dart';
+import 'package:izzi_ride_2/pages/payment_process_page/payment_process_page.dart';
 
 class AppRoiting{
 
@@ -306,20 +309,30 @@ class AppRoiting{
               ),
             ]
           ),
-          // //флоу добавлени социальной сети
-          // GoRoute(
-          //   path: "/search_result",
-          //   name: RoutesName.searchResult,
-          //   builder: (context, state)=>SearchResultScene(),
-          //   routes: [
-          //     GoRoute(
-          //       path: "/search_result",
-          //       name: RoutesName.searchResult,
-          //       builder: (context, state)=>SearchResultScene(),
-          //       routes: []
-          //     ),
-          //   ]
-          // ),
+          //флоу загрузки паспорта
+          GoRoute(
+            path: "/add_photo_passport_page",
+            name: RoutesName.addPhotoPassportPage,
+            builder: (context, state)=>PassportPhotoPage(),
+            routes: []
+          ),
+          
+          //флоу отображения карт пользателя
+          GoRoute(
+            path: "/payment_card",
+            name: RoutesName.paymentCard,
+            builder: (context, state)=>PaymentCardPage(),
+            routes: [
+            ]
+          ),
+          //флоу покупки
+          GoRoute(
+            path: "/payment_process",
+            name: RoutesName.paymentProcess,
+            builder: (context, state)=>PaymentProcessPage(),
+            routes: [
+            ]
+          ),
           //Флоу создания машины
           GoRoute(
             path: "/create_car_brand",
@@ -438,11 +451,16 @@ class AppRoiting{
   //сцены с фото и превью
   static String addPhotoPage="addPhotoPage";
   static String addPhotoPagePreview="addPhotoPagePreview";
+  //сцена с фото паспорта
+  static String addPhotoPassportPage="addPhotoPassportPage";
   //чат
   static String chat="chat";
   //сцены с флоу принятия заявок
   static String actionsRide="actionsRide";
   static String actionsRideDone="actionsRideDone";
-  
+  //сцена отображения кард
+  static String paymentCard="paymentCard";
+  //сцена процесса покупки
+  static String paymentProcess="paymentProcess";
 
 }

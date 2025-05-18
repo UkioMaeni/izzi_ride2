@@ -12,7 +12,7 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_preview_scene.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_preview_scene.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 enum PhotoSceneType{

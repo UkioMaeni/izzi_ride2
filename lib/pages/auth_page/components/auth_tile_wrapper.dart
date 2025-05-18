@@ -6,7 +6,7 @@ import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/pages/auth_page/components/auth_tile.dart';
 import 'package:izzi_ride_2/pages/autorize_phone_page/autorize_phone_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_scene.dart';
 
 class AuthTileWrapper extends StatefulWidget {
   const AuthTileWrapper({super.key});

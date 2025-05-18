@@ -10,7 +10,7 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_scene.dart';
 
 class UserInformation extends StatelessWidget {
   final String fullName;

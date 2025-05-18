@@ -13,7 +13,7 @@ import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
 import 'package:izzi_ride_2/core/models/response.dart';
-import 'package:izzi_ride_2/pages/main_page/photo_scene/photo_scene.dart';
+import 'package:izzi_ride_2/pages/photo_scene/photo_scene.dart';
 
 class PhotoPreviewScene extends StatefulWidget {
   const PhotoPreviewScene({super.key});

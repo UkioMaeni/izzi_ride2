@@ -11,6 +11,7 @@ import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/city_model.dart';
 import 'package:izzi_ride_2/core/models/enum_authorization_type.dart';
+import 'package:izzi_ride_2/core/models/enum_checked_status.dart';
 import 'package:izzi_ride_2/core/models/enum_ride_booked_status.dart';
 import 'package:izzi_ride_2/core/models/enum_ride_status.dart';
 import 'package:izzi_ride_2/core/models/enum_ride_type.dart';
@@ -41,6 +42,20 @@ class UserHttp{
       }
       String fileUrl=result.data["data"]["file_path"];
       return CustomResponse<String>(data:fileUrl);
+    } catch (e) {
+      return CustomResponse<CustomErrorRepsonse>(data:CustomErrorRepsonse());
+    }
+  }
+   Future<CustomResponse> sendUserPassportInReview(List<String> photoUrl)async{
+    try {
+      final result= await dio.put(
+        AppConfig.requestUrl+"/client/identification",
+        data: {
+          "photo":photoUrl
+        }
+      );
+      print(result);
+      return CustomResponse<bool>(data:true);
     } catch (e) {
       return CustomResponse<CustomErrorRepsonse>(data:CustomErrorRepsonse());
     }
@@ -90,7 +105,7 @@ class UserHttp{
         surname: data["surname"]??"NoSurname",
         rate: (data["rate"]??0)+0.0,
         emailConfirmed: data["email_confirmed"],
-        passportConfirmed: data["passport_confirmed"],
+        passportConfirmed: CheckedStatusTools.fromString(data["passport_status"]) ,
         firstRegisterDate: parseDate(data["first_register_date"]),
         phoneConfirmed: data["phone_confirmed"],
         socialPlatforms: ((data["social_platforms"]??[]) as List<dynamic>).map((elem)=>Social(id: elem["id"],platformId: elem["platform_id"],link: elem["profile_link"])).toList()

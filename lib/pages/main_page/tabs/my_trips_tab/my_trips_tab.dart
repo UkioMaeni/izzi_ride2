@@ -35,7 +35,7 @@ class _MyTripsTabState extends State<MyTripsTab> {
                       style: TextStyle(
                         fontFamily: "SF",
                         fontSize: 32,
-                        color: BrandColor.black,
+                        color: BrandColor.black69,
                         fontWeight: FontWeight.w700
                       ),
                     ),

@@ -133,7 +133,7 @@ class _SearchTabState extends State<SearchTab> {
                         style: TextStyle(
                           fontFamily: BrandFontFamily.platform,
                           fontSize: 12,
-                          color:BrandColor.black,
+                          color:BrandColor.black69,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -167,7 +167,7 @@ class _SearchTabState extends State<SearchTab> {
                                       style: TextStyle(
                                         fontFamily: BrandFontFamily.platform,
                                         fontSize: 20,
-                                        color:location.fullAddress.isEmpty?BrandColor.grey167:BrandColor.black,
+                                        color:location.fullAddress.isEmpty?BrandColor.grey167:BrandColor.black69,
                                         fontWeight: FontWeight.w400
                                       ),
                                     ),
@@ -184,7 +184,7 @@ class _SearchTabState extends State<SearchTab> {
                         style: TextStyle(
                           fontFamily: BrandFontFamily.platform,
                           fontSize: 12,
-                          color:BrandColor.black,
+                          color:BrandColor.black69,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -218,7 +218,7 @@ class _SearchTabState extends State<SearchTab> {
                                       style: TextStyle(
                                         fontFamily: BrandFontFamily.platform,
                                         fontSize: 20,
-                                        color:location.fullAddress.isEmpty?BrandColor.grey167:BrandColor.black,
+                                        color:location.fullAddress.isEmpty?BrandColor.grey167:BrandColor.black69,
                                         fontWeight: FontWeight.w400
                                       ),
                                     ),
@@ -241,7 +241,7 @@ class _SearchTabState extends State<SearchTab> {
                                   style: TextStyle(
                                     fontFamily: BrandFontFamily.platform,
                                     fontSize: 12,
-                                    color:BrandColor.black,
+                                    color:BrandColor.black69,
                                     fontWeight: FontWeight.w500
                                   ),
                                 ),
@@ -281,7 +281,7 @@ class _SearchTabState extends State<SearchTab> {
                                               style: TextStyle(
                                                 fontFamily: BrandFontFamily.platform,
                                                 fontSize: 18,
-                                                color:BrandColor.black,
+                                                color:BrandColor.black69,
                                                 fontWeight: FontWeight.w400
                                               ),
                                             );
@@ -304,7 +304,7 @@ class _SearchTabState extends State<SearchTab> {
                                   style: TextStyle(
                                     fontFamily: BrandFontFamily.platform,
                                     fontSize: 12,
-                                    color:BrandColor.black,
+                                    color:BrandColor.black69,
                                     fontWeight: FontWeight.w500
                                   ),
                                 ),
@@ -335,7 +335,7 @@ class _SearchTabState extends State<SearchTab> {
                                               style: TextStyle(
                                                 fontFamily: BrandFontFamily.platform,
                                                 fontSize: 20,
-                                                color:BrandColor.black,
+                                                color:BrandColor.black69,
                                                 fontWeight: FontWeight.w400
                                               ),
                                             );

@@ -252,7 +252,7 @@ class TripCard extends StatelessWidget {
               style: TextStyle(
                 fontFamily: "SF",
                 fontSize: 18,
-                color:BrandColor.black,
+                color:BrandColor.black69,
                 fontWeight: FontWeight.w500
               ),
             ),
@@ -263,7 +263,7 @@ class TripCard extends StatelessWidget {
               style: TextStyle(
                 fontFamily: "SF",
                 fontSize: 18,
-                color:BrandColor.black,
+                color:BrandColor.black69,
                 fontWeight: FontWeight.w500
               ),
             ),
@@ -330,7 +330,7 @@ class TripCard extends StatelessWidget {
           style: TextStyle(
             fontFamily: "SF",
             fontSize: 12,
-            color:BrandColor.black,
+            color:BrandColor.black69,
             fontWeight: FontWeight.w400
           ),
         ):Container(
@@ -345,7 +345,7 @@ class TripCard extends StatelessWidget {
           style: TextStyle(
             fontFamily: "SF",
             fontSize: 20,
-            color:BrandColor.black,
+            color:BrandColor.black69,
             fontWeight: FontWeight.w700
           )
         ):Container(
@@ -366,7 +366,7 @@ class TripCard extends StatelessWidget {
           style: TextStyle(
             fontFamily: "SF",
             fontSize: 18,
-            color:BrandColor.black,
+            color:BrandColor.black69,
             fontWeight: FontWeight.w500
           ),
         ):Container(
@@ -410,7 +410,7 @@ class TripCard extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "SF",
                   fontSize: 12,
-                  color:BrandColor.black,
+                  color:BrandColor.black69,
                   fontWeight: FontWeight.w400
                 ),
               ):Container(
@@ -425,7 +425,7 @@ class TripCard extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "SF",
                   fontSize: 18,
-                  color:BrandColor.black,
+                  color:BrandColor.black69,
                   fontWeight: FontWeight.w500
                 ),
               ):Container(
@@ -454,7 +454,7 @@ class TripCard extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "SF",
                   fontSize: 12,
-                  color:BrandColor.black,
+                  color:BrandColor.black69,
                   fontWeight: FontWeight.w400
                 ),
               ):Container(
@@ -469,7 +469,7 @@ class TripCard extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "SF",
                   fontSize: 18,
-                  color:BrandColor.black,
+                  color:BrandColor.black69,
                   fontWeight: FontWeight.w500
                 ),
               ):Container(
@@ -559,7 +559,7 @@ class TripCard extends StatelessWidget {
             style: TextStyle(
               fontFamily: "SF",
               fontSize: 12,
-              color:BrandColor.black,
+              color:BrandColor.black69,
               fontWeight: FontWeight.w400
             ),
           ), 
@@ -570,7 +570,7 @@ class TripCard extends StatelessWidget {
             style: TextStyle(
               fontFamily: "SF",
               fontSize: 14,
-              color:BrandColor.black,
+              color:BrandColor.black69,
               fontWeight: FontWeight.w700
             ),
           ), 

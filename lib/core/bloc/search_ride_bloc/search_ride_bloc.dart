@@ -39,6 +39,10 @@ class SearchRideBloc extends Bloc<SearchRideEvent,SearchRideState>{
     on<SearchRideEditPersonCounter>((event, emit)async{
       emit(state.copyWith(personCount: event.count));
     });
+    on<SearchRide_RESET_DATA>((event, emit)async{
+      emit(SearchRideState.empty());
+    });
+    
     on<SearchRideUpdateFilters>((event, emit)async{
       Map<ECategory, SearchFilter> currentCategoryList=state.filters;
       SearchFilter filter = event.filters;

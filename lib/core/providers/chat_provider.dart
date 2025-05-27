@@ -152,6 +152,10 @@ class ChatSProvider extends ChangeNotifier{
         
       }
   }
+
+  RESET_DATA(){
+    chatProvider=ChatSProvider.empty();
+  }
 }
 
 ChatSProvider chatProvider= ChatSProvider.empty();

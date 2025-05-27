@@ -21,3 +21,6 @@ enum Scene{
 class CarGetInUser extends CarEvent{
   const CarGetInUser();
 }
+class Car_RESET_DATA extends CarEvent{
+  const Car_RESET_DATA();
+}

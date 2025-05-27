@@ -45,6 +45,7 @@ import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_to_map
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/time_scene/time_scene.dart';
 import 'package:izzi_ride_2/pages/payment_card_page/payment_card_page.dart';
 import 'package:izzi_ride_2/pages/payment_process_page/payment_process_page.dart';
+import 'package:izzi_ride_2/pages/settings_page/settings_page.dart';
 
 class AppRoiting{
 
@@ -316,6 +317,13 @@ class AppRoiting{
             builder: (context, state)=>PassportPhotoPage(),
             routes: []
           ),
+          //флоу загрузки паспорта
+          GoRoute(
+            path: "/settings",
+            name: RoutesName.settings,
+            builder: (context, state)=>SettingsPage(),
+            routes: []
+          ),
           
           //флоу отображения карт пользателя
           GoRoute(
@@ -462,5 +470,7 @@ class AppRoiting{
   static String paymentCard="paymentCard";
   //сцена процесса покупки
   static String paymentProcess="paymentProcess";
+    //сцена настроек
+  static String settings="settings";
 
 }

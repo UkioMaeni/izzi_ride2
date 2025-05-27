@@ -134,7 +134,7 @@ class _TimeSceneState extends State<TimeScene> {
             style: TextStyle(
               fontFamily: BrandFontFamily.platform,
               fontSize: 32,
-              color: BrandColor.black,
+              color: BrandColor.black69,
               fontWeight: FontWeight.w700
             ),
           ),

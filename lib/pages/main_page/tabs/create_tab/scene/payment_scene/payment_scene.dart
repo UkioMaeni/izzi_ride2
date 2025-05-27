@@ -55,7 +55,7 @@ class _PaymentSceneState extends State<PaymentScene> {
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 32,
-                      color: BrandColor.black,
+                      color: BrandColor.black69,
                       fontWeight: FontWeight.w700
                     ),
                   ),

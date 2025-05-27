@@ -72,6 +72,9 @@ class CreateRideEditRideType extends CreateRideEvent{
   final EnumRideType rideType;
   const CreateRideEditRideType({required this.rideType});
 }
+class CreateRide_RESET_DATA extends CreateRideEvent{
+  const CreateRide_RESET_DATA();
+}
 // class LocalizationSetLocaleEvent extends RegistrationEvent{
 //   final LocalizationInterface localeState;
 //   final Locale locale;

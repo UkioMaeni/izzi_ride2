@@ -34,7 +34,7 @@ class ListItem extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
-                    color: status==EnumCheckedStatus.pending?BrandColor.grey167: BrandColor.black,
+                    color: status==EnumCheckedStatus.pending?BrandColor.grey167: BrandColor.black69,
                     fontWeight: FontWeight.w500
                   ),
                 ),

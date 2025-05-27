@@ -66,7 +66,7 @@ class PreviewData extends StatelessWidget {
           style: TextStyle(
             fontFamily: BrandFontFamily.platform,
             fontSize: 12,
-            color: BrandColor.black,
+            color: BrandColor.black69,
             fontWeight: FontWeight.w400
           ),
         ),
@@ -97,7 +97,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 12,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w400
                   ),
                 ),
@@ -106,7 +106,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w500
                   ),
                 )
@@ -123,7 +123,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 12,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w400
                   ),
                 ),
@@ -132,7 +132,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w500
                   ),
                 )
@@ -149,7 +149,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 12,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w400
                   ),
                 ),
@@ -158,7 +158,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w500
                   ),
                 )
@@ -190,7 +190,7 @@ class PreviewData extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 12,
-                      color: BrandColor.black,
+                      color: BrandColor.black69,
                       fontWeight: FontWeight.w400
                     ),
                   ),
@@ -199,7 +199,7 @@ class PreviewData extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 18,
-                      color: BrandColor.black,
+                      color: BrandColor.black69,
                       fontWeight: FontWeight.w500
                     ),
                   )
@@ -217,7 +217,7 @@ class PreviewData extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 12,
-                  color: BrandColor.black,
+                  color: BrandColor.black69,
                   fontWeight: FontWeight.w400
                 ),
               ),
@@ -231,7 +231,7 @@ class PreviewData extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 18,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w500
                   ),
                 ),

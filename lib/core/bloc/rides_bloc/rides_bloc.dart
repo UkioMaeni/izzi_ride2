@@ -90,6 +90,9 @@ class RidesBloc extends Bloc<RidesEvent,RidesFullState>{
         emit(state.copyWith(rides: rides));
       }
     });
+    on<Rides_RESET_DATA>((event, emit){
+      emit(RidesFullState.empty());
+    });
     
   }
   

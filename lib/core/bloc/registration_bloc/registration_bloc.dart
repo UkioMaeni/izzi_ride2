@@ -12,6 +12,10 @@ class RegistrationBloc extends Bloc<RegistrationEvent,RegistrationFullState>{
     on<RegistrationUpdateCode>((event, emit)async{
       emit(state.copyWith(code: event.code));
     });
+    on<Registration_RESET_DATA>((event, emit)async{
+      emit(RegistrationFullState.empty());
+    });
+    
   }
   
 }

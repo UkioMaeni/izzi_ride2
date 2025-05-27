@@ -17,7 +17,8 @@ class BrandColor{
   static Color grey227 = Color.fromRGBO(227, 227, 227, 1);
   static Color grey214 = Color.fromRGBO(214, 214, 214, 1);
   static Color grey217 = Color.fromRGBO(217, 217, 217, 1);
-  static Color black = Color.fromRGBO(69, 69, 69, 1);
+  static Color black69 = Color.fromRGBO(69, 69, 69, 1);
+  static Color black = Colors.black;
   static Color red = Color.fromRGBO(244, 35, 35, 1);
   static Color red193 = Color.fromRGBO(193, 17, 17, 1);
   static Color listViewContainer = Color.fromRGBO(244, 244, 244, 1);

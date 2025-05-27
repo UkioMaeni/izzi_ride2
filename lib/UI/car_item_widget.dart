@@ -64,7 +64,7 @@ class CarItemWidgetUI extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: BrandFontFamily.platform,
                               fontSize: 12,
-                              color: BrandColor.black,
+                              color: BrandColor.black69,
                               fontWeight: FontWeight.w400
                             ),
                           ),
@@ -73,7 +73,7 @@ class CarItemWidgetUI extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: BrandFontFamily.platform,
                               fontSize: 18,
-                              color: BrandColor.black,
+                              color: BrandColor.black69,
                               fontWeight: FontWeight.w500
                             ),
                           ),

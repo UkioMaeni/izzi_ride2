@@ -84,7 +84,7 @@ class _CreateRideInitialSceneState extends State<CreateRideInitialScene> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: currentRideType==type?BrandColor.blue:BrandColor.black
+            color: currentRideType==type?BrandColor.blue:BrandColor.black69
           )
         ),
         child: Column(
@@ -96,7 +96,7 @@ class _CreateRideInitialSceneState extends State<CreateRideInitialScene> {
               style: TextStyle(
                 fontFamily: BrandFontFamily.platform,
                 fontSize: 26,
-                color: BrandColor.black,
+                color: BrandColor.black69,
                 fontWeight: FontWeight.w700
               ),
             ),
@@ -106,7 +106,7 @@ class _CreateRideInitialSceneState extends State<CreateRideInitialScene> {
               style: TextStyle(
                 fontFamily: BrandFontFamily.platform,
                 fontSize: 12,
-                color: BrandColor.black,
+                color: BrandColor.black69,
                 fontWeight: FontWeight.w400
               ),
             ),

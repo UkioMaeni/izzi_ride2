@@ -175,7 +175,7 @@ class _FromInputSceneState extends State<FromInputScene> {
                             style: TextStyle(
                               fontFamily: BrandFontFamily.platform,
                               fontSize: 18,
-                              color: BrandColor.black,
+                              color: BrandColor.black69,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -195,7 +195,7 @@ class _FromInputSceneState extends State<FromInputScene> {
                     Container(
                       child: 
                         variableIndex==index
-                          ?SizedBox(width: 17,height: 17, child: CircularProgressIndicator(color: BrandColor.black,strokeWidth: 2,))
+                          ?SizedBox(width: 17,height: 17, child: CircularProgressIndicator(color: BrandColor.black69,strokeWidth: 2,))
                           :R.SVG.ChevronRight,
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(right: 22),

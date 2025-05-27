@@ -24,7 +24,7 @@ class _AuthTileState extends State<AuthTile> {
       child: Container(
         height: 55,
         decoration: BoxDecoration(
-          color: reverse?BrandColor.black:BrandColor.grey235,
+          color: reverse?BrandColor.black69:BrandColor.grey235,
           borderRadius: BorderRadius.circular(10)
         ),
         child: Row(
@@ -37,7 +37,7 @@ class _AuthTileState extends State<AuthTile> {
               style: TextStyle(
                 fontFamily: BrandFontFamily.platform,
                 fontSize: 18,
-                color: reverse?Colors.white: BrandColor.black,
+                color: reverse?Colors.white: BrandColor.black69,
                 fontWeight: FontWeight.w500
               ),
             ),

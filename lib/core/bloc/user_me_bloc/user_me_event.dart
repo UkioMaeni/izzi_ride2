@@ -21,3 +21,6 @@ enum Scene{
 class UserMeGetMeInfo extends UserMeEvent{
   const UserMeGetMeInfo();
 }
+class UserMe_RESET_DATA extends UserMeEvent{
+  const UserMe_RESET_DATA();
+}

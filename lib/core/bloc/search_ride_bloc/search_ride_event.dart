@@ -54,3 +54,6 @@ class SearchRideUpdateFiltersEditing extends SearchRideEvent{
   final bool isEditing;
   const SearchRideUpdateFiltersEditing({required this.isEditing});
 }
+class SearchRide_RESET_DATA extends SearchRideEvent{
+  const SearchRide_RESET_DATA();
+}

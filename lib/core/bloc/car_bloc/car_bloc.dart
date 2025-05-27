@@ -23,6 +23,9 @@ class CarBloc extends Bloc<CarEvent,CarFullState>{
       emit(state.copyWith(requsted: false));
       //emit(state.copyWith(scene: event.newScene));
     });
+    on<Car_RESET_DATA>((event, emit){
+      emit(CarFullState.empty());
+    });
     
   }
   

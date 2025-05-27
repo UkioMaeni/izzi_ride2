@@ -29,7 +29,7 @@ class CongratiationInstant extends StatelessWidget {
           style: TextStyle(
             fontFamily: BrandFontFamily.platform,
             fontSize: 16,
-            color: BrandColor.black,
+            color: BrandColor.black69,
             fontWeight: FontWeight.w400
           ),
         ),
@@ -39,7 +39,7 @@ class CongratiationInstant extends StatelessWidget {
           style: TextStyle(
             fontFamily: BrandFontFamily.platform,
             fontSize: 16,
-            color: BrandColor.black,
+            color: BrandColor.black69,
             fontWeight: FontWeight.w400
           ),
         ),

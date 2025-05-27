@@ -63,7 +63,7 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                         style: TextStyle(
                           fontFamily: BrandFontFamily.platform,
                           fontSize: 32,
-                          color: BrandColor.black,
+                          color: BrandColor.black69,
                           fontWeight: FontWeight.w700
                         ),
                       ),
@@ -72,7 +72,7 @@ class _SelectCarSceneState extends State<SelectCarScene> {
                         style: TextStyle(
                           fontFamily: BrandFontFamily.platform,
                           fontSize: 16,
-                          color: BrandColor.black,
+                          color: BrandColor.black69,
                           fontWeight: FontWeight.w400
                         ),
                       ),

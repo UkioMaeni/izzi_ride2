@@ -5,7 +5,7 @@ import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/app_information_bloc/app_information_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/car_bloc/car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/chats_bloc/chats_bloc.dart';
-import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/localization_bloc/localization_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';

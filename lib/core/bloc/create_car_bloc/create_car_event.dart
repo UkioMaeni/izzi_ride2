@@ -34,3 +34,7 @@ class CreateCarSelectCarYear extends CreateCarEvent{
   final String carYear;
   const CreateCarSelectCarYear({required this.carYear});
 }
+
+class CreateCar_RESET_DATA extends CreateCarEvent{
+  const CreateCar_RESET_DATA();
+}

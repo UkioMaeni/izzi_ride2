@@ -128,7 +128,7 @@ class _ToMapSceneState extends State<ToMapScene> {
                                 child: SizedBox(
                                   height: 20,
                                   width: 20, 
-                                child: CircularProgressIndicator(color: BrandColor.black,)),
+                                child: CircularProgressIndicator(color: BrandColor.black69,)),
                               );
                             }
                       return Container(
@@ -141,7 +141,7 @@ class _ToMapSceneState extends State<ToMapScene> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: BrandColor.black
+                            color: BrandColor.black69
                           )
                         ),
                         alignment: Alignment.center,
@@ -153,7 +153,7 @@ class _ToMapSceneState extends State<ToMapScene> {
                                       style: TextStyle(
                                         fontFamily: BrandFontFamily.platform,
                                         fontSize: 14,
-                                        color: BrandColor.black,
+                                        color: BrandColor.black69,
                                         fontWeight: FontWeight.w400
                                       ),
                                     );

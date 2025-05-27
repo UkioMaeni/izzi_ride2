@@ -57,7 +57,7 @@ class _InputNamesState extends State<InputNames> {
           fontFamily: BrandFontFamily.platform,
           fontSize: 20,
           fontWeight: FontWeight.w400,
-          color: BrandColor.black
+          color: BrandColor.black69
         ),
         decoration: InputDecoration(
           border: InputBorder.none,

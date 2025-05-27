@@ -28,9 +28,11 @@ class SocketProvider {
   final StreamController<int> _ridesTrigger = StreamController<int>.broadcast();
   StreamController<int>  get  ridesTrigger =>_ridesTrigger;
 
+  bool neededAutoReconnect=true;
+
   void connect()async{
     try {
-    
+    neededAutoReconnect=true;
     WebSocket conn =await WebSocket.connect("ws://194.135.105.117:8090/api/v1/chat/join");
     conn.pingInterval=Duration(seconds: 1);
     channel=conn;
@@ -41,7 +43,9 @@ class SocketProvider {
       print("socket!");
       print(event+"///");
       if(event=="token not valid"){
-        return;
+        neededAutoReconnect=false;
+        await GetIt.I.get<TokenInterface>().refreshingToken();
+        connect();
       }
         final parseMessage=json.decode(event);
         
@@ -183,15 +187,16 @@ class SocketProvider {
             channel!.close();
 
           }
-     SocketProvider.isConnect=false;
-      print("Повторное подключение");
-      Future.delayed(Duration(seconds: 1)).then((value){
-        print("reconnect onDONE");
-        if(!SocketProvider.isConnect){
-            connect();
-        }
-        
-      });
+        if(neededAutoReconnect) {
+          SocketProvider.isConnect=false;
+          print("Повторное подключение");
+          Future.delayed(Duration(seconds: 1)).then((value){
+            print("reconnect onDONE");
+            if(!SocketProvider.isConnect){
+              connect();
+            }
+          });
+        }   
 
       },
    );
@@ -214,7 +219,10 @@ class SocketProvider {
       
    }
 
-
+  Future<void> disconnect()async{
+    neededAutoReconnect=false;
+    await channel?.close();
+  }
 
 
 

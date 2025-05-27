@@ -28,7 +28,7 @@ class _CommentAreaState extends State<CommentArea> {
             style: TextStyle(
               fontFamily: BrandFontFamily.platform,
               fontSize: 20,
-              color: BrandColor.black,
+              color: BrandColor.black69,
               fontWeight: FontWeight.w400
             ),
           ),

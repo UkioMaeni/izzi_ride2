@@ -48,7 +48,7 @@ class _FilterBottomModalState extends State<FilterBottomModal> {
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 32,
-                  color: BrandColor.black,
+                  color: BrandColor.black69,
                   fontWeight: FontWeight.w700
                 ),
               ),
@@ -57,7 +57,7 @@ class _FilterBottomModalState extends State<FilterBottomModal> {
                 width: 58,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: BrandColor.black
+                    color: BrandColor.black69
                   ),
                   borderRadius: BorderRadius.circular(12)
                 ),
@@ -71,7 +71,7 @@ class _FilterBottomModalState extends State<FilterBottomModal> {
             style: TextStyle(
               fontFamily: BrandFontFamily.platform,
               fontSize: 26,
-              color: BrandColor.black,
+              color: BrandColor.black69,
               fontWeight: FontWeight.w700
             ),
           ),
@@ -117,7 +117,7 @@ class _FilterBottomModalState extends State<FilterBottomModal> {
               style: TextStyle(
                 fontFamily: BrandFontFamily.platform,
                 fontSize: 18,
-                color: BrandColor.black,
+                color: BrandColor.black69,
                 fontWeight: FontWeight.w500
               ),
             ),

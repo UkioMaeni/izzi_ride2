@@ -9,6 +9,7 @@ import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/core/models/enum_checked_status.dart';
+import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/pages/photo_scene/photo_scene.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/profile_tab/components/list_item.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/profile_tab/components/list_view_container.dart';
@@ -50,7 +51,26 @@ class _ProfileTabState extends State<ProfileTab> {
           return ListView(
             children: [
               SizedBox(height: 20,),
-              UITabHeader(label: "About you"),
+              Stack(
+                alignment: Alignment.centerLeft,
+                children: [
+                  UITabHeader(label: "About you"),
+                  Positioned(
+                    right: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.pushNamed(RoutesName.settings);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        alignment: Alignment.center,
+                        child: R.SVG.SettingsIcon
+                      ),
+                    )
+                  )
+                ],
+              ),
               SizedBox(height: 32,),
               UserInformation(fullName: fullName,isVerify: isVerify,photoUri: photoUri,rate: rate,),
               SizedBox(height: 24,),

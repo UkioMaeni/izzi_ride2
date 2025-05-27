@@ -47,7 +47,7 @@ class _UIButtonState extends State<UIButton> {
     }
     if(widget.alternate!=null&&widget.alternate!){
       bgColor=Colors.white;
-      textColor=BrandColor.black;
+      textColor=BrandColor.black69;
     }
     if(widget.backgroundColor!=null){
       bgColor=widget.backgroundColor!;

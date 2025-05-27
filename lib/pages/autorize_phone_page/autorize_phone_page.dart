@@ -94,7 +94,7 @@ class _AutorizePhonePageState extends State<AutorizePhonePage> {
                           style: TextStyle(
                             fontFamily: BrandFontFamily.platform,
                             fontSize: 32,
-                            color: BrandColor.black,
+                            color: BrandColor.black69,
                             fontWeight: FontWeight.w700
                           ),
                         ),

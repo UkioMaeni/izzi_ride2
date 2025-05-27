@@ -30,3 +30,6 @@ class PhotoAddSetphotoSceneType extends PhotoAddEvent{
   final PhotoSceneType photoSceneType ;
   const PhotoAddSetphotoSceneType({required this.photoSceneType});
 }
+class PhotoAdd_RESET_DATA extends PhotoAddEvent{
+  const PhotoAdd_RESET_DATA();
+}

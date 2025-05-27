@@ -21,7 +21,7 @@ class HeaderSearch extends StatelessWidget {
                 fontFamily: "SF",
                 fontSize: 26,
                 fontWeight: FontWeight.w800,
-                color: BrandColor.black
+                color: BrandColor.black69
       
               ),
               

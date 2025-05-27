@@ -70,7 +70,7 @@ class _MessagesAreaState extends State<MessagesArea> {
                                 style: TextStyle(
                                   fontFamily: BrandFontFamily.platform,
                                   fontSize: 16,
-                                  color:myMessage?Colors.white:BrandColor.black,
+                                  color:myMessage?Colors.white:BrandColor.black69,
                                   fontWeight: FontWeight.w400
                                 ),
                               ),

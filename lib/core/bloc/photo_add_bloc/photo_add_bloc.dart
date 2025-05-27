@@ -28,6 +28,9 @@ class PhotoAddBloc extends Bloc<PhotoAddEvent,PhotoAddState>{
     on<PhotoAddSetphotoSceneType>((event, emit)async{
       emit(state.copyWith(photoSceneType: event.photoSceneType));
     });
+    on<PhotoAdd_RESET_DATA>((event, emit)async{
+      emit(PhotoAddState.empty());
+    });
     
   }
   

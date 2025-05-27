@@ -131,7 +131,7 @@ class _SearchFromMapState extends State<SearchFromMap> {
                                 child: SizedBox(
                                   height: 20,
                                   width: 20, 
-                                child: CircularProgressIndicator(color: BrandColor.black,)),
+                                child: CircularProgressIndicator(color: BrandColor.black69,)),
                               );
                             }
                       return Container(
@@ -144,7 +144,7 @@ class _SearchFromMapState extends State<SearchFromMap> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: BrandColor.black
+                            color: BrandColor.black69
                           )
                         ),
                         alignment: Alignment.center,
@@ -156,7 +156,7 @@ class _SearchFromMapState extends State<SearchFromMap> {
                                       style: TextStyle(
                                         fontFamily: BrandFontFamily.platform,
                                         fontSize: 14,
-                                        color: BrandColor.black,
+                                        color: BrandColor.black69,
                                         fontWeight: FontWeight.w400
                                       ),
                                     );

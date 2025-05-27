@@ -18,7 +18,7 @@ class _SimilareState extends State<Similare> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: BrandColor.black,
+            color: BrandColor.black69,
             blurRadius: 2,
             offset: Offset(0, 2),
             spreadRadius: 2
@@ -41,7 +41,7 @@ class _SimilareState extends State<Similare> {
               style: TextStyle(
                 fontFamily: BrandFontFamily.platform,
                 fontSize: 18,
-                color: BrandColor.black,
+                color: BrandColor.black69,
                 fontWeight: FontWeight.w500
               ),
             ),

@@ -37,7 +37,7 @@ class _UITextFieldState extends State<UITextField> {
               style: TextStyle(
                 fontFamily: "SF",
                 fontSize: 20,
-                color: BrandColor.black,
+                color: BrandColor.black69,
                 fontWeight: FontWeight.w400
               ),
               decoration: InputDecoration(

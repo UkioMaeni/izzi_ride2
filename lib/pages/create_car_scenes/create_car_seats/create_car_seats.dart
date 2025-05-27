@@ -6,7 +6,7 @@ import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
-import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
 class CreateCarSeats extends StatefulWidget {
@@ -45,7 +45,7 @@ class _CreateCarSeatsState extends State<CreateCarSeats> {
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
                       fontSize: 32,
-                      color: BrandColor.black,
+                      color: BrandColor.black69,
                       fontWeight: FontWeight.w700
                     ),
                     
@@ -82,7 +82,7 @@ class _CreateCarSeatsState extends State<CreateCarSeats> {
                                   return Text(
                                     seats.toString(),
                                     style: TextStyle(
-                                      color: BrandColor.black,
+                                      color: BrandColor.black69,
                                       fontFamily: BrandFontFamily.platform,
                                       fontSize: 32,
                                       fontWeight: FontWeight.w700

@@ -80,7 +80,7 @@ class MessageItemView extends StatelessWidget {
               decoration: BoxDecoration(
                 color: BrandColor.grey,
                 border: Border.all(
-                  color: BrandColor.black
+                  color: BrandColor.black69
                 ),
                 borderRadius: BorderRadius.circular(32)
               ),
@@ -135,7 +135,7 @@ class MessageItemView extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 18,
-                  color: BrandColor.black,
+                  color: BrandColor.black69,
                   fontWeight: FontWeight.w500
                 ),
               ),

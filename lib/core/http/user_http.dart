@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:googlemaps_flutter_webservices/places.dart';
 import 'package:izzi_ride_2/config/app_config.dart';
-import 'package:izzi_ride_2/core/bloc/create_car_bloc%20copy/create_car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';

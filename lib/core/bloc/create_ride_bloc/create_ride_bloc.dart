@@ -59,6 +59,10 @@ class CreateRideBloc extends Bloc<CreateRideEvent,CreateRideFullState>{
     on<CreateRideEditRideType>((event, emit)async{
       emit(state.copyWith(rideType: event.rideType));
     });
+    on<CreateRide_RESET_DATA>((event, emit)async{
+      emit(CreateRideFullState.empty());
+    });
+    
   }
   
 }

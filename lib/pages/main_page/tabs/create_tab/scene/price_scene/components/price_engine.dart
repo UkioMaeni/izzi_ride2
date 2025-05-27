@@ -115,7 +115,7 @@ class _PriceEngineState extends State<PriceEngine> {
                 child: Text(
                   "\$"+_textEditingController.text,
                   style: TextStyle(
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 32,
                     fontWeight: FontWeight.w700
@@ -132,7 +132,7 @@ class _PriceEngineState extends State<PriceEngine> {
                       textAlign: TextAlign.center,
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(
-                        color: BrandColor.black,
+                        color: BrandColor.black69,
                         fontFamily: BrandFontFamily.platform,
                         fontSize: 32,
                         fontWeight: FontWeight.w700

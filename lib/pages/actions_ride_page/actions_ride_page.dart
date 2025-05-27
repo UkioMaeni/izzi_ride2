@@ -90,7 +90,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                         style: TextStyle(
                           fontFamily: "SF",
                           fontSize: 32,
-                          color:BrandColor.black,
+                          color:BrandColor.black69,
                           fontWeight: FontWeight.w700
                         ),
                       ),
@@ -116,7 +116,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                                         style: TextStyle(
                                           fontFamily: "SF",
                                           fontSize: 40,
-                                          color:BrandColor.black,
+                                          color:BrandColor.black69,
                                           fontWeight: FontWeight.w700
                                         ),
                                       ),
@@ -132,7 +132,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                               style: TextStyle(
                                 fontFamily: "SF",
                                 fontSize: 15,
-                                color:BrandColor.black,
+                                color:BrandColor.black69,
                                 fontWeight: FontWeight.w700
                               ),
                             ),
@@ -142,7 +142,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                               style: TextStyle(
                                 fontFamily: "SF",
                                 fontSize: 24,
-                                color:BrandColor.black,
+                                color:BrandColor.black69,
                                 fontWeight: FontWeight.w700
                               ),
                             ),
@@ -160,7 +160,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                         style: TextStyle(
                           fontFamily: "SF",
                           fontSize: 12,
-                          color:BrandColor.black,
+                          color:BrandColor.black69,
                           fontWeight: FontWeight.w400
                         ),
                       ),

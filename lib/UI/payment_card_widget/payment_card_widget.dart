@@ -119,7 +119,7 @@ class _PaymentCardWidgetState extends State<PaymentCardWidget> {
                         style: TextStyle(
                           fontFamily: BrandFontFamily.platform,
                           fontSize: 15,
-                          color: BrandColor.black,
+                          color: BrandColor.black69,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -138,7 +138,7 @@ class _PaymentCardWidgetState extends State<PaymentCardWidget> {
                           style: TextStyle(
                             fontFamily: BrandFontFamily.platform,
                             fontSize: 15,
-                            color: BrandColor.black,
+                            color: BrandColor.black69,
                             fontWeight: FontWeight.w400
                           ),
                           inputFormatters: [

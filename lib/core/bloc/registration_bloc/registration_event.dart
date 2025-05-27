@@ -13,7 +13,9 @@ class RegistrationUpdateCode extends RegistrationEvent{
   final String code;
   const RegistrationUpdateCode({required this.code});
 }
-
+class Registration_RESET_DATA extends RegistrationEvent{
+  const Registration_RESET_DATA();
+}
 
 
 // class LocalizationSetLocaleEvent extends RegistrationEvent{

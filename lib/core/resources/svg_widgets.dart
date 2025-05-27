@@ -4,9 +4,9 @@ import 'package:izzi_ride_2/constant/constants.dart';
 
 class SVG_R {
   Widget get NavigationBackIcon => SvgPicture.asset("assets/svg/navigation/navigation_back.svg");
-  Widget get GeolocationIconBlack69 => SvgPicture.asset("assets/svg/UI/geo.svg",color: BrandColor.black,);
+  Widget get GeolocationIconBlack69 => SvgPicture.asset("assets/svg/UI/geo.svg",color: BrandColor.black69,);
   Widget get ChevronRight => SvgPicture.asset("assets/svg/UI/chevron_right.svg");
-  Widget get ChevronRightBlack => SvgPicture.asset("assets/svg/UI/chevron_right.svg",color: BrandColor.black,);
+  Widget get ChevronRightBlack => SvgPicture.asset("assets/svg/UI/chevron_right.svg",color: BrandColor.black69,);
   Widget get SelectedAdditionalGrey => SvgPicture.asset("assets/svg/UI/selected_additional.svg",color: BrandColor.grey167,);
   Widget get SelectedAdditionalGreen => SvgPicture.asset("assets/svg/UI/selected_additional.svg",color: BrandColor.green,);
   Widget get PriceMinus => SvgPicture.asset("assets/svg/create_ride/price_minus.svg");
@@ -23,5 +23,6 @@ class SVG_R {
   Widget get MessageSendingInactiveIcon =>  SvgPicture.asset("assets/svg/messages/message_sending_inactive_icon.svg");
   Widget get MessageSendingActiveIcon =>  SvgPicture.asset("assets/svg/messages/message_sending_active_icon.svg");
   Widget get BellIcon =>  SvgPicture.asset("assets/svg/UI/bell.svg");
+  Widget get SettingsIcon =>  SvgPicture.asset("assets/svg/profile/settings.svg");
 }
 

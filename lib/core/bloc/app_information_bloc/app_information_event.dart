@@ -17,3 +17,6 @@ class AppInformationSetIalTabPage extends AppInformationEvent{
   final int page;
   const AppInformationSetIalTabPage({required this.page});
 }
+class AppInformation_RESET_DATA extends AppInformationEvent{
+  const AppInformation_RESET_DATA();
+}

@@ -64,7 +64,7 @@ class UserInformation extends StatelessWidget {
                 fullName,
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
-                  color: BrandColor.black,
+                  color: BrandColor.black69,
                   fontWeight: FontWeight.w700,
                   fontSize: 20
                 ),
@@ -76,7 +76,7 @@ class UserInformation extends StatelessWidget {
                     "Novice",
                     style: TextStyle(
                       fontFamily: BrandFontFamily.platform,
-                      color: BrandColor.black,
+                      color: BrandColor.black69,
                       fontWeight: FontWeight.w400,
                       fontSize: 12
                     ),

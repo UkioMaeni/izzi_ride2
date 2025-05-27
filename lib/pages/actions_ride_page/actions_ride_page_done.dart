@@ -45,7 +45,7 @@ class _ActionsRidePageDoneState extends State<ActionsRidePageDone> {
                 style: TextStyle(
                   fontFamily: "SF",
                   fontSize: 32,
-                  color:BrandColor.black,
+                  color:BrandColor.black69,
                   fontWeight: FontWeight.w700
                 ),
               ),
@@ -65,7 +65,7 @@ class _ActionsRidePageDoneState extends State<ActionsRidePageDone> {
                           style: TextStyle(
                             fontFamily: "SF",
                             fontSize: 32,
-                            color:BrandColor.black,
+                            color:BrandColor.black69,
                             fontWeight: FontWeight.w700
                           ),
                         ),
@@ -80,7 +80,7 @@ class _ActionsRidePageDoneState extends State<ActionsRidePageDone> {
                 style: TextStyle(
                   fontFamily: "SF",
                   fontSize: 20,
-                  color:BrandColor.black,
+                  color:BrandColor.black69,
                   fontWeight: FontWeight.w700
                 ),
               ),

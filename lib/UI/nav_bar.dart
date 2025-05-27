@@ -37,7 +37,7 @@ class NavBar extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: BrandFontFamily.platform,
                     fontSize: 25,
-                    color: BrandColor.black,
+                    color: BrandColor.black69,
                     fontWeight: FontWeight.w600
                   ),
                 ),

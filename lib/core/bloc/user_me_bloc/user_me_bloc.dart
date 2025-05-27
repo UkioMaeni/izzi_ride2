@@ -25,6 +25,9 @@ class UserMeBloc extends Bloc<UserMeEvent,UserMeState>{
       }
       emit(state.copyWith(requsted: false));
     });
+    on<UserMe_RESET_DATA>((event, emit){
+      emit(UserMeState.empty());
+    });
     
   }
   

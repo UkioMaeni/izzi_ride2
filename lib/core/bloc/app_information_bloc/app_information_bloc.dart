@@ -20,6 +20,9 @@ class AppInformationBloc extends Bloc<AppInformationEvent,AppInformationState>{
     on<AppInformationSetIalTabPage>((event, emit)async{
       emit(state.copyWith(initialTabPage:event.page));
     });
+    on<AppInformation_RESET_DATA>((event, emit)async{
+      emit(AppInformationState.empty());
+    });
     
   }
   

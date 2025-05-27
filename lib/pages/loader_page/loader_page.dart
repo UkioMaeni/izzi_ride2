@@ -178,7 +178,7 @@ double _progressValue=0.0;
               return Text(
                 state.loaderWelcome,
                 style: TextStyle(
-                  color: BrandColor.black,
+                  color: BrandColor.black69,
                   fontFamily: "SF",
                   fontSize: 32,
                   fontWeight: FontWeight.w700,

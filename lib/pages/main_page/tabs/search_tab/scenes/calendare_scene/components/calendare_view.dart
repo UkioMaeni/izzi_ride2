@@ -79,7 +79,7 @@ class _SearchRideCalendareViewState extends State<SearchRideCalendareView> {
                       return Text(
                         _currentMonth,
                         style: TextStyle(
-                          color:BrandColor.black,
+                          color:BrandColor.black69,
                           fontFamily: BrandFontFamily.platform,
                           fontWeight: FontWeight.w700,
                           fontSize: 20
@@ -141,7 +141,7 @@ class _SearchRideCalendareViewState extends State<SearchRideCalendareView> {
                         child: Text(
                           day.day.toString(),
                           style: TextStyle(
-                            color: isSelectedDay?Colors.white:isSelectable? BrandColor.black:BrandColor.black.withAlpha(100),
+                            color: isSelectedDay?Colors.white:isSelectable? BrandColor.black69:BrandColor.black69.withAlpha(100),
                             fontFamily: "SF",
                             fontWeight: FontWeight.w400,
                             fontSize: 20
@@ -155,13 +155,13 @@ class _SearchRideCalendareViewState extends State<SearchRideCalendareView> {
               showOnlyCurrentMonthDate: true,
               selectedDateTime: _selectedDate,
               weekdayTextStyle: TextStyle(
-                color: BrandColor.black,
+                color: BrandColor.black69,
                 fontFamily: "SF",
                 fontWeight: FontWeight.w600,
                 fontSize: 13
               ),
               weekendTextStyle: TextStyle(
-                color: BrandColor.black,
+                color: BrandColor.black69,
               ),
               weekDayFormat:WeekdayFormat.narrow,
               thisMonthDayBorderColor: Colors.transparent,
@@ -177,7 +177,7 @@ class _SearchRideCalendareViewState extends State<SearchRideCalendareView> {
               },
               showHeader: false,
               todayTextStyle: TextStyle(
-                color: BrandColor.black
+                color: BrandColor.black69
               ),
               
               // markedDateShowIcon: true,

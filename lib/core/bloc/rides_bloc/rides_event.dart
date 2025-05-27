@@ -22,3 +22,7 @@ class RidesEditStatusTravalerInRide extends RidesEvent{
   final String status;
   const RidesEditStatusTravalerInRide({required this.orderId,required this.travalerId,required this.status});
 }
+
+class Rides_RESET_DATA extends RidesEvent{
+  const Rides_RESET_DATA();
+}

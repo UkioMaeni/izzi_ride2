@@ -33,6 +33,9 @@ class CreateCarBloc extends Bloc<CreateCarEvent,CreateCarState>{
     on<CreateCarSelectCarYear>((event, emit)async{
       emit(state.copyWith(carYear: event.carYear));
     });
+    on<CreateCar_RESET_DATA>((event, emit)async{
+      emit(CreateCarState.empty());
+    });
     
   }
   

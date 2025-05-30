@@ -39,6 +39,16 @@ class UserInformation extends StatelessWidget {
                   log(url);
                   String? accessToken = GetIt.I.get<TokenInterface>().accessToken;
                   log("Bearer "+(accessToken??""));
+                  if(photoUri!.contains("http")){
+                    return Image.network(
+                      photoUri!,
+                      errorBuilder: (context, error, stackTrace) {
+                        log("Photo ava error");
+                        log(error.toString());
+                        return defaultUserPhoto(context);
+                      },
+                    );
+                  }
                   return Image.network(
                     url,
                     headers: {

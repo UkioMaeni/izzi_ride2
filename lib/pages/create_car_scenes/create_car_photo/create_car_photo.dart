@@ -1,10 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/bloc/create_car_bloc/create_car_bloc.dart';
+import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CreateCarPhoto extends StatefulWidget {
   const CreateCarPhoto({super.key});
@@ -14,6 +21,9 @@ class CreateCarPhoto extends StatefulWidget {
 }
 
 class _CreateCarPhotoState extends State<CreateCarPhoto> {
+
+  final ImagePicker picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,12 +78,14 @@ class _CreateCarPhotoState extends State<CreateCarPhoto> {
                     children: [
                       Align(),
                       UIButton(
+                        onTap: takePictures,
                         label: "Take a picture",
                         width: 311,
                       ),
                       SizedBox(height: 16,),
                       UIButton(
                         alternate: true,
+                        onTap: choosePictures,
                         label: "Choose a picture",
                         width: 311,
                       ),
@@ -97,4 +109,32 @@ class _CreateCarPhotoState extends State<CreateCarPhoto> {
       ),
     );
   }
+
+
+  choosePictures()async{
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
+    if(xFile!=null){
+      toPreviewScene(await xFile.readAsBytes());
+    }
+  }
+
+
+  takePictures()async{
+    
+    final permission=  await Permission.camera.request();
+    if(permission.isDenied){
+      return;
+    }
+    XFile? xFile= await picker.pickImage(source: ImageSource.camera,imageQuality:100 );
+    if(xFile!=null){
+      toPreviewScene(await xFile.readAsBytes());
+    }
+  }
+
+  toPreviewScene(Uint8List file){
+    context.read<CreateCarBloc>().add(CreateCarAddPhotos(carPhotos:[file]));
+    context.goNamed(RoutesName.createCarDetails);
+    
+  }
+
 }

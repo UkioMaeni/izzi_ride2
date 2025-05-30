@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:izzi_ride_2/config/app_config.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
+import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 
@@ -83,17 +88,29 @@ class CarItemWidgetUI extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                Container(
+                  decoration: BoxDecoration(
+                    color: BrandColor.grey244
+                  ),
                   height: 154,
                   width: double.infinity,
-                  child: Image.network(
-                    "https://i.pinimg.com/736x/25/52/81/25528187d8a32d1c998a63e3b301de86.jpg",
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: BrandColor.grey235,
+                  child: Builder(
+                    builder: (context) {
+                      log(carItem.imageUrl.toString());
+                      if(carItem.imageUrl==null || carItem.imageUrl!.isEmpty){
+                        return defaultPhoto();
+                      }
+                      String? accessToken = GetIt.I.get<TokenInterface>().accessToken;
+                      return Image.network(
+                        AppConfig.photoUrl+carItem.imageUrl![0],
+                        headers: {  
+                          "Authorization":"Bearer "+(accessToken??""),
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return defaultPhoto();
+                        },
                       );
-                    },
-                    fit: BoxFit.cover,
+                    }
                   )
                 )
               ],
@@ -108,4 +125,15 @@ class CarItemWidgetUI extends StatelessWidget {
       ),
     );
   }
+
+  Widget defaultPhoto(){
+    return Container(
+      decoration: BoxDecoration(
+        color: BrandColor.grey244
+      ),
+      alignment: Alignment.center,
+      child: R.Image.IllustrtationCar,
+    );
+  }
+
 }

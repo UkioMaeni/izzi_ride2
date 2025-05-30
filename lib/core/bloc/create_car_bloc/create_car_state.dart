@@ -11,7 +11,8 @@ class CreateCarState {
   ColorCar colorCar;
   String carNumber;
   String carYear;
-
+  List<Uint8List> carPotos;
+  List<String> carPotosUrls;
  String get fullCarName =>  "${brand.name} ${model.name}";
 
   CreateCarState({
@@ -21,6 +22,8 @@ class CreateCarState {
     required this.colorCar,
     required this.carNumber,
     required this.carYear,
+    required this.carPotos,
+    required this.carPotosUrls,
   });
 
   static  CreateCarState empty(){
@@ -31,6 +34,8 @@ class CreateCarState {
       colorCar: ColorCar(stringColor: "Black"),
       carNumber: "",
       carYear: "",
+      carPotos: [],
+      carPotosUrls: []
     );
   }
   copyWith({
@@ -40,6 +45,8 @@ class CreateCarState {
       ColorCar? colorCar,
       String? carNumber,
       String? carYear,
+      List<Uint8List>? carPotos,
+      List<String>? carPotosUrls,
     }){
     return CreateCarState(
       brand: brand??this.brand,
@@ -48,6 +55,8 @@ class CreateCarState {
       colorCar: colorCar??this.colorCar,
       carNumber: carNumber??this.carNumber,
       carYear: carYear??this.carYear,
+      carPotos: carPotos??this.carPotos,
+      carPotosUrls: carPotosUrls??this.carPotosUrls,
     );
   }
 

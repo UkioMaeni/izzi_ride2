@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,6 +29,17 @@ class _CreateCarDetailsState extends State<CreateCarDetails> {
 
 
   Future<void> createCar()async{
+    if(createCarBloc.state.carPotos.isNotEmpty){
+      FormData formData = FormData();
+      String fileType= "car_photo";
+      formData.fields.add(MapEntry("file_type", fileType));
+      Uint8List file=createCarBloc.state.carPotos[0];
+      formData.files.add(MapEntry("file", MultipartFile.fromBytes(file,filename: "image",)),);
+      final result = await UserHttp.I.uploadPhoto(formData);
+      if(result is CustomResponse<String>){
+        createCarBloc.add(CreateCarAddPhotosUrl(carPhotosUrls: [result.data]));
+      }
+    }
     final result = await UserHttp.I.createUserCar(createCarBloc.state);
     if(result is CustomResponse<bool>){
       await releaseCreateCar();
@@ -71,7 +85,7 @@ class _CreateCarDetailsState extends State<CreateCarDetails> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          carImage(),
+                          carImage(createCarBloc.state.carPotos),
                           SizedBox(height: 16,),
                           Row(
                             children: [
@@ -149,7 +163,7 @@ class _CreateCarDetailsState extends State<CreateCarDetails> {
     );
   }
 
-  Widget carImage(){
+  Widget carImage(List<Uint8List> photos){
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: SizedBox(
@@ -157,9 +171,11 @@ class _CreateCarDetailsState extends State<CreateCarDetails> {
         width: double.infinity,
         child: Builder(
           builder: (context) {
-            
-            return Image.network(
-              "https://i.pinimg.com/736x/25/52/81/25528187d8a32d1c998a63e3b301de86.jpg",
+            if(photos.isEmpty){
+              return SizedBox.shrink();
+            }
+            return Image.memory(
+              photos[0],
               errorBuilder: (context, error, stackTrace) {
                 return Container(
                   height: 200,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,9 +35,17 @@ class CreateCarBloc extends Bloc<CreateCarEvent,CreateCarState>{
     on<CreateCarSelectCarYear>((event, emit)async{
       emit(state.copyWith(carYear: event.carYear));
     });
+    on<CreateCarAddPhotos>((event, emit)async{
+      emit(state.copyWith(carPotos: event.carPhotos));
+    });
+    on<CreateCarAddPhotosUrl>((event, emit)async{
+      emit(state.copyWith(carPotosUrls: event.carPhotosUrls));
+    });
+    
     on<CreateCar_RESET_DATA>((event, emit)async{
       emit(CreateCarState.empty());
     });
+    
     
   }
   

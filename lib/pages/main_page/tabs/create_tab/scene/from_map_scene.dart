@@ -40,6 +40,7 @@ class _FromMapSceneState extends State<FromMapScene> {
 
     final result =await UserHttp().geocodingFromGoogle(lat,lon);
     if(result is CustomResponse<Geocoding>){
+      inspect(result.data);
       setState(() {
         geocoding=result.data;
         currentLat=lat;
@@ -96,7 +97,7 @@ class _FromMapSceneState extends State<FromMapScene> {
                           state: geocoding!.state,
                           sortId: 1,
                           pickUp: true,
-                          location: geocoding!.city,
+                          location: geocoding!.street+", "+geocoding!.homeNumber,
                           stateShort: geocoding!.stateShort,
                           street: geocoding!.street,
                           homeNumber: geocoding!.homeNumber,

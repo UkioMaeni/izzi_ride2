@@ -97,7 +97,7 @@ class _ToMapSceneState extends State<ToMapScene> {
                           state: geocoding!.state,
                           sortId: 1,
                           pickUp: true,
-                          location: geocoding!.city,
+                          location: geocoding!.street+", "+geocoding!.homeNumber,
                           longitude: currentLon,
                           latitude: currentLat,
                           stateShort: geocoding!.stateShort,

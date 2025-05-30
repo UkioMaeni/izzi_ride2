@@ -10,7 +10,7 @@ import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/pages/full_order_info/components/preview_data.dart';
 import 'package:izzi_ride_2/pages/full_order_info/components/preview_location.dart';
 import 'package:izzi_ride_2/pages/full_order_info/components/preview_time.dart';
-import 'package:izzi_ride_2/pages/full_order_info/full_order_info_client.dart';
+import 'package:izzi_ride_2/pages/full_order_info/full_order_info_client/full_order_info_client.dart';
 import 'package:izzi_ride_2/pages/full_order_info/full_order_info_driver.dart';
 
 class FullOrderInfo extends StatefulWidget {

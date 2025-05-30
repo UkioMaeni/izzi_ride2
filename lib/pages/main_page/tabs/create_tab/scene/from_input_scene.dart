@@ -51,7 +51,9 @@ class _FromInputSceneState extends State<FromInputScene> {
       });
       return;
     }
+    log("request");
     final result =await UserHttp().getCityFromGoogle(_controller.text);
+    inspect(result);
     if(result is CustomResponse<List<Prediction>>){
       setState(() {
         _cityList=result.data;

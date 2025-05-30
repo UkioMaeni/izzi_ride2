@@ -28,13 +28,13 @@ class SettingsTitle extends StatelessWidget {
               ),
             ),
           ),
-          for(var punk in settingsTitleModel.punkts)
+          for(var punkt in settingsTitleModel.punkts)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 32,),
               Text(
-                "Seats",
+                punkt.title,
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 18,
@@ -44,7 +44,7 @@ class SettingsTitle extends StatelessWidget {
               ),
               SizedBox(height: 8,),
               Text(
-                "Seats",
+                punkt.subTitle,
                 style: TextStyle(
                   fontFamily: BrandFontFamily.platform,
                   fontSize: 12,

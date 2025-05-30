@@ -158,7 +158,10 @@ class _PhotoScenePageState extends State<PhotoScenePage> {
 
   takePictures()async{
     
-    
+    final permission=  await Permission.camera.request();
+    if(permission.isDenied){
+      return;
+    }
     XFile? xFile= await picker.pickImage(source: ImageSource.camera,imageQuality:100 );
     if(xFile!=null){
       toPreviewScene(await xFile.readAsBytes());

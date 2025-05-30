@@ -3,7 +3,7 @@ class CarItem{
   String brand;
   String model;
   String color;
-  String? imageUrl;
+  List<String>? imageUrl;
   int seats;
   String year;
   String number;

@@ -39,158 +39,175 @@ class TripCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(17)
       ),
-      child: Builder(
-        builder: (context) {
-          if(!isShimmer){
-            return Column(
-              children: [
-                Builder(
-                  builder: (context) {
-                    final newTravalers = trip.travalers.where((element) => element.statusName=="new",).toList();
-                    final orderId=trip.orderId;
-                    if(newTravalers.isEmpty){
-                      return SizedBox.shrink();
-                    }else{
-                      return GestureDetector(
-                        onTap: () {
-                          actionsRideProvider.setNewTravalers(newTravalers,orderId);
-                          context.goNamed(RoutesName.actionsRide);
-                        },
-                        child: Container(
-                          height: 46,
-                          margin: EdgeInsets.only(bottom: 24),
-                          decoration: BoxDecoration(
-                            color: BrandColor.verylightBlue,
-                            borderRadius: BorderRadius.circular(12)
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 10,),
-                              Stack(
+      child: Stack(
+        children: [
+          Builder(
+            builder: (context) {
+              if(!isShimmer){
+                return Column(
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        final newTravalers = trip.travalers.where((element) => element.statusName=="new",).toList();
+                        final orderId=trip.orderId;
+                        if(newTravalers.isEmpty){
+                          return SizedBox.shrink();
+                        }else{
+                          return GestureDetector(
+                            onTap: () {
+                              actionsRideProvider.setNewTravalers(newTravalers,orderId);
+                              context.goNamed(RoutesName.actionsRide);
+                            },
+                            child: Container(
+                              height: 46,
+                              margin: EdgeInsets.only(bottom: 24),
+                              decoration: BoxDecoration(
+                                color: BrandColor.verylightBlue,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Row(
                                 children: [
-                                  R.SVG.BellIcon,
-                                  Positioned(
-                                    right: 0,
-                                    top: 0,
-                                    child: Container(
-                                      height: 12,
-                                      width: 12,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: BrandColor.red,
-                                        borderRadius: BorderRadius.circular(12)
-                                      ),
-                                      child: Text(
-                                        newTravalers.length.toString(),
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontFamily: "SF",
-                                          fontSize: 8,
-                                          color:BrandColor.white,
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                      ),
-                                    )
+                                  SizedBox(width: 10,),
+                                  Stack(
+                                    children: [
+                                      R.SVG.BellIcon,
+                                      Positioned(
+                                        right: 0,
+                                        top: 0,
+                                        child: Container(
+                                          height: 12,
+                                          width: 12,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: BrandColor.red,
+                                            borderRadius: BorderRadius.circular(12)
+                                          ),
+                                          child: Text(
+                                            newTravalers.length.toString(),
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontFamily: "SF",
+                                              fontSize: 8,
+                                              color:BrandColor.white,
+                                              fontWeight: FontWeight.w400
+                                            ),
+                                          ),
+                                        )
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Text(
+                                    "New booking request",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontFamily: "SF",
+                                      fontSize: 20,
+                                      color:BrandColor.blue,
+                                      fontWeight: FontWeight.w400
+                                    ),
                                   )
                                 ],
-                              ),
-                              SizedBox(width: 10,),
-                              Text(
-                                "New booking request",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontFamily: "SF",
-                                  fontSize: 20,
-                                  color:BrandColor.blue,
-                                  fontWeight: FontWeight.w400
-                                ),
                               )
-                            ],
-                          )
-                          
+                              
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        date(),
+                        SizedBox(width: 12,),
+                        indicator(),
+                        SizedBox(width: 16,),
+                        Expanded(child: locations()),
+                        info()
+                      ],
+                    ),
+                    SizedBox(height: 24,),
+                    Container(
+                      alignment: Alignment.center,
+                      color: BrandColor.grey167,
+                      height: 1,
+                      margin: EdgeInsets.only(left:28 ),
+                    ),
+                    SizedBox(height: 24,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            avatar("",trip.driverNickname),
+                            SizedBox(width: 12,),
+                            driver(),
+                          ],
                         ),
-                      );
-                    }
-                  },
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    date(),
-                    SizedBox(width: 12,),
-                    indicator(),
-                    SizedBox(width: 16,),
-                    Expanded(child: locations()),
-                    info()
-                  ],
-                ),
-                SizedBox(height: 24,),
-                Container(
-                  alignment: Alignment.center,
-                  color: BrandColor.grey167,
-                  height: 1,
-                  margin: EdgeInsets.only(left:28 ),
-                ),
-                SizedBox(height: 24,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        avatar("",trip.driverNickname),
-                        SizedBox(width: 12,),
-                        driver(),
+                        passangersAvatar()
                       ],
-                    ),
-                    passangersAvatar()
+                    )
                   ],
-                )
-              ],
-            );
-          }
-          return Shimmer.fromColors(
-                 enabled: true,
-                baseColor: BrandColor.grey217,
-                highlightColor: BrandColor.grey167,
+                );
+              }
+              return Shimmer.fromColors(
+                     enabled: true,
+                    baseColor: BrandColor.grey217,
+                    highlightColor: BrandColor.grey167,
+                  
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          date(),
+                          SizedBox(width: 12,),
+                          indicator(),
+                          SizedBox(width: 16,),
+                          Expanded(child: locations()),
+                          info()
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 24,),
+                    Container(
+                      alignment: Alignment.center,
+                      color: BrandColor.grey167,
+                      height: 1,
+                      margin: EdgeInsets.only(left:28 ),
+                    ),
+                    SizedBox(height: 24,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            avatar("","MM"),
+                            SizedBox(width: 12,),
+                            driver(),
+                          ],
+                        ),
+                        passangersAvatar()
+                      ],
+                    )
+                  ],
+                ),
+              );
+            }
+          ),
+          // Positioned(
+          //   top: 100,
+          //   child: Container(
+          //     width: 40,
+          //     height: 40,
+          //     decoration: BoxDecoration(
+          //       color: Colors.amber
+          //     ),
               
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    date(),
-                    SizedBox(width: 12,),
-                    indicator(),
-                    SizedBox(width: 16,),
-                    Expanded(child: locations()),
-                    info()
-                  ],
-                ),
-                SizedBox(height: 24,),
-                Container(
-                  alignment: Alignment.center,
-                  color: BrandColor.grey167,
-                  height: 1,
-                  margin: EdgeInsets.only(left:28 ),
-                ),
-                SizedBox(height: 24,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        avatar("","MM"),
-                        SizedBox(width: 12,),
-                        driver(),
-                      ],
-                    ),
-                    passangersAvatar()
-                  ],
-                )
-              ],
-            ),
-          );
-        }
+          //   )
+          // )
+        ],
       ),
     );
   }
@@ -550,6 +567,7 @@ class TripCard extends StatelessWidget {
     }
     return SizedBox(
       width: 60,
+      height: 195,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -574,6 +592,20 @@ class TripCard extends StatelessWidget {
               fontWeight: FontWeight.w700
             ),
           ), 
+          Expanded(
+            child: SizedBox.shrink()
+          ),
+          GestureDetector(
+            onLongPress: () {
+              
+            },
+            child: Container(
+              height: 40,
+              width: 40,
+              alignment: Alignment.center,
+              child: R.SVG.LightIcon
+            ),
+          )
         ],
       ),
     );

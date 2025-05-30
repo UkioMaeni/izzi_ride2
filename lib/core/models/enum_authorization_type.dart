@@ -1,3 +1,3 @@
 enum AuthorizationType{
-  phone
+  phone,google
 }

@@ -86,7 +86,10 @@ class _ResultState extends State<Result> {
                 onTap: () {
                   context.pushNamed(RoutesName.orderFullInfo,extra: trip.orderId);
                 },
-                child: TripCard.view(trip: rides[index])
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: TripCard.view(trip: rides[index]),
+                )
               );
             },
           );

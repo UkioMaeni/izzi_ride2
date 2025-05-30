@@ -35,6 +35,15 @@ class CreateCarSelectCarYear extends CreateCarEvent{
   const CreateCarSelectCarYear({required this.carYear});
 }
 
+class CreateCarAddPhotos extends CreateCarEvent{
+  final List<Uint8List> carPhotos;
+  const CreateCarAddPhotos({required this.carPhotos});
+}
+class CreateCarAddPhotosUrl extends CreateCarEvent{
+  final List<String> carPhotosUrls;
+  const CreateCarAddPhotosUrl({required this.carPhotosUrls});
+}
 class CreateCar_RESET_DATA extends CreateCarEvent{
   const CreateCar_RESET_DATA();
 }
+

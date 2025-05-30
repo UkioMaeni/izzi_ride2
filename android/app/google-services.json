@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "320242355547",
+    "project_id": "eazyride-e70a8",
+    "storage_bucket": "eazyride-e70a8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320242355547:android:0df82ce61bfbbb80369e7e",
+        "android_client_info": {
+          "package_name": "com.easyride.ezride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320242355547-31h58onrg2ul5iqnd5j269rmpn627l7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.easyride.ezride",
+            "certificate_hash": "b93d600adab3a6c96c1eb9af59008cfbed8f82e6"
+          }
+        },
+        {
+          "client_id": "320242355547-a7j0hihcqugj9iub8pce39rhvp07urlc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrlaXJ1TgI5N7YDmFbJdfkaNtSl6qNtWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320242355547-9n7n8g1if647rgh8bflu2bfvvud6n2sp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "320242355547-0nar8mem3l2m4ec2plj7tfl0mbdilkg8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.eeasyride.ezride"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

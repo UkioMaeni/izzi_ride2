@@ -22,7 +22,7 @@ class _TabNavigatorState extends State<TabNavigator> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 72,
+      height: 80,
       child: Row(
         children: [
           TabElement(

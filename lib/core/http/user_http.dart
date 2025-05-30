@@ -160,6 +160,7 @@ class UserHttp{
         },
         
       );
+      log(result.data.toString());
       final data = result.data["data"];
       String? accessToken = data["access_token"];
       String? refreshToken = data["refresh_token"];
@@ -200,6 +201,7 @@ class UserHttp{
           color: element["color"]??"no",
           seats:element["number_of_seats"],
           year: element["year"],
+          imageUrl: (element["photos"] as List<dynamic>).map((e) => e as String,).toList(),
           number: element["number"]??"_carnumber_"
         ) 
       ).toList();
@@ -270,6 +272,15 @@ class UserHttp{
   Future<CustomResponse> createUserCar(CreateCarState state)async{
     try {
       print("start");
+      log({
+          "model_id":state.model.id,
+          "manufacturer_id":state.brand.id,
+          "number_of_seats":state.seats,
+          "color":state.colorCar.stringColor,
+          "auto_number":state.carNumber,
+          "year":state.carYear,
+          "images_url":state.carPotosUrls
+        }.toString());
       final result= await dio.post(
         AppConfig.requestUrl+"/client/auto",
         data: {
@@ -279,6 +290,7 @@ class UserHttp{
           "color":state.colorCar.stringColor,
           "auto_number":state.carNumber,
           "year":state.carYear,
+          "images_url":state.carPotosUrls
         }
       );
       final data = result.data["data"];

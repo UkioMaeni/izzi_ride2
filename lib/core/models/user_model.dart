@@ -9,6 +9,7 @@ class UserModel{
   String surname;
   String nickname;
   String gender;
+  String bio;
   double rate;
   bool phoneConfirmed;
   bool emailConfirmed;
@@ -28,6 +29,7 @@ class UserModel{
     required this.emailConfirmed,
     required this.firstRegisterDate,
     required this.socialPlatforms,
-    required this.passportConfirmed
+    required this.passportConfirmed,
+    required this.bio
   });
 }

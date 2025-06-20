@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:izzi_ride_2/UI/trip_card/components/trip_card_pending_status.dart';
+import 'package:izzi_ride_2/UI/user_photo.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_booked_status.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
 import 'package:izzi_ride_2/core/models/trip.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
@@ -48,8 +53,12 @@ class TripCard extends StatelessWidget {
                   children: [
                     Builder(
                       builder: (context) {
+                        inspect(trip);
                         final newTravalers = trip.travalers.where((element) => element.statusName=="new",).toList();
                         final orderId=trip.orderId;
+                        if(trip.rideBookedStatus==EnumRideBookedStatus.pending){
+                          return TripCardPendingStatus();
+                        }
                         if(newTravalers.isEmpty){
                           return SizedBox.shrink();
                         }else{
@@ -264,7 +273,7 @@ class TripCard extends StatelessWidget {
         Row(
           children: [
             Text(
-              trip.driverNickname,
+              trip.driverName.toString(),
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontFamily: "SF",
@@ -307,30 +316,31 @@ class TripCard extends StatelessWidget {
           width: 44,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(22),
-            child: Image.network(
-              avatarUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: ColorGenerator.fromString("Mike D"),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    trip.driverNickname.isEmpty?"N":trip.driverNickname[0],
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: "SF",
-                      fontSize: 20,
-                      color:Colors.white,
-                      fontWeight: FontWeight.w400
-                    ),
-                  ),
-                );
-              },
-            ),
+            child: UIUserPhoto(url: avatarUrl,size: Size(44, 44),),
+            // child: Image.network(
+            //   avatarUrl,
+            //   fit: BoxFit.cover,
+            //   errorBuilder: (context, error, stackTrace) {
+            //     return Container(
+            //       width: 44,
+            //       height: 44,
+            //       decoration: BoxDecoration(
+            //         color: ColorGenerator.fromString("Mike D"),
+            //       ),
+            //       alignment: Alignment.center,
+            //       child: Text(
+            //         trip.driverNickname.isEmpty?"N":trip.driverNickname[0],
+            //         textAlign: TextAlign.start,
+            //         style: TextStyle(
+            //           fontFamily: "SF",
+            //           fontSize: 20,
+            //           color:Colors.white,
+            //           fontWeight: FontWeight.w400
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
           ),
         
       );
@@ -595,7 +605,7 @@ class TripCard extends StatelessWidget {
           Expanded(
             child: SizedBox.shrink()
           ),
-          GestureDetector(
+          if(trip.autoInstant) GestureDetector(
             onLongPress: () {
               
             },

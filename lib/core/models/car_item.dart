@@ -17,4 +17,7 @@ class CarItem{
     this.imageUrl,
     required this.number
   });
+
+
+  String get fullName => brand+" "+model;
 }

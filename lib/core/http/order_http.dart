@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:izzi_ride_2/config/app_config.dart';
 import 'package:izzi_ride_2/core/bloc/create_car_bloc/create_car_bloc.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
@@ -30,6 +31,109 @@ class OrderHttp{
   static OrderHttp Instance = OrderHttp();
   static OrderHttp I = OrderHttp.Instance;
   //ответ на запрос заявки orders
+
+  
+  Future<CustomResponse> getOrderInfoFromHash(String hash)async{
+    try {
+      final result= await dio.get(
+        AppConfig.requestUrl+"/client/geo/${hash}?isfull=true",
+      );
+      if(result.data == null || result.data["data"]==null){
+        return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+      }
+      final data = result.data["data"];
+      log(data.toString());
+
+      List<Location> locations=[];
+
+      List<dynamic> _responseLocation = data["locations"];
+      locations=_responseLocation.map(
+        (element) => Location(
+          city: element["city_name"], 
+          state: element["state"], 
+          stateShort: "", 
+          street: "", 
+          homeNumber: "", 
+          sortId: element["sort_id"], 
+          pickUp: element["pick_up"], 
+          location: element["location"], 
+          longitude: element["longitude"], 
+          latitude: element["latitude"], 
+          departureTime: DateTime.parse(element["departure_time"]) 
+        ),
+      ).toList();
+      final _responseAutomobile = data["automobile"];
+      CarItem carItem = CarItem(
+        carId: 0, 
+        brand: _responseAutomobile["manufacturer"],
+        model: _responseAutomobile["model"], 
+        color: "", 
+        seats: 0, 
+        year: _responseAutomobile["year"], 
+        number: _responseAutomobile["number"]
+      );
+
+      RideModel rideModel = RideModel(
+        orderId: data["orderID"], 
+        clientAutoId: -1, 
+        comment: "", 
+        price: 0, 
+        paymaentMetodId: 0,
+        numberOfSeats: 0, 
+        additional: Additional(), 
+        locations: locations, 
+        travalers: [], 
+        driverRate: 0, 
+        driverNickname: "", 
+        driverName: data["name"],
+        driverPhoto: data["avatar_url"],
+        rideStatus: enumRideStatusFromString(data["status"]) , 
+        rideBookedStatus: EnumRideBookedStatus.error,
+        latLng: LatLng((data["latitude"]??0)+.0, (data["longitude"]??0)+.0),
+        totalSeats: 0, 
+        freeSeats: 0, 
+        date: DateTime.now(),
+        carItem : carItem,
+        startLocationName: "", 
+        endLocationName: "", 
+        autoInstant: true, 
+        rideType: EnumRideType.delivery, 
+        carName: "", 
+        role: Role.client, 
+        carInfo: carItem,
+        creatorId: 0
+      );
+      log(rideModel.latLng!.latitude.toString());
+      log(rideModel.latLng!.longitude.toString());
+      print(result.data);
+      return CustomResponse<RideModel>(data: rideModel);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
+  Future<CustomResponse> getLocationFromHash(String hash)async{
+    try {
+      final result= await dio.get(
+        AppConfig.requestUrl+"/client/geo/${hash}",
+      );
+      if(result.data == null || result.data["data"]==null){
+        return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+      }
+      final data = result.data["data"];
+      log(data.toString());
+
+      List<Location> locations=[];
+      LatLng latLng = LatLng((data["latitude"]??0)+.0, (data["longitude"]??0)+.0);
+      print(result.data);
+      return CustomResponse<LatLng>(data: latLng);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+
   Future<CustomResponse> answerForAction(bool isAccepted,int appId)async{
     try {
       final result= await dio.post(
@@ -89,13 +193,13 @@ class OrderHttp{
   //отмена брони ордера
   Future<CustomResponse> cancelBooking(int orderId,String comment)async{
     try {
-      log("cancelBooking");
-      final result= await dio.put(
-        AppConfig.requestUrl+"/order/cancel",
-        data: {
+      log({
           "order_id":orderId,
           "comment":comment
-        }
+        }.toString());
+      final result= await dio.put(
+        AppConfig.requestUrl+"/order-app/cancel/"+orderId.toString(),
+
       );
       print(result.data);
       return CustomResponse<bool>(data: true);
@@ -142,6 +246,7 @@ class OrderHttp{
           travalers: [], 
           driverRate: 0.0,
           creatorId: -1, 
+          driverName: data["driver_name"],
           driverNickname: data["driver_nickname"], 
           rideStatus: EnumRideStatus.error, 
           rideBookedStatus: EnumRideBookedStatus.error,
@@ -168,7 +273,7 @@ class OrderHttp{
       final result= await dio.get(
         "${AppConfig.requestUrl}/order/${orderId.toString()}",
       );
-      print(result.data);
+      log(result.data.toString());
       if(result.data==null){
         return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
       }
@@ -182,7 +287,6 @@ class OrderHttp{
         seats: -1, 
         year: data["automobile"]["year"].toString(),
         number: data["automobile"]["number"]??"_carnumber_"
-        
       );
       List<Location> locations=[];
       if(data["locations"]!=null && data["locations"] is List){
@@ -204,13 +308,35 @@ class OrderHttp{
           locations.add(location);
         }
       }
+      List<TravalerModel> travalers=[];
+      if(data["travelers"]!=null && data["travelers"] is List){
+        List<dynamic> travalersList = data["travelers"];
+        for (var travelerItem in travalersList) {
+          TravalerModel traveler = TravalerModel(
+            statusId: travelerItem["status_id"]??0,
+            bio: travelerItem["bio"]??"",
+            numberOfSeats: travelerItem["number_of_seats"]??0,
+            id: travelerItem["id"],
+            applicationId: travelerItem["app_id"],
+            rate: (travelerItem["rate"] as num)+0.0,
+            name: travelerItem["name"],
+            statusName: travelerItem["status_name"],
+            surname: travelerItem["surname"],
+            avatarUrl : travelerItem["avatar_url"],
+            nickname: travelerItem["nickname"],
+            hasOrderRate: travelerItem["has_order_rate"]
+          );
+          travalers.add(traveler);
+        }
+      }
       final RideModel ride=RideModel(
           carInfo: carInfo,
+          driverName: data["driver_name"]??"_null_",
           orderId: data["order_id"],
           clientAutoId: data["client_auto_id"], 
           comment: data["comment"],
           carName:"_!_",
-          price: (data["order_price"]??0)+.0, 
+          price: (data["price"]??0)+.0, 
           paymaentMetodId: 0, 
           numberOfSeats: -1, 
           additional:
@@ -220,9 +346,10 @@ class OrderHttp{
               ..animals=data["preference"]["animals"]
               ..luggage=data["preference"]["luggage"],
           locations: locations, 
-          travalers: [], 
+          travalers: travalers, 
           driverRate: 0.0, 
-          driverNickname: data["nickname"], 
+          driverNickname: data["nickname"],
+          driverPhoto:data["driver_photo"],
           rideStatus:enumRideStatusFromString(data["created"]??"!"),
           rideBookedStatus:enumRideBookedStatusFromString(data["booked_status"]??"!"),
           role: data["is_driver"]==null?Role.error:(data["is_driver"] as bool)?Role.driver:Role.client,
@@ -233,7 +360,8 @@ class OrderHttp{
           startLocationName: "", 
           endLocationName: "", 
           autoInstant: false, 
-          rideType: EnumRideType.client
+          rideType: EnumRideType.client,
+          clientNumberOfSeats: data["number_of_seats_client"]
         );
       
       return CustomResponse<RideModel>(data: ride);

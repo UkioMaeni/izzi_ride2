@@ -7,4 +7,6 @@ class Image_R{
    Widget get IllustrtationSearch => Image.asset("assets/image/illustrations/search.png");
    Widget get IllustrtationMessages => Image.asset("assets/image/illustrations/messages.png");
    Widget get IllustrtationCar => Image.asset("assets/image/illustrations/car.png");
+   Widget get IllustrtationDriverAway => Image.asset("assets/image/illustrations/driver_away.png");
+   
 }

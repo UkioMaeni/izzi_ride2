@@ -17,6 +17,7 @@ import 'package:izzi_ride_2/core/models/token.dart';
 import 'package:izzi_ride_2/core/resources/image_widgets.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
 import 'package:izzi_ride_2/core/services/app_info-service.dart';
+import 'package:izzi_ride_2/core/services/deep_link_service.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,7 +32,6 @@ class LoaderPage extends StatefulWidget{
 class _LoaderPageState extends State<LoaderPage> {
 
 double _progressValue=0.0;
-
   nextStep(){
     setState(() {
       _progressValue+=0.1;
@@ -62,9 +62,11 @@ double _progressValue=0.0;
     nextStep();
     await auth(context);
     fullStep();
-  
-  
+
   }
+
+
+  
 
   Future<void> auth(BuildContext context)async{
      final tokenService= GetIt.I.get<TokenInterface>();
@@ -159,9 +161,9 @@ double _progressValue=0.0;
 @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: BrandColor.blue,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: BrandColor.blue,
         toolbarHeight: 0,
         bottomOpacity: 0,
         elevation: 0,
@@ -170,7 +172,13 @@ double _progressValue=0.0;
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          R.Image.loaderImage,
+          Expanded(
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: EdgeInsets.only(bottom: 100),
+              child: R.Image.loaderImage
+            ),
+          ),
           SizedBox(height: 80,),
           Builder(
             builder: (context) {
@@ -178,7 +186,7 @@ double _progressValue=0.0;
               return Text(
                 state.loaderWelcome,
                 style: TextStyle(
-                  color: BrandColor.black69,
+                  color: BrandColor.white,
                   fontFamily: "SF",
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
@@ -194,7 +202,7 @@ double _progressValue=0.0;
               return Text(
                 state.loaderOther,
                 style: TextStyle(
-                  color: Color.fromRGBO(177, 178, 179, 1),
+                  color: BrandColor.white,
                   fontFamily: "SF",
                   fontSize: 18,
                   fontWeight: FontWeight.w400
@@ -214,7 +222,7 @@ double _progressValue=0.0;
               width: double.infinity,
               height: 10.5,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(58, 121, 215, 0.24),
+                color: BrandColor.white.withAlpha(80),
                 borderRadius: BorderRadius.circular(7)
               ),
               child: Stack(
@@ -225,7 +233,7 @@ double _progressValue=0.0;
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
-                        color: code==0? Color.fromRGBO(58, 121, 215, 1):code==1?Color.fromRGBO(170, 22, 56, 1) :code==2?Color.fromRGBO(61, 199, 231, 1):code==3?Color.fromRGBO(19, 225, 194, 1):Color.fromRGBO(13, 227, 134, 1)
+                        color: code==0? BrandColor.white:code==1?Color.fromRGBO(170, 22, 56, 1) :code==2?Color.fromRGBO(61, 199, 231, 1):code==3?Color.fromRGBO(19, 225, 194, 1):Color.fromRGBO(13, 227, 134, 1)
                       ),
                     ),
                   )

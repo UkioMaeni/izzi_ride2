@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/core/models/ride_model.dart';
+import 'package:izzi_ride_2/core/models/user_model.dart';
 import 'package:izzi_ride_2/pages/actions_ride_page/actions_ride_page.dart';
 import 'package:izzi_ride_2/pages/actions_ride_page/actions_ride_page_done.dart';
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
@@ -16,6 +17,7 @@ import 'package:izzi_ride_2/pages/create_car_scenes/create_car_photo/create_car_
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_seats/create_car_seats.dart';
 import 'package:izzi_ride_2/pages/create_car_scenes/create_car_year/create_car_year.dart';
 import 'package:izzi_ride_2/pages/full_order_info/full_order_info.dart';
+import 'package:izzi_ride_2/pages/full_order_info/full_order_info_client/scenes/full_order_cancel_booking_scene.dart';
 import 'package:izzi_ride_2/pages/initial_user_data_page/initial_user_data_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
@@ -45,18 +47,25 @@ import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/search_to_map
 import 'package:izzi_ride_2/pages/main_page/tabs/search_tab/scenes/time_scene/time_scene.dart';
 import 'package:izzi_ride_2/pages/payment_card_page/payment_card_page.dart';
 import 'package:izzi_ride_2/pages/payment_process_page/payment_process_page.dart';
+import 'package:izzi_ride_2/pages/profile_view_page/profile_view_page.dart';
 import 'package:izzi_ride_2/pages/settings_page/settings_page.dart';
+import 'package:izzi_ride_2/pages/view_stream_location_page/view_stream_location_page.dart';
 
 class AppRoiting{
 
   static GoRouter  router = GoRouter(
-    initialLocation: "/loader",
+    
     errorBuilder: (context, state) {
       print("errror");
       return SizedBox.shrink();
     },
+    
+    debugLogDiagnostics: true,
     routes: [
-      
+      GoRoute(
+        path: "/",
+        redirect: (context, state) => '/loader',
+      ),
       GoRoute(
         path: "/loader",
         name: RoutesName.loader,
@@ -64,6 +73,16 @@ class AppRoiting{
         builder: (context, state)=>LoaderPage(),
         //onExit: (_,__)=>false
       ),
+      GoRoute(
+        
+      path: '/appdeeplink/:hash',
+      builder: (context, state) {
+        
+        final hash = state.pathParameters['hash']??"null";
+        return ViewStreamLocationPage(hash: hash,);
+      },
+    ),
+      
       
       //страница чата
       GoRoute(
@@ -78,8 +97,18 @@ class AppRoiting{
         path: "/oder_full_info",
         name: RoutesName.orderFullInfo,
         
-        builder: (context, state)=>FullOrderInfo(orderId: state.extra as int,),
-        //onExit: (_,__)=>false
+        builder: (context, state)=>FullOrderInfo(orderId: (state.extra as Map)["orderId"] as int, currentNumberOfSeats: (state.extra as Map)["currentSeatsInfo"] as int,),
+        routes: [
+          GoRoute(
+            path: "/oder_full_info_cancel_illustration",
+            name: RoutesName.orderFullInfoCancelIllustration,
+            
+            builder: (context, state)=>FullOrderCancelBookingScene(),
+            routes: [
+              
+            ]
+          ),
+        ]
       ),
       GoRoute(
         path: "/auth",
@@ -275,6 +304,13 @@ class AppRoiting{
             builder: (context, state)=>PersonCounterScene(),
             routes: []
           ),
+          //Просмотр профиля
+          GoRoute(
+            path: "/profile_view",
+            name: RoutesName.profileView,
+            builder: (context, state)=>ProfileViewPage(userId: (state.extra as Map)["userId"] as int, user: (state.extra as Map)["user"] as UserModel?,),
+            routes: []
+          ),
           //Основной поиск результатов
           GoRoute(
             path: "/search_result",
@@ -456,6 +492,7 @@ class AppRoiting{
   static String createCarDetails="createCarDetails";
   //полная информация ордера
   static String orderFullInfo="orderFullInfo";
+  static String orderFullInfoCancelIllustration="orderFullInfoCancelIllustration";
   //сцены с фото и превью
   static String addPhotoPage="addPhotoPage";
   static String addPhotoPagePreview="addPhotoPagePreview";
@@ -472,5 +509,9 @@ class AppRoiting{
   static String paymentProcess="paymentProcess";
     //сцена настроек
   static String settings="settings";
+    //ПРосмотр профиля
+  static String profileView="profileView";
+    //диплинк
+  static String deepLink="deepLink";
 
 }

@@ -88,28 +88,28 @@ class _SettingsPageState extends State<SettingsPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Divider(),
-                    SettingsTitle(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      settingsTitleModel: SettingsTitleModel(
-                        title: "Account Settings",
-                        punkts: [
-                          SettingPunktAction(title: "Password", subTitle: "Change your password"),
-                          SettingPunktAction(title: "Payment Methods", subTitle: "Manage your payment options"),
-                        ]
-                      ),
-                    ),
-                    Divider(),
-                    SettingsTitle(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      settingsTitleModel: SettingsTitleModel(
-                        title: "Preferences",
-                        punkts: [
-                          SettingPunktAction(title: "Notifications", subTitle: "Customize your notification preferences"),
-                          SettingPunktAction(title: "Theme", subTitle: "Dark mode, Light mode, System default"),
-                        ]
-                      ),
-                    ),
+                    // Divider(),
+                    // SettingsTitle(
+                    //   padding: EdgeInsets.symmetric(vertical: 24),
+                    //   settingsTitleModel: SettingsTitleModel(
+                    //     title: "Account Settings",
+                    //     punkts: [
+                    //       SettingPunktAction(title: "Password", subTitle: "Change your password"),
+                    //       SettingPunktAction(title: "Payment Methods", subTitle: "Manage your payment options"),
+                    //     ]
+                    //   ),
+                    // ),
+                    // Divider(),
+                    // SettingsTitle(
+                    //   padding: EdgeInsets.symmetric(vertical: 24),
+                    //   settingsTitleModel: SettingsTitleModel(
+                    //     title: "Preferences",
+                    //     punkts: [
+                    //       SettingPunktAction(title: "Notifications", subTitle: "Customize your notification preferences"),
+                    //       SettingPunktAction(title: "Theme", subTitle: "Dark mode, Light mode, System default"),
+                    //     ]
+                    //   ),
+                    // ),
                     Divider(),
                     SettingsTitle(
                       padding: EdgeInsets.symmetric(vertical: 24),
@@ -133,6 +133,15 @@ class _SettingsPageState extends State<SettingsPage> {
                     SizedBox(height: 32,),
                     UIButton(
                       label: "Log out",
+                      onFuture: logOut,
+                    ),
+                    SizedBox(height: 0,),
+                    
+                    UIButton(
+                      label: "Delete account",
+                      alternate: true,
+                      backgroundColor: Colors.transparent,
+                      textColor: BrandColor.red193,
                       onFuture: logOut,
                     )
                   ],

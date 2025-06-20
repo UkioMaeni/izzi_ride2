@@ -30,6 +30,7 @@ class _SearchFromInputState extends State<SearchFromInput> {
   @override
   void initState() {
     _controller.addListener((){
+      print("addListener");
       debounceTool.debounce(getCity);
     });
     super.initState();

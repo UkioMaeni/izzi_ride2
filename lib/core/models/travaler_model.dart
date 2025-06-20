@@ -8,6 +8,9 @@ class TravalerModel{
   int applicationId;
   String name;
   String surname;
+  int numberOfSeats;
+  int statusId;
+  String bio;
   TravalerModel({
     required this.id,
     required this.rate,
@@ -18,5 +21,8 @@ class TravalerModel{
     required this.applicationId,
     required this.name,
     required this.surname,
+    required this.numberOfSeats,
+    required this.statusId,
+    required this.bio,
   });
 }

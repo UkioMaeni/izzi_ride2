@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +103,42 @@ class UserHttp{
         name: data["name"]??"NoName", 
         nickname: data["nickname"]??"NoName", 
         photo: data["photo"], 
+        bio: data["bio"]??"", 
+        surname: data["surname"]??"NoSurname",
+        rate: (data["rate"]??0)+0.0,
+        emailConfirmed: data["email_confirmed"],
+        passportConfirmed: CheckedStatusTools.fromString(data["passport_status"]) ,
+        firstRegisterDate: parseDate(data["first_register_date"]),
+        phoneConfirmed: data["phone_confirmed"],
+        socialPlatforms: ((data["social_platforms"]??[]) as List<dynamic>).map((elem)=>Social(id: elem["id"],platformId: elem["platform_id"],link: elem["profile_link"])).toList()
+      );
+      
+      return CustomResponse<UserModel>(data: userData);
+    } catch (e) {
+      print(e);
+      return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+    }
+  }
+  Future<CustomResponse> getUserInfo(int userId)async{
+    try {
+      print("start");
+      final result= await dio.get(
+        AppConfig.requestUrl+"/client/${userId}/info",
+      );
+      final data = result.data["data"];
+      if(data==null){
+        return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
+      }
+
+      print(data);
+      final userData= UserModel(
+        clienId: data["client_id"]??0, 
+        dateOfBirth:parseDate(data["date_of_birth"]),
+        gender: data["gender"]??"male", 
+        name: data["name"]??"NoName", 
+        nickname: data["nickname"]??"NoName", 
+        photo: data["photo"], 
+        bio: data["bio"]??"", 
         surname: data["surname"]??"NoSurname",
         rate: (data["rate"]??0)+0.0,
         emailConfirmed: data["email_confirmed"],
@@ -306,6 +343,7 @@ class UserHttp{
   Future<CustomResponse> createUserRide(RideModel ride)async{
     try {
       print("start");
+      log(ride.toJson().toString());
       final result= await dio.post(
         AppConfig.requestUrl+"/order",
         data: ride.toJson()
@@ -335,6 +373,7 @@ class UserHttp{
         (element){
           log(element.toString());
           return RideModel(
+          driverName: element["driver_name"]??"_null_",
           creatorId: -1,
           orderId: element["order_id"],
           clientAutoId: element["client_auto_id"]??0, 
@@ -348,7 +387,7 @@ class UserHttp{
           totalSeats: element["seats"]["total"],
           freeSeats: element["seats"]["free"],
           price: (element["order_price"]??0)+.0,
-           
+          driverPhoto: element["driver_avatar_url"]??"",
           additional: 
             Additional()
               ..smoking=element["preference"]["smoking"]
@@ -356,7 +395,7 @@ class UserHttp{
               ..animals=element["preference"]["animals"]
               ..luggage=element["preference"]["luggage"], 
           locations: [],
-          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],avatarUrl: el["avatar_url"],hasOrderRate: el["has_order_rate"],name: el["name"],surname: el["surname"],applicationId: el["app_id"],nickname: el["nickname"],statusName:el["status_name"], rate: (el["rate"]??0)+.0)).toList(),
+          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],bio: el["bio"]??"",avatarUrl: el["avatar_url"],statusId: el["status_id"]??0,numberOfSeats: el["number_of_seats"]??0,hasOrderRate: el["has_order_rate"],name: el["name"],surname: el["surname"],applicationId: el["app_id"],nickname: el["nickname"],statusName:el["status_name"], rate: (el["rate"]??0)+.0)).toList(),
           comment: "",
           numberOfSeats: 0,
           autoInstant: false,
@@ -393,19 +432,20 @@ class UserHttp{
           log(element.toString());
           return RideModel(
           creatorId: -1,
+          driverName: element["name"]??"_null_",
           orderId: element["order_id"],
           clientAutoId: element["client_auto_id"], 
           driverRate: (element["driver_rate"]??0)+.0,
           driverNickname: element["nickname"],
           date: DateTime.parse(element["departure_time"]),
           rideStatus: enumRideStatusFromString(element["status"]??"!") ,
-          rideBookedStatus: enumRideBookedStatusFromString(element["status"]??"!") ,
+          rideBookedStatus: enumRideBookedStatusFromString(element["status"]??"!"),
           startLocationName: element["start_country_name"],
           endLocationName: element["end_country_name"],
           totalSeats: element["seats_info"]["total"],
           freeSeats: element["seats_info"]["free"],
           price: (element["price"]??0)+.0,
-           
+          driverPhoto: element["driver_avatar_url"],
           additional: 
             Additional()
               ..smoking=element["preference"]["smoking"]
@@ -413,14 +453,14 @@ class UserHttp{
               ..animals=element["preference"]["animals"]
               ..luggage=element["preference"]["luggage"], 
           locations: [],
-          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],avatarUrl: el["avatar_url"],hasOrderRate: el["has_order_rate"],name: el["name"],surname: el["surname"],applicationId: el["app_id"],nickname: el["nickname"],statusName:el["status_name"], rate: (el["rate"]??0)+.0)).toList(),
+          travalers: ((element["travelers"]??[]) as List<dynamic> ).map((el)=>TravalerModel(id: el["id"],bio:  el["bio"]??"",avatarUrl: el["avatar_url"],statusId: el["status_id"]??0, numberOfSeats: el["number_of_seats"]??0,hasOrderRate: el["has_order_rate"],name: el["name"],surname: el["surname"],applicationId: el["app_id"],nickname: el["nickname"],statusName:el["status_name"], rate: (el["rate"]??0)+.0)).toList(),
           comment: "",
           numberOfSeats: 0,
           autoInstant: false,
           paymaentMetodId: 1,
           rideType: EnumRideType.driver,
           role: Role.error,
-          carName: ""
+          carName: element["driver_car_make"]??"_null_"
         );
         }
       ).toList();
@@ -433,7 +473,37 @@ class UserHttp{
       return CustomResponse<CustomErrorRepsonse>(data: CustomErrorRepsonse());
     }
   }
+
+  Future<int> setFcmToken(String token, )async{
+      String platform="";
+        if(Platform.isAndroid){
+          platform="android";
+        }else if(Platform.isIOS){
+          platform="ios";
+        }
+      try {
+        Response response=await dio.put(
+        "${AppConfig.requestUrl}/push-token",
+        data: {
+          "token":token,
+          "platform":platform
+        },
+        );
+        print(response.data);
+        return 0;
+      } catch (e,stackTrace) {
+        print(e);
+        print("err fcm");
+        // Sentry.captureException(
+        //   e,
+        //   stackTrace: stackTrace,
+        // );
+        return 1;
+      }
+    }
+
   Future<CustomResponse> getCityFromGoogle(String text) async{
+    print("getCityFromGoogle");
     try {
      PlacesAutocompleteResponse response = await AppConfig.places.autocomplete(
         text,

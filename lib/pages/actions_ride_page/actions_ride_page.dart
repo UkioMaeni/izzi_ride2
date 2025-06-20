@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:izzi_ride_2/UI/button.dart';
 import 'package:izzi_ride_2/UI/nav_bar.dart';
+import 'package:izzi_ride_2/UI/user_photo.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/photo_add_bloc/photo_add_bloc.dart';
@@ -74,6 +75,10 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
           int applicationId = currentTravalers.applicationId;
           int orderId = action.currentOrderId;
           int travalerId = currentTravalers.id;
+          int numberOfSeats = currentTravalers.numberOfSeats;
+          String currentTravalersNameSurname = currentTravalers.name+" "+currentTravalers.surname;
+          String bio = currentTravalers.bio+"asd asd asdasdasd asdasd ad12ed 12d1 2d1 d 1212d1d21d 12d12d1d1d1d 21d1d11 21d121d1d ";
+          log(currentTravalers.bio);
           return Column(
             
             children: [
@@ -104,25 +109,26 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                               child: SizedBox(
                                 height: 150,
                                 width: 150,
-                                child: Image.asset(
-                                  currentTravalers.avatarUrl,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: ColorGenerator.fromString(currentTravalersNickname),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        currentTravalersNickname[0],
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: "SF",
-                                          fontSize: 40,
-                                          color:BrandColor.black69,
-                                          fontWeight: FontWeight.w700
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                child: UIUserPhoto(url: currentTravalers.avatarUrl,size: Size(150, 150),),
+                                // child: Image.network(
+                                //   currentTravalers.avatarUrl,
+                                //   errorBuilder: (context, error, stackTrace) {
+                                //     return Container(
+                                //       color: ColorGenerator.fromString(currentTravalersNickname),
+                                //       alignment: Alignment.center,
+                                //       child: Text(
+                                //         currentTravalersNickname[0],
+                                //         textAlign: TextAlign.center,
+                                //         style: TextStyle(
+                                //           fontFamily: "SF",
+                                //           fontSize: 40,
+                                //           color:BrandColor.black69,
+                                //           fontWeight: FontWeight.w700
+                                //         ),
+                                //       ),
+                                //     );
+                                //   },
+                                // ),
                               ),
                             ),
                             SizedBox(height: 5,),
@@ -137,7 +143,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                               ),
                             ),
                             Text(
-                              currentTravalersNickname,
+                              currentTravalersNameSurname,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: "SF",
@@ -147,7 +153,37 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                               ),
                             ),
                             
+                            Text("bio"),
+                            Container(
+                              constraints: BoxConstraints(
+                                minHeight: 50,
+                                
+                              ),
+                              decoration: BoxDecoration(
+                                color: BrandColor.verylightBlue,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+
+                                )
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                bio,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: "SF",
+                                  fontSize: 15,
+                                  color:BrandColor.black69,
+                                  fontWeight: FontWeight.w700
+                                ),
+                              ),
+                            ),
                             UIButton(label: "See profile",reverse: true,),
+                            Text(
+                              "Request ${numberOfSeats} seats"
+                            )
                           ],
                         ),
                       ),
@@ -164,7 +200,7 @@ class _ActionsRidePageState extends State<ActionsRidePage> {
                           fontWeight: FontWeight.w400
                         ),
                       ),
-                      SizedBox(height: 6,),
+                      SizedBox(height: 20,),
                     ],
                   ),
                 ),

@@ -46,6 +46,7 @@ class SocketProvider {
         neededAutoReconnect=false;
         await GetIt.I.get<TokenInterface>().refreshingToken();
         connect();
+        return;
       }
         final parseMessage=json.decode(event);
         

@@ -11,7 +11,9 @@ class UIButton extends StatefulWidget {
   final Function()? onTap;
   final bool? enabled;
   final Color? backgroundColor;
+  final Color? textColor;
   final Future<void> Function()? onFuture;
+  final Widget? child;
   const UIButton({
     super.key,
     required this.label,
@@ -23,7 +25,9 @@ class UIButton extends StatefulWidget {
     this.onTap,
     this.onFuture,
     this.enabled,
-    this.backgroundColor
+    this.backgroundColor,
+    this.child,
+    this.textColor,
   });
 
   @override
@@ -49,8 +53,11 @@ class _UIButtonState extends State<UIButton> {
       bgColor=Colors.white;
       textColor=BrandColor.black69;
     }
-    if(widget.backgroundColor!=null){
+    if(widget.alternate!=null&&widget.alternate!&&widget.backgroundColor==null){
       bgColor=widget.backgroundColor!;
+    }
+    if(widget.textColor!=null){
+      textColor=widget.textColor!;
     }
     final onTap=widget.onTap??(){};
     return GestureDetector(
@@ -83,7 +90,7 @@ class _UIButtonState extends State<UIButton> {
           color: bgColor,
           borderRadius: BorderRadius.circular(10),
           border: widget.alternate!=null&&widget.alternate!
-            ?Border.all(color: BrandColor.blue):null
+            ?Border.all(color: widget.backgroundColor??BrandColor.blue):null
         ),
         child: Builder(
           builder: (context) {
@@ -92,6 +99,12 @@ class _UIButtonState extends State<UIButton> {
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(color: Colors.white),
+              );
+            }
+            if(widget.child!=null){
+              return Align(
+                alignment: Alignment.center,
+                child: widget.child!
               );
             }
             return Text(

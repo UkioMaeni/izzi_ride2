@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:izzi_ride_2/core/models/additional.dart';
 import 'package:izzi_ride_2/core/models/car_item.dart';
 import 'package:izzi_ride_2/core/models/enum_ride_booked_status.dart';
@@ -21,6 +22,8 @@ class RideModel{
   EnumRideType rideType;
   double driverRate;
   String driverNickname;
+  String driverName;
+  String? driverPhoto;
   EnumRideStatus rideStatus;
   EnumRideBookedStatus rideBookedStatus;
   int totalSeats;
@@ -33,6 +36,9 @@ class RideModel{
   CarItem? carInfo;
   Role role;
   int creatorId;
+  int? clientNumberOfSeats;
+  LatLng? latLng;
+  CarItem? carItem;
   RideModel({
     required this.orderId,
     required this.clientAutoId,
@@ -45,6 +51,7 @@ class RideModel{
     required this.travalers,
     required this.driverRate,
     required this.driverNickname,
+    required this.driverName,
     required this.rideStatus,
     required this.rideBookedStatus,
     required this.totalSeats,
@@ -57,7 +64,11 @@ class RideModel{
     required this.carName,
     required this.role,
     this.carInfo,
-    required this.creatorId
+    this.latLng,
+    this.driverPhoto,
+    this.clientNumberOfSeats,
+    this.carItem,
+    required this.creatorId,
   });
   static RideModel nullable(){
     return RideModel(
@@ -71,6 +82,7 @@ class RideModel{
       paymaentMetodId: 0,
       driverRate: 0,
       driverNickname: "",
+      driverName: "",
       freeSeats: 0,
       rideStatus: EnumRideStatus.error,
       rideBookedStatus: EnumRideBookedStatus.error,
@@ -89,7 +101,10 @@ class RideModel{
   Map<String,dynamic> toJson(){
     return {
       "client_auto_id":clientAutoId,
-      "ride_info":additional.toJson(),
+      "ride_info":{
+        "price":price,
+        "preferences":additional.toJson()
+      },
       "payment_method_id":paymaentMetodId,
       "order_type":rideType.name,
       "auto_accept":autoInstant,

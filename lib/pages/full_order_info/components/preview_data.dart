@@ -248,20 +248,20 @@ class FullOrderData extends StatelessWidget {
         height: 46,
         color: ColorGenerator.fromString(errorString),
         alignment: Alignment.center,
-        child: Image.network(
-          photoUrl,
-          errorBuilder: (context, error, stackTrace) {
-            return Text(
-              errorString[0],
-              style: TextStyle(
-                fontFamily: BrandFontFamily.platform,
-                fontSize: 24,
-                color: Colors.white,
-                fontWeight: FontWeight.w400
-              ),
-            );
-          },
-        ),
+        // child: Image.network(
+        //   photoUrl,
+        //   errorBuilder: (context, error, stackTrace) {
+        //     return Text(
+        //       errorString[0],
+        //       style: TextStyle(
+        //         fontFamily: BrandFontFamily.platform,
+        //         fontSize: 24,
+        //         color: Colors.white,
+        //         fontWeight: FontWeight.w400
+        //       ),
+        //     );
+        //   },
+        // ),
       )
     );
   }

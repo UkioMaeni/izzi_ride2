@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izzi_ride_2/UI/user_photo.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/resources/resoursec.dart';
@@ -251,20 +252,21 @@ class PreviewData extends StatelessWidget {
         height: 46,
         color: ColorGenerator.fromString(errorString),
         alignment: Alignment.center,
-        child: Image.network(
-          photoUrl,
-          errorBuilder: (context, error, stackTrace) {
-            return Text(
-              errorString[0],
-              style: TextStyle(
-                fontFamily: BrandFontFamily.platform,
-                fontSize: 24,
-                color: Colors.white,
-                fontWeight: FontWeight.w400
-              ),
-            );
-          },
-        ),
+        child: UIUserPhoto(url: photoUrl,size: Size(46, 46),),
+        // child: Image.network(
+        //   photoUrl,
+        //   errorBuilder: (context, error, stackTrace) {
+        //     return Text(
+        //       errorString[0],
+        //       style: TextStyle(
+        //         fontFamily: BrandFontFamily.platform,
+        //         fontSize: 24,
+        //         color: Colors.white,
+        //         fontWeight: FontWeight.w400
+        //       ),
+        //     );
+        //   },
+        // ),
       )
     );
   }

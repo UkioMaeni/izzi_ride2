@@ -12,14 +12,17 @@ class FullOrderHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        date(),
-        SizedBox(width: 12,),
-        indicator(),
-        SizedBox(width: 16,),
-        Expanded(child: locations()),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        children: [
+          date(),
+          SizedBox(width: 12,),
+          indicator(),
+          SizedBox(width: 16,),
+          Expanded(child: locations()),
+        ],
+      ),
     );
   }
 

@@ -22,11 +22,13 @@ class BrandColor{
   static Color red = Color.fromRGBO(244, 35, 35, 1);
   static Color red193 = Color.fromRGBO(193, 17, 17, 1);
   static Color listViewContainer = Color.fromRGBO(244, 244, 244, 1);
+  static Color lightYellow = Color.fromRGBO(244, 233, 201, 1);
+  static Color yellow = Color.fromRGBO(210, 154, 11, 1);
 }
 
 
 class BrandFontFamily{
-  static String platform = Platform.isAndroid?"inter":"SF"; 
+  static String platform = Platform.isAndroid?"SF":"SF"; 
 }
 
 //easeInOutCirc

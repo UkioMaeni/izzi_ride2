@@ -15,7 +15,8 @@ import 'package:izzi_ride_2/pages/full_order_info/full_order_info_driver.dart';
 
 class FullOrderInfo extends StatefulWidget {
   final int orderId;
-  const FullOrderInfo({super.key,required this.orderId});
+  final int currentNumberOfSeats;
+  const FullOrderInfo({super.key,required this.orderId,required this.currentNumberOfSeats});
 
   @override
   State<FullOrderInfo> createState() => _FullOrderInfoState();
@@ -54,6 +55,7 @@ class _FullOrderInfoState extends State<FullOrderInfo> {
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
       ),
       body: Column(
         children: [
@@ -73,6 +75,7 @@ class _FullOrderInfoState extends State<FullOrderInfo> {
                   child: FullOrderInfoClient(
                     trip: trip!,
                     updateState: getTripFromId,
+                    currentNumberOfSeats:widget.currentNumberOfSeats
                   )
                 );
               }

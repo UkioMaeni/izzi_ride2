@@ -23,6 +23,8 @@ class _ResultState extends State<Result> {
 
   List<RideModel> rides=[];
 
+  int get currentNuberSeats => context.read<SearchRideBloc>().state.personCount;
+
   bool loading=true;
 
 
@@ -84,7 +86,7 @@ class _ResultState extends State<Result> {
               final trip=rides[index];
               return GestureDetector(
                 onTap: () {
-                  context.pushNamed(RoutesName.orderFullInfo,extra: trip.orderId);
+                  context.pushNamed(RoutesName.orderFullInfo,extra: {"orderId":trip.orderId,"currentSeatsInfo":currentNuberSeats});
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

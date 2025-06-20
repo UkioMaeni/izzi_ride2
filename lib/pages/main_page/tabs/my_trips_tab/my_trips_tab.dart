@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,7 +8,14 @@ import 'package:izzi_ride_2/UI/trip_card/trip_card.dart';
 import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
+import 'package:izzi_ride_2/core/models/enum_ride_status.dart';
 import 'package:izzi_ride_2/core/models/trip.dart';
+
+
+enum EStatusName{
+  active,completed,cancelled
+}
+
 
 class MyTripsTab extends StatefulWidget {
   const MyTripsTab({super.key});
@@ -17,10 +26,25 @@ class MyTripsTab extends StatefulWidget {
 
 class _MyTripsTabState extends State<MyTripsTab> {
 
-  int currentCategoryIndex=0;
+  EStatusName currentCategoryIndex=EStatusName.active;
+
+  List<EnumRideStatus> statusesFromOrderStatus(EStatusName statusName){
+    switch(statusName){
+      case EStatusName.active: return [EnumRideStatus.created,EnumRideStatus.ongoing];
+      case EStatusName.completed: return [EnumRideStatus.finished];
+      case EStatusName.cancelled: return [EnumRideStatus.rejected,EnumRideStatus.canceled];
+    }
+  }
+
+ 
+
+  int ridesCountWithCategory=0;
 
   @override
   Widget build(BuildContext context) {
+
+    final ridesBlock=context.watch<RidesBloc>();
+  
     return Stack(
       children: [
         Padding(
@@ -46,10 +70,10 @@ class _MyTripsTabState extends State<MyTripsTab> {
                         final ridesBlockState=ridesBlock.state;
                         if(ridesBlockState.rides==null){
                           ridesBlock.add(RidesGetUserRides());
-                          return TripCard.shimmer(); 
+                          return Expanded(child: TripCard.shimmer()); 
                         }
                         if(ridesBlockState.requsted){
-                          return TripCard.shimmer(); 
+                          return Expanded(child: TripCard.shimmer()); 
                         }
                         if(ridesBlockState.rides!.isEmpty){
                           return Expanded(
@@ -59,17 +83,20 @@ class _MyTripsTabState extends State<MyTripsTab> {
                               )
                           );
                         }
+                        final rides = ridesBlockState.rides!.where((element) => statusesFromOrderStatus(currentCategoryIndex).contains(element.rideStatus),).toList();
+                        ridesCountWithCategory=rides.length;
                         return Expanded(
                           child: ListView.builder(
-                            itemCount: ridesBlockState.rides!.length,
+                            itemCount: rides.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: GestureDetector(
                                   onTap: () {
-                                    context.pushNamed(RoutesName.orderFullInfo,extra: ridesBlockState.rides![index].orderId);
+                                    
+                                    context.pushNamed(RoutesName.orderFullInfo,extra: {"orderId":rides[index].orderId,"currentSeatsInfo":1});
                                   },
-                                  child: TripCard.view(trip:ridesBlockState.rides![index])
+                                  child: TripCard.view(trip:rides[index])
                                 ),
                               );
                             },
@@ -87,18 +114,27 @@ class _MyTripsTabState extends State<MyTripsTab> {
           right: 0,
           child: SizedBox(
             height: 34,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                SizedBox(width: 24,),
-                filterCategory(0,"Active"),
-                SizedBox(width: 16,),
-                filterCategory(1,"Completed"),
-                SizedBox(width: 16,),
-                filterCategory(2,"Cancelled"),
-                SizedBox(width: 24,),
-
-              ],
+            child: Builder(
+              builder: (context) {
+                final ridesBlock=context.watch<RidesBloc>();
+                final ridesBlockState=ridesBlock.state;
+                int active = ridesBlockState.rides==null?0:ridesBlockState.rides!.where((element) => statusesFromOrderStatus(EStatusName.active).contains(element.rideStatus)).length;
+                int completed = ridesBlockState.rides==null?0:ridesBlockState.rides!.where((element) => statusesFromOrderStatus(EStatusName.completed).contains(element.rideStatus)).length;
+                int cancelled = ridesBlockState.rides==null?0:ridesBlockState.rides!.where((element) => statusesFromOrderStatus(EStatusName.cancelled).contains(element.rideStatus)).length;
+                return ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    SizedBox(width: 24,),
+                    filterCategory(EStatusName.active,"Active",active),
+                    SizedBox(width: 16,),
+                    filterCategory(EStatusName.completed,"Completed",completed),
+                    SizedBox(width: 16,),
+                    filterCategory(EStatusName.cancelled,"Cancelled",cancelled),
+                    SizedBox(width: 24,),
+                
+                  ],
+                );
+              }
             ),
           )
         )
@@ -106,7 +142,7 @@ class _MyTripsTabState extends State<MyTripsTab> {
     );
   }
 
-  Widget filterCategory(int categoryIndex,String title){
+  Widget filterCategory(EStatusName categoryIndex,String title,int count){
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -120,7 +156,7 @@ class _MyTripsTabState extends State<MyTripsTab> {
           color: categoryIndex==currentCategoryIndex?BrandColor.lightBlue:BrandColor.grey227
         ),
         child:Text(
-                title,
+                title+" "+count.toString(),
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontFamily: "SF",

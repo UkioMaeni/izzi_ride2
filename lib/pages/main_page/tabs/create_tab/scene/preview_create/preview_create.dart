@@ -56,6 +56,7 @@ class _PreviewCreateState extends State<PreviewCreate> {
       paymaentMetodId: createRideBlocState.paymaentMetodId,
       rideType: createRideBlocState.rideType,
       driverNickname: "",
+      driverName: "",
       driverRate: 0,
       freeSeats: 0,
       orderId: 0,

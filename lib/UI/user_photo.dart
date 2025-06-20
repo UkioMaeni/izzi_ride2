@@ -8,7 +8,7 @@ import 'package:izzi_ride_2/constant/constants.dart';
 import 'package:izzi_ride_2/core/interfaces/token_interface.dart';
 
 class UIUserPhoto extends StatefulWidget {
-  final String url;
+  final String? url;
   final Size size;
   const UIUserPhoto({super.key,required this.url,this.size=const Size(50, 50)});
 
@@ -35,11 +35,15 @@ class _UIUserPhotoState extends State<UIUserPhoto> {
           
           child: Builder(
             builder: (context) {
-              String url=AppConfig.photoUrl+widget.url;
+              if(widget.url==null || ((widget.url!=null&&widget.url!.isEmpty))){
+                log("tut");
+                return SvgPicture.asset("assets/svg/profile/user_not_photo.svg");
+              }
+                String url=AppConfig.photoUrl+widget.url!;
                 String? accessToken = GetIt.I.get<TokenInterface>().accessToken;
-                if(widget.url.contains("http")){
+                if(widget.url!.contains("http")){
                   return Image.network(
-                    widget.url,
+                    widget.url!,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       log("Photo ava error");

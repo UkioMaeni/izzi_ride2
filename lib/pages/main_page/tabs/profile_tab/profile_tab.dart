@@ -48,6 +48,8 @@ class _ProfileTabState extends State<ProfileTab> {
           bool isVerify = true;
           String? photoUri = userMeblocState.me!.photo;
           double rate = userMeblocState.me!.rate;
+          String bio = userMeblocState.me!.bio;
+          int userId = userMeblocState.me!.clienId;
           return ListView(
             children: [
               SizedBox(height: 20,),
@@ -72,7 +74,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 ],
               ),
               SizedBox(height: 32,),
-              UserInformation(fullName: fullName,isVerify: isVerify,photoUri: photoUri,rate: rate,),
+              UserInformation(fullName: fullName,isVerify: isVerify,photoUri: photoUri,rate: rate,userId: userId,),
               SizedBox(height: 24,),
               ListViewContainer(
                 items: [
@@ -121,29 +123,58 @@ class _ProfileTabState extends State<ProfileTab> {
                   );
                 }
               ),
-              SizedBox(height: 24,),
-              ListViewContainer(
-                title: "Payment card",
-                items: [
-                  ListItem(
-                    icon: SvgPicture.asset("assets/svg/profile/verify.svg"),
-                    label: "card: ****0524",
-                    status: EnumCheckedStatus.disabled,
-                    onTap: () {
-                      context.goNamed(RoutesName.paymentProcess);
-                    },
-                  ),
+              // SizedBox(height: 24,),
+              // ListViewContainer(
+              //   title: "Payment card",
+              //   items: [
+              //     ListItem(
+              //       icon: SvgPicture.asset("assets/svg/profile/verify.svg"),
+              //       label: "card: ****0524",
+              //       status: EnumCheckedStatus.disabled,
+              //       onTap: () {
+              //         context.goNamed(RoutesName.paymentProcess);
+              //       },
+              //     ),
                   
-                ],
-              ),
+              //   ],
+              // ),
               
               SizedBox(height: 24,),
-              ListViewContainer(
-                title: "About You(в разработке)",
-                items: [
-                  ListItem(icon: SvgPicture.asset("assets/svg/profile/verify.svg"),label: "Verify Id",status: EnumCheckedStatus.unconfirmed,),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: Text(
+                  "Bio",
+                  style: TextStyle(
+                    fontFamily: BrandFontFamily.platform,
+                    fontSize: 20,
+                    color: BrandColor.black69,
+                    fontWeight: FontWeight.w700
+                  ),
+                ),
+              ),
+              SizedBox(height: 8,),
+              Container(
+                decoration: BoxDecoration(
+                  color: BrandColor.listViewContainer,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16,horizontal: 12),
+                child: Text(
+                  bio.isEmpty?"No information":bio,
+                  style: TextStyle(
+                    fontFamily: BrandFontFamily.platform,
+                    fontSize: 18,
+                    color: BrandColor.black69,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
               )
+              // ListViewContainer(
+              //   title: "Bio",
+              //   items: [
+              //     ListItem(icon: SvgPicture.asset("assets/svg/profile/verify.svg"),label: "Verify Id",status: EnumCheckedStatus.unconfirmed,),
+              //   ],
+              // )
             ],
           );
         }

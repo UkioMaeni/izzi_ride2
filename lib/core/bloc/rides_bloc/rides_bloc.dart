@@ -15,10 +15,16 @@ part 'rides_state.dart';
 part 'rides_event.dart';
 
 class RidesBloc extends Bloc<RidesEvent,RidesFullState>{
+
+  bool requested = false;
+
   RidesBloc():super(RidesFullState.empty()){
     on<RidesGetUserRides>((event, emit)async{
       emit(state.copyWith(requsted: true));
+      if(requested) return;
+      requested=true;
       final resultRides = await UserHttp.I.getUserRides();
+      log("/////////////////////////////////////////////////////////");
       final resultTGrips =  await UserHttp.I.getMyTrips();
       List<RideModel> newRides=[];
       if(resultRides is CustomResponse<List<RideModel>>){
@@ -33,6 +39,7 @@ class RidesBloc extends Bloc<RidesEvent,RidesFullState>{
       }
       emit(state.copyWith(rides: newRides));
       emit(state.copyWith(requsted: false));
+      requested=false;
     });
     on<RidesUpdateRide>((event, emit)async{
       log("RidesUpdateRide");

@@ -2,11 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:izzi_ride_2/core/app_routing/app_routing.dart';
 import 'package:izzi_ride_2/core/bloc/app_information_bloc/app_information_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/create_ride_bloc/create_ride_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/rides_bloc/rides_bloc.dart';
 import 'package:izzi_ride_2/core/bloc/user_me_bloc/user_me_bloc.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
+import 'package:izzi_ride_2/core/services/deep_link_service.dart';
+import 'package:izzi_ride_2/core/services/firebase.dart';
 import 'package:izzi_ride_2/core/socket/app_socket.dart';
 import 'package:izzi_ride_2/pages/main_page/components/tab_navigator.dart';
 import 'package:izzi_ride_2/pages/main_page/tabs/create_tab/create_tab.dart';
@@ -55,6 +59,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
 
   initilizeRequiredServisez(){
     streamHandles();
+    FirebaseDriver().init();
     int initialTabPage= context.read<AppInformationBloc>().state.initialTabPage;
     log("INITIAL page");
     log(initialTabPage.toString());
@@ -66,14 +71,24 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
    }
    
    getMeInfo();
-  context.read<AppInformationBloc>().add(AppInformationSetRequridedLoadServices(isRequired: false));
+    context.read<AppInformationBloc>().add(AppInformationSetRequridedLoadServices(isRequired: false));
   }
 
 
+  checkDeepLink(){
+    print("checkDeepLink"+deepLinkService.link.toString());
+    print(deepLinkService.link.toString());
+    if(deepLinkService.link!=null){
+      AppRoiting.router.push(deepLinkService.link!.path);
+      //context.pushNamed(RoutesName.actionsRide);
+    }
+  }
+
   @override
   void initState() {
-  
+    
     initilizeRequiredServisez();
+    checkDeepLink();
     super.initState();
   }
 

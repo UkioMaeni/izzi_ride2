@@ -17,6 +17,11 @@ class SearchResultScene extends StatefulWidget {
 }
 
 class _SearchResultSceneState extends State<SearchResultScene> {
+
+
+  
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

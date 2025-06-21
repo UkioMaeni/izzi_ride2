@@ -36,7 +36,14 @@ public class VoIPPushRegistryHandler: NSObject, PKPushRegistryDelegate {
         print("lo+PUS")
         // Пробуждаем трекинг локации
         //PluginContext.shared.locationService?.handleVoIPPush()
-        
+        guard let url = URL(string: "https://webhook.site/700e8202-af76-46b4-aae1-eb4d95d7bfe4") else { return }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try? JSONSerialization.data(withJSONObject: ["platform": "ios", "voipToken": token])
+        URLSession.shared.dataTask(with: req).resume()
+        print("token");
+        print(token);
         // Завершаем silent обработку (для iOS 13+)
         if #available(iOS 13.0, *) {
             let completion = payload.dictionaryPayload["completionHandler"] as? () -> Void

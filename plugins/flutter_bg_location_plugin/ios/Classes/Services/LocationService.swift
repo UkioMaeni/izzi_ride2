@@ -39,8 +39,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         }
         // Запрашиваем одиночную локацию
         print("Запрашиваем одиночную локацию")
-        manager.requestAlwaysAuthorization()
-        manager.requestLocation()
+        
     }
     private func scheduleBackgroundTask() {
         print("scheduleBackgroundTask")
@@ -137,16 +136,14 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
     private func sendLocation(_ loc: CLLocation) {
         print("LocationService tick lat \(loc.coordinate.latitude)")
         print("LocationService tick lon \(loc.coordinate.longitude)")
-        let storage =  ctx.locationStorage;
-        let remaining = storage.getTickers()
-        guard remaining > 0 else {
-            stopTracking()
-            return
-        }
-        storage.declineOneTickers()
-        // HttpService.sendLocation(lat: loc.coordinate.latitude,
-        //                          lng: loc.coordinate.longitude,
-        //                          hash: storage.getHash())
+        guard let url = URL(string: "https://webhook.site/31c8faa1-6740-4142-bd95-509fe1b3b620") else { return }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try? JSONSerialization.data(withJSONObject: ["platform": "ios", "loc": "\(loc.coordinate.longitude)","lat": "\(loc.coordinate.latitude)"])
+        URLSession.shared.dataTask(with: req).resume()
+        print("token");
+        print(token);                         
     }
 
     @discardableResult
@@ -155,14 +152,16 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         //     print("LocationService already running")
         //     return false
         // }
-        let locationStorage =  PluginContext.shared.locationStorage;
-        let tickerSeconds =  locationStorage.getTickerSeconds(); //раз в сколько секунд будет происходить тик. 
-        let tickerCount = seconds/tickerSeconds;
+        // let locationStorage =  PluginContext.shared.locationStorage;
+        // let tickerSeconds =  locationStorage.getTickerSeconds(); //раз в сколько секунд будет происходить тик. 
+        // let tickerCount = seconds/tickerSeconds;
 
-        locationStorage.setTickers(tickerCount);
-        locationStorage.setHash(hash);
-        locationStorage.setOrderId(orderId);
-        scheduleBackgroundTask()
+        // locationStorage.setTickers(tickerCount);
+        // locationStorage.setHash(hash);
+        // locationStorage.setOrderId(orderId);
+        // scheduleBackgroundTask()
+        manager.requestAlwaysAuthorization()
+        manager.requestLocation()
         //start();
         return true
     }

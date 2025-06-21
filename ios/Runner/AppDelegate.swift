@@ -10,7 +10,6 @@ import flutter_bg_location_plugin
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyDQ2a3xgarJk8qlNGzNCLzrH3H_XmGSUaY")
     GeneratedPluginRegistrant.register(with: self)
-    LocationService.registerBackgroundTask()
     _=VoIPPushRegistryHandler.shared
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

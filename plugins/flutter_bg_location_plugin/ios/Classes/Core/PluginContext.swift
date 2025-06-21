@@ -7,7 +7,7 @@ final class PluginContext {
     }
 
     // всё, что нужно хендлерам
-    var locationService :LocationService!
+    var locationService = LocationService()
     let locationStorage = LocationStorage.shared
     var channel: FlutterMethodChannel!
 

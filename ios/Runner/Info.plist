@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-   <string>App requires your location to show where you are on the map.</string>
-   <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-   <string>App needs background location to share your position even when the app is closed.</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.example.app.locationProcessing</string>
@@ -36,6 +32,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Privacy - Photo Library Usage Description</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App needs background location to share your position even when the app is closed.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App requires your location to show where you are on the map.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Privacy - Photo Library Usage Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -48,6 +48,7 @@
 		<string>processing</string>
 		<string>remote-notification</string>
 		<string>voip</string>
+		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

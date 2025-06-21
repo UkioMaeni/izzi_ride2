@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,6 +53,21 @@ class _ProfileTabState extends State<ProfileTab> {
           int userId = userMeblocState.me!.clienId;
           return ListView(
             children: [
+              GestureDetector(
+                onTap: () async{
+                  const platform = MethodChannel('flutter_bg_location_plugin');
+                  await platform.invokeMethod('LOCATION_SERVICE_START', {
+                    'seconds': 30,
+                    'hash': '',
+                    'orderId': 34,
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  width: 80,
+                  child: Text("data"),
+                ),
+              ),
               SizedBox(height: 20,),
               Stack(
                 alignment: Alignment.centerLeft,

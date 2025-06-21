@@ -27,7 +27,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.allowsBackgroundLocationUpdates = true
-        manager.distanceFilter = 10
+        manager.distanceFilter = 0
         manager.pausesLocationUpdatesAutomatically = false
     }
 

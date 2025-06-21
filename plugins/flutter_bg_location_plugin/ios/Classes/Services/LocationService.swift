@@ -27,7 +27,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.allowsBackgroundLocationUpdates = true
-        manager.distanceFilter = 0
+        manager.distanceFilter = 10
         manager.pausesLocationUpdatesAutomatically = false
     }
 
@@ -145,6 +145,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
 
     @discardableResult
     func startTracking(seconds: Int, hash: String, orderId: Int) -> Bool {
+        print("startTracking")
         // if(isRunning){
         //     print("LocationService already running")
         //     return false
@@ -164,13 +165,17 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         manager.allowsBackgroundLocationUpdates = true
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
+        locationManager.startMonitoringSignificantLocationChanges()
         //start();
         return true
     }
 
     @discardableResult
     func stopTracking() -> Bool {
-        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: LocationService.taskIdentifier)
+        print("stopTracking")
+        
+        locationManager.stopUpdatingLocation()
+        locationManager.stopMonitoringSignificantLocationChanges()
         return true;
         // if(isRunning){
         //     stop();

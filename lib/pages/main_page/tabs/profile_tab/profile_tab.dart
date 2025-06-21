@@ -65,7 +65,21 @@ class _ProfileTabState extends State<ProfileTab> {
                 child: Container(
                   height: 50,
                   width: 80,
-                  child: Text("data"),
+                  color: Colors.amber,
+                  child: Text("start"),
+                ),
+              ),
+              SizedBox(height: 50,),
+              GestureDetector(
+                onTap: () async{
+                  const platform = MethodChannel('flutter_bg_location_plugin');
+                  await platform.invokeMethod('LOCATION_SERVICE_STOP',);
+                },
+                child: Container(
+                  height: 50,
+                  width: 80,
+                  color: Colors.red,
+                  child: Text("stop"),
                 ),
               ),
               SizedBox(height: 20,),

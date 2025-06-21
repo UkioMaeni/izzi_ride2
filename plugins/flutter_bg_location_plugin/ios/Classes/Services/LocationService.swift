@@ -26,7 +26,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.allowsBackgroundLocationUpdates = true
+        
         manager.pausesLocationUpdatesAutomatically = false
     }
 
@@ -129,6 +129,12 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
 
    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error)")
+        guard let url = URL(string: "https://webhook.site/31c8faa1-6740-4142-bd95-509fe1b3b620") else { return }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try? JSONSerialization.data(withJSONObject: ["platform": "ios", "error": "\(error)"])
+        URLSession.shared.dataTask(with: req).resume()
         currentBGTask?.setTaskCompleted(success: true)
         currentBGTask = nil
     }
@@ -142,8 +148,8 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try? JSONSerialization.data(withJSONObject: ["platform": "ios", "loc": "\(loc.coordinate.longitude)","lat": "\(loc.coordinate.latitude)"])
         URLSession.shared.dataTask(with: req).resume()
-        print("token");
-        print(token);                         
+        //print("token");
+        //print(token);                         
     }
 
     @discardableResult
@@ -160,6 +166,11 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         // locationStorage.setHash(hash);
         // locationStorage.setOrderId(orderId);
         // scheduleBackgroundTask()
+        guard CLLocationManager.authorizationStatus() == .authorizedAlways else {
+            NSLog("[Loc] no Always permission")
+            return false
+        }
+        manager.allowsBackgroundLocationUpdates = true
         manager.requestAlwaysAuthorization()
         manager.requestLocation()
         //start();

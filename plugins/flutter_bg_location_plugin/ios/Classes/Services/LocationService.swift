@@ -7,12 +7,12 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
     static let taskIdentifier = "com.example.app.locationProcessing"
 
     public static func registerBackgroundTask() {
-        PluginContext.shared.locationService = LocationService()
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: LocationService.taskIdentifier, using: nil) { task in
-            guard let task = task as? BGProcessingTask else { return }
-            // Передаём задачу в сервис для обработки
-            PluginContext.shared.locationService?.handleBackgroundTask(task: task)
-        }
+        // PluginContext.shared.locationService = LocationService()
+        // BGTaskScheduler.shared.register(forTaskWithIdentifier: LocationService.taskIdentifier, using: nil) { task in
+        //     guard let task = task as? BGProcessingTask else { return }
+        //     // Передаём задачу в сервис для обработки
+        //     PluginContext.shared.locationService?.handleBackgroundTask(task: task)
+        // }
     }
 
     private let manager = CLLocationManager()
@@ -27,8 +27,8 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.allowsBackgroundLocationUpdates = true
-        manager.distanceFilter = 10
         manager.pausesLocationUpdatesAutomatically = false
+        manager.allowsBackgroundLocationUpdates = true
     }
 
     private func handleBackgroundTask(task: BGProcessingTask) {
@@ -162,10 +162,10 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
             NSLog("[Loc] no Always permission")
             return false
         }
-        manager.allowsBackgroundLocationUpdates = true
+        
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
-        locationManager.startMonitoringSignificantLocationChanges()
+        manager.startMonitoringSignificantLocationChanges()
         //start();
         return true
     }
@@ -174,8 +174,8 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
     func stopTracking() -> Bool {
         print("stopTracking")
         
-        locationManager.stopUpdatingLocation()
-        locationManager.stopMonitoringSignificantLocationChanges()
+        manager.stopUpdatingLocation()
+        manager.stopMonitoringSignificantLocationChanges()
         return true;
         // if(isRunning){
         //     stop();

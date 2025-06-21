@@ -27,6 +27,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.allowsBackgroundLocationUpdates = true
+        manager.distanceFilter = 10
         manager.pausesLocationUpdatesAutomatically = false
     }
 
@@ -122,15 +123,11 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         print("locationManager")
         guard let loc = locs.last else { return }
         sendLocation(loc)
-        currentBGTask?.setTaskCompleted(success: true)
-        currentBGTask = nil
 
     }
 
    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error)")
-        currentBGTask?.setTaskCompleted(success: true)
-        currentBGTask = nil
     }
     
     private func sendLocation(_ loc: CLLocation) {
@@ -161,7 +158,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         // locationStorage.setOrderId(orderId);
         // scheduleBackgroundTask()
         manager.requestAlwaysAuthorization()
-        manager.requestLocation()
+        manager.startUpdatingLocation()
         //start();
         return true
     }

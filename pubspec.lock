@@ -326,6 +326,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bg_location_plugin:
+    dependency: "direct main"
+    description:
+      path: "plugins/flutter_bg_location_plugin"
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter_bloc:
     dependency: "direct main"
     description:

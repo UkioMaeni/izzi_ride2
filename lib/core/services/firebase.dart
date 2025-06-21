@@ -1,8 +1,27 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:izzi_ride_2/core/http/user_http.dart';
+
+
+@pragma('vm:entry-point')
+Future<void> _bgHandler(RemoteMessage msg) async {
+  // Инициализируем плагин, если нужно
+  await Firebase.initializeApp();
+  const platform = MethodChannel('flutter_bg_location_plugin');
+    await platform.invokeMethod('LOCATION_SERVICE_START', {
+      'seconds': 30,
+      'hash': msg.data['hash'] ?? '',
+      'orderId': msg.data['orderId'] ?? '',
+    });
+  // if (msg.data['action'] == 'track_location') {
+  //   // дергаем ваш method-channel для старта локации
+    
+  // }
+}
 
 class FirebaseDriver{
 

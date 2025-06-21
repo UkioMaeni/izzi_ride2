@@ -139,8 +139,8 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try? JSONSerialization.data(withJSONObject: ["platform": "ios", "loc": "\(loc.coordinate.longitude)","lat": "\(loc.coordinate.latitude)"])
         URLSession.shared.dataTask(with: req).resume()
-        print("token");
-        print(token);                         
+        //print("token");
+        //print(token);                         
     }
 
     @discardableResult
@@ -157,6 +157,11 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         // locationStorage.setHash(hash);
         // locationStorage.setOrderId(orderId);
         // scheduleBackgroundTask()
+        guard CLLocationManager.authorizationStatus() == .authorizedAlways else {
+            NSLog("[Loc] no Always permission")
+            return false
+        }
+        manager.allowsBackgroundLocationUpdates = true
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
         //start();

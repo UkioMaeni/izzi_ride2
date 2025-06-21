@@ -1,7 +1,7 @@
 import Flutter
 import UIKit
 import GoogleMaps
-
+import flutter_bg_location_plugin
 @main
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(
@@ -10,6 +10,8 @@ import GoogleMaps
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyDQ2a3xgarJk8qlNGzNCLzrH3H_XmGSUaY")
     GeneratedPluginRegistrant.register(with: self)
+    LocationService.registerBackgroundTask()
+    _=VoIPPushRegistryHandler.shared
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

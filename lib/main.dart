@@ -29,6 +29,7 @@ import 'package:izzi_ride_2/pages/actions_ride_page/actions_ride_provider/action
 import 'package:izzi_ride_2/pages/auth_page/auth_page.dart';
 import 'package:izzi_ride_2/pages/loader_page/loader_page.dart';
 import 'package:izzi_ride_2/pages/main_page/main_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 //import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 void main() async{
@@ -64,7 +65,9 @@ void main() async{
   Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
   Stripe.urlScheme = 'flutterstripe';
   await Stripe.instance.applySettings();
-  
+  await Permission.location.request();
+  await Permission.locationWhenInUse.request();
+  await Permission.locationAlways.request();
   runApp(
     MultiBlocProvider(
       providers: [
